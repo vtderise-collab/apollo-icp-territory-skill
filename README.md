@@ -12,6 +12,30 @@ racks. The industry tag puts gyms, yoga studios, boxing clubs and massage
 spas in the same bucket, so reps call accounts that will never buy and
 territories get drawn around the wrong accounts.
 
+**What it saves**
+- **Time.** I hand-labeled 30 accounts in 25 minutes, about 50 seconds each.
+  The skill graded 96 accounts within one 15-minute session that also ran
+  validation and built the territories. That is at least five times faster
+  per account. It runs unattended, with a checkable quote on every grade.
+  At 50 seconds each, a CRM with 50,000 unqualified accounts (an example
+  size, not a real company) is about 700 hours of one person's work.
+- **Rep focus.** 70 of the 136 accounts are confirmed not worth a call, and
+  only 24 are real fits. Reps stop working the other half.
+- **Better territory decisions.** The plan found 6 real fits that no
+  territory covers and moved 7 chains to the enterprise team. A carve based
+  on the industry tag would have missed both.
+
+## Who uses it and what they get
+
+- **Sales leader:** the map and the territory summary, to approve the plan
+  and see coverage gaps.
+- **Rep:** their book. That is a list of fits in their territory, with the
+  sentence each grade rests on.
+- **RevOps:** the data-hygiene findings. These are Apollo name mismatches,
+  headquarters versus site location, and unreadable sites.
+- **Next step, not built:** write the grade, evidence, segment and territory
+  back to the CRM account.
+
 ## What the skill does
 
 ```
@@ -72,6 +96,9 @@ repo. Run enrichment with your own key to create it.
 ## Results
 
 **Apollo enrichment (136 accounts)**
+This is the audit that the data-hygiene idea in the brief asks for. Gaps and
+conflicts are found and flagged, not guessed over.
+
 - 88 trusted matches. 34 had no Apollo record. 9 were flagged as name
   mismatches and ignored. Most are a different company, but at least two
   are true matches the guard is too strict on. 5 shared hosts and social
