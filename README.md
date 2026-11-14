@@ -36,6 +36,31 @@ territories get drawn around the wrong accounts.
 - **Next step, not built:** write the grade, evidence, segment and territory
   back to the CRM account.
 
+## Why this problem
+
+I have solved this for real in my current role. Sales leadership wanted to
+rebalance territories and build new ones around marquee accounts. We had no
+reliable way to grade accounts against our ideal customer profile, and no way
+to turn grades into territories. I started from a CRM export and a written set
+of fit rules. Claude built the scorer, and I tested and iterated on it. Sales
+leadership validated the grades. Then I mapped the results to geographic
+territories. The output was a book of business for each rep, showing which
+accounts to work first.
+
+For this exercise I rebuilt it around Apollo, because that is where it gets
+stronger:
+- **Apollo supplies what the CRM lacks.** Company size and headquarters
+  decide whether an account belongs to a regional rep or to the enterprise
+  team. The CRM alone cannot answer that.
+- **It maps to the brief.** It is idea #1 (account plan) and idea #4 (data
+  hygiene and enrichment), on Apollo's own API.
+- **It shows how to use Apollo data with care.** Trust it where it matches.
+  Flag it where it conflicts, as with the 9 name mismatches and the
+  headquarters-versus-site locations. Never let it overrule what the
+  company's own website says.
+- **It is the kind of tool this team builds:** account planning and territory
+  design for a revenue team, on Apollo data.
+
 ## What the skill does
 
 ```
@@ -265,7 +290,7 @@ Where I did not trust it (full list in my correction log):
 
 ## What was pre-existing
 
-> The approach comes from an ICP classifier and territory assigner I designed and ran in my last role. Nothing from that build is in this repo. I rewrote it from scratch for this exercise on public data: a different company, a different ICP, Apollo as the account source, and a skill in place of a standalone script.
+> The approach comes from an ICP classifier and territory assigner I designed and ran in my current role. Nothing from that build is in this repo. I rewrote it from scratch for this exercise on public data: a different company, a different ICP, Apollo as the account source, and a skill in place of a standalone script.
 
 Everything here was written new for this exercise with Claude Code.
 

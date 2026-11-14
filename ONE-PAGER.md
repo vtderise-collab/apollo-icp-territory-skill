@@ -28,6 +28,16 @@ calls, and territories are drawn around accounts that will never buy.
   covers and moved 7 chains to enterprise. A carve based on the tag would
   miss both.
 
+## Why this problem
+
+I solved it for real in my current role. Sales leadership wanted territories
+rebuilt around marquee accounts, with no way to grade accounts or map them.
+I built a scorer from a CRM export and written fit rules, and leadership
+validated it. Reps got a prioritized book. Here I rebuilt it on **Apollo**.
+Apollo's size and headquarters data splits regional from enterprise, and the
+skill audits that data instead of trusting it blindly. That is ideas #1 and
+#4 from the brief.
+
 ## Who uses it and what they get
 
 - **Sales leader:** the map and territory summary, to approve the plan and
@@ -63,20 +73,13 @@ owns: "A Fit runs a member-facing floor of cardio or strength machines."
 - **Why a skill:** the judgment needs a model, the rest needs code, and the
   policy must be a file a sales leader can read. An Apollo call alone
   returns data, not a decision.
-- **Where I overrode the AI:**
-  - I reframed the problem to qualifying the existing CRM.
-  - I kept Needs Review for "could not see" only.
-  - I required CRM locations over Apollo's headquarters.
-  - I separated segment from fit.
-  - I guarded against wrong Apollo matches.
-  - I moved grading to a blind session.
-- **Production next:**
-  - A larger fixture.
-  - A headless browser for JavaScript sites.
-  - Image evidence.
-  - A scoped key in a secrets manager.
-  - CRM write-back after manager approval.
+- **Where I overrode the AI:** I reframed the problem to qualifying the
+  existing CRM. I kept Needs Review for "could not see" only. I required CRM
+  locations over Apollo's headquarters. I separated segment from fit. I
+  guarded against wrong Apollo matches. I moved grading to a blind session.
+- **Production next:** a larger fixture, a headless browser for JavaScript
+  sites, image evidence, a scoped key, and CRM write-back after approval.
 
 *Pre-existing:* the approach comes from an ICP classifier and territory
-assigner I built in my last role. Nothing from it is in this repo. All of it
+assigner I built in my current role. Nothing from it is in this repo. All of it
 was rewritten for this exercise.
