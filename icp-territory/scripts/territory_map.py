@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stage 4 visual: one HTML map of the territory plan. No model, no network
-while running. The page loads Leaflet and OpenStreetMap tiles when opened
-(no API key).
+while running. The page loads Leaflet and Esri's light gray basemap when
+opened. No API key; works from a local file.
 
 Reads the outputs of territories.py plus CRM coordinates:
   data/territory_plan.csv, enterprise_handoff.csv, needs_review.csv,
@@ -137,13 +137,18 @@ const anchors = {js(anchor_data)};
 const points = {js(points)};
 const radius = {radius_m};
 const map = L.map('map');
-L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-  maxZoom: 18, attribution: '&copy; OpenStreetMap contributors'
+// Esri World Light Gray basemap plus its label layer. Keyless and works from
+// a file opened on disk. (OSM's own servers block pages without a Referer;
+// CARTO now needs an API key.)
+const esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
+L.tileLayer(esri + 'World_Light_Gray_Base/MapServer/tile/{{z}}/{{y}}/{{x}}', {{
+  maxZoom: 16, attribution: 'Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors'
 }}).addTo(map);
+L.tileLayer(esri + 'World_Light_Gray_Reference/MapServer/tile/{{z}}/{{y}}/{{x}}', {{maxZoom: 16}}).addTo(map);
 const bounds = [];
 for (const a of anchors) {{
   L.circle([a.lat, a.lon], {{radius, color:a.color, weight:1.5, fillOpacity:0.06}}).addTo(map);
-  L.marker([a.lat, a.lon], {{icon: L.divIcon({{className:'', html:'<div class="anc" style="color:'+a.color+'">&#9733;</div>', iconSize:[22,22], iconAnchor:[11,11]}})}})
+  L.marker([a.lat, a.lon], {{icon: L.divIcon({{className:'', html:'<div class="anc" style="color:'+a.color+'">&#9733;</div>', iconSize:[22,22], iconAnchor:[11,11]}}), zIndexOffset: 1000}})
     .bindTooltip(a.tip).addTo(map);
   bounds.push([a.lat, a.lon]);
 }}
