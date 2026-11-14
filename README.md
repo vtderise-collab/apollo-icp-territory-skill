@@ -1,65 +1,17 @@
 # ICP territory skill
 
 A Claude Code skill that grades a CRM's prospect accounts against a written
-ideal customer profile, then builds rep territories from the real fits.
+ideal customer profile, using each company's own website as evidence, and
+builds rep territories from the real fits, with Apollo enrichment for size
+and headquarters.
 
-## The problem
+On a stand-in CRM of 136 gym-equipment prospects, it found **24 real fits**
+and placed **11** in three rep territories. It also handed **7 chains** to
+the enterprise team and flagged **42** accounts for review. Validation scored
+**87%** against a 90% bar, and **26 of 27** on the sites it could read.
 
-Rackwell (a made-up company that sells and services commercial gym
-equipment in Illinois, Wisconsin and Indiana) has 136 prospect accounts in
-its CRM, and nobody knows which ones run a gym floor that buys treadmills and
-racks. The industry tag puts gyms, yoga studios, boxing clubs and massage
-spas in the same bucket, so reps call accounts that will never buy and
-territories get drawn around the wrong accounts.
-
-**What it saves**
-- **Time.** I hand-labeled 30 accounts in 25 minutes, about 50 seconds each.
-  The skill graded 96 accounts within one 15-minute session that also ran
-  validation and built the territories. That is at least five times faster
-  per account. It runs unattended, with a checkable quote on every grade.
-  At 50 seconds each, a CRM with 50,000 unqualified accounts (an example
-  size, not a real company) is about 700 hours of one person's work.
-- **Rep focus.** 70 of the 136 accounts are confirmed not worth a call, and
-  only 24 are real fits. Reps stop working the other half.
-- **Better territory decisions.** The plan found 6 real fits that no
-  territory covers and moved 7 chains to the enterprise team. A carve based
-  on the industry tag would have missed both.
-
-## Who uses it and what they get
-
-- **Sales leader:** the map and the territory summary, to approve the plan
-  and see coverage gaps.
-- **Rep:** their book. That is a list of fits in their territory, with the
-  sentence each grade rests on.
-- **RevOps:** the data-hygiene findings. These are Apollo name mismatches,
-  headquarters versus site location, and unreadable sites.
-- **Next step, not built:** write the grade, evidence, segment and territory
-  back to the CRM account.
-
-## Why this problem
-
-I have solved this for real in my current role. Sales leadership wanted to
-rebalance territories and build new ones around marquee accounts. We had no
-reliable way to grade accounts against our ideal customer profile, and no way
-to turn grades into territories. I started from a CRM export and a written set
-of fit rules. Claude built the scorer, and I tested and iterated on it. Sales
-leadership validated the grades. Then I mapped the results to geographic
-territories. The output was a book of business for each rep, showing which
-accounts to work first.
-
-For this exercise I rebuilt it around Apollo, because that is where it gets
-stronger:
-- **Apollo supplies what the CRM lacks.** Company size and headquarters
-  decide whether an account belongs to a regional rep or to the enterprise
-  team. The CRM alone cannot answer that.
-- **It maps to the brief.** It is idea #1 (account plan) and idea #4 (data
-  hygiene and enrichment), on Apollo's own API.
-- **It shows how to use Apollo data with care.** Trust it where it matches.
-  Flag it where it conflicts, as with the 9 name mismatches and the
-  headquarters-versus-site locations. Never let it overrule what the
-  company's own website says.
-- **It is the kind of tool this team builds:** account planning and territory
-  design for a revenue team, on Apollo data.
+- One-page summary: [ONE-PAGER.md](ONE-PAGER.md)
+- Territory map: [data/territory_map.html](data/territory_map.html) (download and open in a browser)
 
 ## What the skill does
 
@@ -187,6 +139,64 @@ account, with the evidence quote on hover (`scripts/territory_map.py`).
 
 Outputs are in `data/`: `territory_plan.csv`, `territory_summary.csv`,
 `enterprise_handoff.csv`, `needs_review.csv`, `graded.csv`.
+
+## The problem
+
+Rackwell (a made-up company that sells and services commercial gym
+equipment in Illinois, Wisconsin and Indiana) has 136 prospect accounts in
+its CRM, and nobody knows which ones run a gym floor that buys treadmills and
+racks. The industry tag puts gyms, yoga studios, boxing clubs and massage
+spas in the same bucket, so reps call accounts that will never buy and
+territories get drawn around the wrong accounts.
+
+**What it saves**
+- **Time.** I hand-labeled 30 accounts in 25 minutes, about 50 seconds each.
+  The skill graded 96 accounts within one 15-minute session that also ran
+  validation and built the territories. That is at least five times faster
+  per account. It runs unattended, with a checkable quote on every grade.
+  At 50 seconds each, a CRM with 50,000 unqualified accounts (an example
+  size, not a real company) is about 700 hours of one person's work.
+- **Rep focus.** 70 of the 136 accounts are confirmed not worth a call, and
+  only 24 are real fits. Reps stop working the other half.
+- **Better territory decisions.** The plan found 6 real fits that no
+  territory covers and moved 7 chains to the enterprise team. A carve based
+  on the industry tag would have missed both.
+
+## Why this problem
+
+I have solved this for real in my current role. Sales leadership wanted to
+rebalance territories and build new ones around marquee accounts. We had no
+reliable way to grade accounts against our ideal customer profile, and no way
+to turn grades into territories. I started from a CRM export and a written set
+of fit rules. Claude built the scorer, and I tested and iterated on it. Sales
+leadership validated the grades. Then I mapped the results to geographic
+territories. The output was a book of business for each rep, showing which
+accounts to work first.
+
+For this exercise I rebuilt it around Apollo, because that is where it gets
+stronger:
+- **Apollo supplies what the CRM lacks.** Company size and headquarters
+  decide whether an account belongs to a regional rep or to the enterprise
+  team. The CRM alone cannot answer that.
+- **It maps to the brief.** It is idea #1 (account plan) and idea #4 (data
+  hygiene and enrichment), on Apollo's own API.
+- **It shows how to use Apollo data with care.** Trust it where it matches.
+  Flag it where it conflicts, as with the 9 name mismatches and the
+  headquarters-versus-site locations. Never let it overrule what the
+  company's own website says.
+- **It is the kind of tool this team builds:** account planning and territory
+  design for a revenue team, on Apollo data.
+
+## Who uses it and what they get
+
+- **Sales leader:** the map and the territory summary, to approve the plan
+  and see coverage gaps.
+- **Rep:** their book. That is a list of fits in their territory, with the
+  sentence each grade rests on.
+- **RevOps:** the data-hygiene findings. These are Apollo name mismatches,
+  headquarters versus site location, and unreadable sites.
+- **Next step, not built:** write the grade, evidence, segment and territory
+  back to the CRM account.
 
 ## Why a skill, not a script or an MCP call
 
