@@ -1,0 +1,137 @@
+account_id,name,grade,reason_code,evidence,confidence,tag_disagrees,graded_by
+ACC-0001,UFC Gym,Fit,,"Typical club amenities include a bag rack, indoor turf, mat area, free weights, and essential cardio and weight equipment.",high,False,model
+ACC-0002,The Hot Room Downtown,Unlikely,,Experience the Top Choice for Hot Yoga and Heated Fitness in Zionsville,high,False,model
+ACC-0003,LA Fitness,Fit,,"Complete access to Pool, Spa and Sauna Premium weights, strength and cardio equipment",high,False,model
+ACC-0004,Orangetheory Fitness,Fit,,"Boost your energy and heart health with variable-intensity intervals on treadmills, rowers, and the floor.",medium,False,model
+ACC-0005,pilatesplusunlimited,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0006,Fit & Fight Gym,Unlikely,,"Muay Thai is a dynamic striking martial art that builds strength, confidence, and real self-defense skills.",high,False,model
+ACC-0007,EduFit,Fit,,A basic fitness membership with limited access provides entry to essential gym facilities,medium,False,model
+ACC-0008,Delavan Fitness Center and Rocky's Gym,Fit,,"We have the friendliest staff, cleanest facility, and the most comprehensive selection of cardio, free-weights, and machines.",high,False,model
+ACC-0009,105F Yoga,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0010,Planet Fitness,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0011,SOLO YOGA + BXNG,Unlikely,,"What started as a yoga studio has grown into a blend of yoga, pilates, barre, boxing and strength training",high,False,model
+ACC-0012,Vita Physical Therapy & Fitness,Fit,,"24/7 access, allowing you to work out on your schedule. Membership pricing starts at $59",high,False,model
+ACC-0013,Anytime Fitness,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0014,O-Town Iron,Fit,,"Our facility offers a wide range of strength training equipment, cardio machines, functional fitness tools, and workout spaces",high,False,model
+ACC-0015,Body Tech Total Fitness,Fit,,"One membership opens the door to everything: 250+ cardio and strength machines, 40+ weekly group classes, recovery amenities",high,False,model
+ACC-0016,The House Barbell Club,Fit,,Open Gym | 24/7 365 Access Student/Hero Discount $55/month Adult Membership $70/month,high,False,model
+ACC-0017,TITLE Boxing Club,Unlikely,,Our main offering is boxing fitness classes that are designed to maximize your workout and improve your,high,False,model
+ACC-0018,Reidefined Fitness,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0019,Farrell's eXtreme Bodyshaping,Unlikely,,"combines exciting fitness kickboxing classes, with strength training and nutritional counseling into one easy to follow 10-Week program",medium,False,model
+ACC-0020,Institute for Human Performance,Fit,,Join our gym today for best results. Start training at our gym with your personal trainer at affordable rate.,medium,False,model
+ACC-0021,Strrretch,Unlikely,,"Strrretch is a one-on-one assisted stretching studio in Frisco, Texas.",high,False,model
+ACC-0022,Wilmington Park District,Needs Review,parked_or_empty,"From here you may register for any programs, classes and activities that we currently offer.",low,False,model
+ACC-0023,Rhuomai Studio,Unlikely,,"Rhuomai offers private group events. Book your yoga, aerial, bungee, pilates or barre party.",high,False,model
+ACC-0024,Double R Boxing & Fitness,Needs Review,scrape_failed,Website could not be read: connect_failed,,,script
+ACC-0025,Burn Boot Camp Mt. Pleasant,Unlikely,,Unlimited Workouts Complimentary Childwatch Unlimited Focus Meetings Expert Personal Training in a Group Setting,medium,False,model
+ACC-0026,Gymnastics Academy of Rockford South Trampoline Park,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0027,Brick Yard Gym,Needs Review,scrape_failed,Website could not be read: http_404,,,script
+ACC-0028,PCY Muay Thai,Unlikely,,Class Structure Agility Ladder Callisthenics Shadowboxing Bag work Partner Drills Technique and Strategy Pad work,high,False,model
+ACC-0029,Fitness Formula Club,Fit,,"Get in a great workout with our high-end strength and cardio equipment, swim laps indoors or outside",high,False,model
+ACC-0030,Northwestern Medicine Huntley Health & Fitness Center,Fit,,"Our top-tier fitness equipment and full menu of amenities are designed to create an invigorating, relaxing experience",high,False,model
+ACC-0031,The Yoga Post,Unlikely,,"Our intentionally small group classes and private yoga sessions help you connect to your mind, body, and life.",high,False,model
+ACC-0032,Snap Fitness,Fit,,"Members get access to the best range of cardio, strength, and functional training equipment, plus a member app",high,False,model
+ACC-0033,Fitness Freedom,Fit,,"With your Fitness Freedom membership, you can access our facility at your convenience 24/7 that works on your schedule.",high,True,model
+ACC-0034,USA Ninja Challenge,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0035,Torres Martial Arts Academy,Fit,,"Members may use equipment during these times, with the exception of scheduled classes.",medium,False,model
+ACC-0036,Crunch Fitness,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0037,Fit Club,Fit,,"Our facility is equipped with a huge selection of free weights, cardio equipment, and selectorized machines, a lap pool",high,False,model
+ACC-0038,D1 Training,Unlikely,,Train like an athlete at D1 Training Fox Valley! Our certified coaches offer science backed workouts for youth and adults,medium,False,model
+ACC-0039,Leisure World Health Club,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0040,Gymnastics Divine,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0041,ASCENT Gym,Needs Review,scrape_failed,Website could not be read: connect_failed,,,script
+ACC-0042,Equinox,Fit,,Our expansive training floors offer everything from free weights and kettlebells to cable systems and Woodway treadmills.,high,False,model
+ACC-0043,All in Motion,Unlikely,,AIM has two fundamental pillars that form our identity: Small group strength training (SGST) and Conditioning.,low,False,model
+ACC-0044,9Round,Needs Review,scrape_failed,Website could not be read: http_404,,,script
+ACC-0045,Fit For You Yoga,Needs Review,scrape_failed,Website could not be read: http_400,,,script
+ACC-0046,Kru Strength + Fitness,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0047,Fitness Premier,Fit,,Full line of True Fitness Cardio and Strength Training Equipment LesMills Group X & Virtual Classes 24/7 Access for Members,high,False,model
+ACC-0048,Troybuild Fitness,Unlikely,,Troy is a certified personal trainer with 30 years of experience.,medium,False,model
+ACC-0049,Quads Gym,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0050,SNO Yoga and Wellness Center,Unlikely,,"Services include yoga, meditation, energy healing, massage therapy, herbal tea, and creative kombucha",high,False,model
+ACC-0051,West Loop Athletic Club,Needs Review,scrape_failed,Website could not be read: http_404,,,script
+ACC-0052,"Heaven Meets Earth  YOGA, Ecstatic Dance Evolution",Unlikely,,"We are a community of experienced yoga teachers, health coaches, energy healers, artist and entrepreneurs",high,False,model
+ACC-0053,Gold's Gym,Fit,,Gold's Gym is equipped with cutting-edge machines and free weights designed to help every athlete reach their potential,high,False,model
+ACC-0054,Village of Shorewood YMCA,Fit,,State-of-the-Art Wellness Centers Includes first-rate strength and cardio equipment. Free Group Exercise Classes,medium,False,model
+ACC-0055,Pilates in the Pines,Unlikely,,"As the first Reformer-based Pilates studio in Northwestern Wisconsin, my goal is simple",high,False,model
+ACC-0056,Club Pilates,Unlikely,,"Reformer-based Pilates for every body. Right here in Park Ridge Eight class types, four skill levels",high,False,model
+ACC-0057,Pure Barre,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0058,Twisted Fitness,Fit,,"The Gym Strongman, Powerlifting, Olympic Weightlifting and More. Coaching Available.",medium,False,model
+ACC-0059,CorePower Yoga,Unlikely,,"CorePower Yoga Naperville South is located on West 75th Street, serving the growing southern half of Naperville",high,False,model
+ACC-0060,Blink Fitness,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0061,Healing Motion Yoga Yurt,Unlikely,,"Join Yoga, Tai Chi, Meditation, or Strength classes in our yurt on Madeline Island",high,False,model
+ACC-0062,Fitness Matrix,Needs Review,cannot_tell,"Then we formulate a personalized fitness plan powered by science, and get to work! Call to schedule your introductory class today.",low,False,model
+ACC-0063,Refiner's Fire CrossFit,Fit,,"combines high-intensity functional movements across various exercises like weightlifting, running, and gymnastics",medium,False,model
+ACC-0064,AIR Aerial Fitness,Unlikely,,Introductory 50-minute aerial fitness/aerial yoga fusion class that introduces new clients to aerial exercises on hammocks,high,False,model
+ACC-0065,Revel Modern Pilates,Unlikely,,"Revel Method Pilates is a modern movement studio combining athletic programming, intentional movement and an elevated experience",high,False,model
+ACC-0066,FitStop,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0067,Septi Fitness,Needs Review,scrape_failed,Website could not be read: connect_failed,,,script
+ACC-0068,Life Time,Fit,,"Workout Floor A stunning, expansive space packed with premium equipment. Build strength. Gain confidence.",high,False,model
+ACC-0069,Journey Fitness,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0070,Arlington Ridge Center (ARC),Fit,,You must have a membership or pay a daily fee to use the facility,medium,False,model
+ACC-0071,Champs Sports,Unlikely,,"Find a Champs Sports location at 120 Chicago Ridge Mall in Chicago Ridge, IL for running shoes, sneakers",high,False,model
+ACC-0072,Finish Line,Unlikely,,"Shop Finish Line at Northwoods Mall for can't-miss sales on shoes, clothing and athletic gear for the whole family.",high,False,model
+ACC-0073,"The Great Outdoors of Indiana, Inc.",Unlikely,,"Here, we specialize in Archery, Firearms and more! Great Outdoors is best know for there custom pro shop.",high,False,model
+ACC-0074,Dick's Sporting Goods,Unlikely,,"The DICK'S Sporting Goods in Greenwood, IN has everything you need for every season",high,False,model
+ACC-0075,Hibbett Sports,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0076,Les Moise,Unlikely,,"Family-owned Wisconsin ski, snowboard and court-sport specialists since 1946.",high,False,model
+ACC-0077,Adidas,Needs Review,scrape_failed,Website could not be read: http_307,,,script
+ACC-0078,Critter's Sporting Goods,Unlikely,,"A complete fishing and bow hunting shop with a wide variety of live bait, lures, baits, equipment",high,False,model
+ACC-0079,JD Sports,Unlikely,,"Visit JD Sports at Mayfair Mall in Wauwatosa and shop exclusive sneakers, bold fits and trending drops",high,False,model
+ACC-0080,Play It Again Sports,Unlikely,,Shop Play It Again Sports Edwardsville for new & quality used sporting goods & equipment.,high,False,model
+ACC-0081,Naperville Running Co.,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0082,A1 Archery,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0083,City Sports,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0084,Playerz Choice Hockey,Unlikely,,"Our Hockey Pro Shop is here for all your hockey demands, from skate sharpenings and gear cleaning to equipment and accessories.",medium,False,model
+ACC-0085,Kirhofer's Sports,Unlikely,,and serves as a primary destination for your sporting goods needs.,high,False,model
+ACC-0086,GNC,Needs Review,scrape_failed,Website could not be read: http_307,,,script
+ACC-0087,The Vitamin Shoppe,Unlikely,,"explore thousands of vitamins, supplements, protein powders and bars, natural beauty and skin products, aromatherapy and more!",high,False,model
+ACC-0088,Sunrise Health Foods,Unlikely,,"Drinking fresh, organic juices and smoothies satisfies and invigorates like nothing else.",high,False,model
+ACC-0089,The Healthy Place,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0090,One Nation Nutrition,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0091,Walsh Natural Health,Unlikely,,Walsh Natural Health is a store in Evanston that educates customers on how to improve,high,False,model
+ACC-0092,Vitamin World,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0093,CBD American Shaman,Unlikely,,CBD American Shaman is dedicated to bringing wellness to the world through ultra-concentrated terpene rich CBD oil,high,False,model
+ACC-0094,Wild Theory CBD Co.,Unlikely,,"We sell Organic CBD Products, Delta 9 THC, CBD Gummies for Kids, Pet CBD, & More!",high,False,model
+ACC-0095,Live Well Hemp,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0096,Stellah Health,Unlikely,,"Our services include Medical Weight Loss (GLP-1), Telehealth Virtual Visits, Chronic Disease Management, Preventive Care & Wellness",high,False,model
+ACC-0097,Svpplements,Needs Review,scrape_failed,Website could not be read: http_503,,,script
+ACC-0098,Active Nutrition & Supplements,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0099,Supplement Warehouse,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0100,Level 10 Nutrition,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0101,Lavender Spa,Unlikely,,"Lavender Spa provides therapeutic massage and bodywork, advanced skincare and beauty resources in caring, client-driven manner.",high,False,model
+ACC-0102,Day Spa,Unlikely,,"We invite you to reach your goals of stress reduction, relaxation and pain relief, combined with our skillful massage",high,False,model
+ACC-0103,Kinetic Repose Massage,Unlikely,,Kinetic Repose Massage- Providing pain relief and restoring movement through massage therapy.,high,False,model
+ACC-0104,Elements Massage,Unlikely,,Elements Massage South Loop provides custom massages at an affordable price to improve health and overall well being.,high,False,model
+ACC-0105,The Retreat at Serendipity Province,Unlikely,,Indulge in a rejuvenating spa day with our luxurious facial and massage treatments.,high,False,model
+ACC-0106,Spa Soak,Unlikely,,"Spa Soak is a full service spa located in Bucktown/Wicker Park, offering a peaceful retreat since 2005.",high,False,model
+ACC-0107,Massage Envy,Unlikely,,"With franchised locations nationwide, affordable massage, stretch, and skin care are close by",high,False,model
+ACC-0108,Joint Effects,Unlikely,,Joint Effects specializes in tandem massage. Healing is a personal journey.,high,False,model
+ACC-0109,JJ's Spa,Unlikely,,JJ's Spa & Massage is locally owned and operated.,high,False,model
+ACC-0110,The Lymph Current,Unlikely,,"CLT-led lymphatic massage and Manual Lymph Drainage in Palatine, IL for post-surgical recovery, lymphedema, lipedema, fibrosis",high,False,model
+ACC-0111,Foot Wellness,Needs Review,scrape_failed,Website could not be read: http_404,,,script
+ACC-0112,Touchstone Wellness Center,Unlikely,,"Touchstone Therapy combines therapeutic bodywork massage, the connection between fascia, and breathwork to support the physical and mental health",high,False,model
+ACC-0113,Bodycraft Wellness & Massage Center,Unlikely,,Our dedicated and skilled massage therapists in Rockford and bodyworkers are ready to transform your stress or pain,high,False,model
+ACC-0114,Elite Therapeutic Massage & Tanning,Unlikely,,"Elite remains devoted to providing the best possible UV and sunless tanning solutions, massage therapy options, and MORE.",high,False,model
+ACC-0115,Massage Experience,Unlikely,,"Home of Fort Wayne's best massage therapy, Himalayan salt care, colonics, wellness services, and the one and only Salt Cave Experience.",high,False,model
+ACC-0116,Redd Room,Unlikely,,The mission of the Redd Room is to provide a beneficial yet unique experience in a relaxing environment,high,False,model
+ACC-0117,West River Spa,Unlikely,,YOUR CHICAGO NEIGHBORHOOD SPA LOCATED IN WEST TOWN BY OGDEN & GRAND WE SPECIALIZE IN SWEDISH AND FULL BODY MASSAGE,high,False,model
+ACC-0118,Rejuvenation Spa,Unlikely,,"A full-service Aveda Lifestyle Salon and Spa in Madison, Wisconsin offering Body Treatment, Waxing, Hair Care and Color",high,False,model
+ACC-0119,Lily Swedish Body Massage,Unlikely,,The classic Swedish massage at Lily Massage is all about relaxation and comfort.,high,False,model
+ACC-0120,Abby Meyers Massage Therapist,Unlikely,,"Abby Meyers Massage is your home for a calm solace from stress and anxiety, headache relief",high,False,model
+ACC-0121,Siren Chiropractic,Unlikely,,"Siren Chiropractic offers Chiropractic care in Siren, Wisconsin, the surrounding Burnett County",high,False,model
+ACC-0122,CORA Physical Therapy Belvidere,Unlikely,,"Offering outpatient physical & occupational therapy for orthopedic issues, work or sports-related injuries",high,False,model
+ACC-0123,Evanston Health Collective,Unlikely,,We are a group of experienced practitioners who combined our individual practices to provide an integrative clinic,high,False,model
+ACC-0124,Apex Network Physical Therapy,Unlikely,,"Our clinic provides exceptional, personalized physical therapy services within a welcoming and comforting setting.",medium,False,model
+ACC-0125,Ortho Illinois Elgin,Unlikely,,"The physical therapists in Elgin use a variety of techniques and modalities, such as exercise, manual therapy",high,False,model
+ACC-0126,Orthopaedic Associates of Wisconsin Physical Therapy,Unlikely,,"our New Berlin Therapy clinic offers expert physical therapy , occupational hand therapy, and advanced sports rehab",high,False,model
+ACC-0127,Athletico Physical Therapy,Unlikely,,"Welcome to Athletico Naperville South Route 59, where we treat many conditions, including back and neck pain",high,False,model
+ACC-0128,MotionWorks Physical Therapy,Unlikely,,"At MotionWorks Physical Therapy, we deliver personalized, hands-on care to help you move better, feel stronger",high,False,model
+ACC-0129,ProRehab,Unlikely,,"Visit ProRehab PT's Effingham physical therapy clinic for expert care, sports rehabilitation, dry needling",high,False,model
+ACC-0130,Premier Physical Therapy,Unlikely,,"Premier Physical Therapy combines advanced technology, personalized 1:1 care and holistic treatment methods together to deliver",high,False,model
+ACC-0131,Momentum Physical Therapy,Unlikely,,"she opened Momentum PT with the belief that patients deserve more individualized, one-on-one care.",high,False,model
+ACC-0132,InStep Physical Therapy & Running Center,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0133,ATI Physical Therapy,Unlikely,,"Discover ATI Physical Therapy, offering physical therapy services to help you recover, improve mobility, and achieve",high,False,model
+ACC-0134,Alton Physical Therapy,Unlikely,,Aquatic therapy is a specialized form of physical therapy performed in a heated therapeutic pool.,high,False,model
+ACC-0135,ES3 MEDICAL GROUP & ES3 FITNESS REHAB,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0136,Wisconsin Orthopedic Physical Therapy,Unlikely,,Wisconsin Orthopedic Physical Therapy is here to help you through every step of your rehabilitation.,medium,False,model
