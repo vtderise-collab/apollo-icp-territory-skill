@@ -21,3 +21,6 @@ data/evidence.jsonl
 __pycache__/
 *.pyc
 .venv/
+
+# Local install of the skill (the repo copy is icp-territory/)
+.claude/
