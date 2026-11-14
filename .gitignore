@@ -5,6 +5,9 @@ notes/
 
 # Raw API and scrape caches (rebuildable, and raw Apollo data stays private)
 data/cache/
+# Apollo's data. Not ours to publish; run enrichment with your own key.
+data/accounts.csv
+data/evidence.jsonl
 
 # Personal Claude Code settings for this project
 .claude/settings.local.json

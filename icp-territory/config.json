@@ -1,0 +1,13 @@
+{
+  "_about": "Business settings the policy owner controls. Changing the region, segment thresholds or territories means editing this file, not the code.",
+  "region_states": ["Illinois", "Wisconsin", "Indiana"],
+  "segment": {
+    "_rule": "Enterprise needs a trusted Apollo match AND (HQ outside the region with at least out_of_region_min_employees, OR at least any_region_min_employees). Everything else is Mid-Market.",
+    "out_of_region_min_employees": 200,
+    "any_region_min_employees": 1000
+  },
+  "apollo_skip_hosts": ["square.site", "wixsite.com", "weebly.com", "business.site",
+                        "squarespace.com", "godaddysites.com", "wordpress.com",
+                        "blogspot.com", "myshopify.com", "facebook.com",
+                        "instagram.com", "linktr.ee"]
+}

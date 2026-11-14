@@ -1,5 +1,6 @@
 """Small helpers shared by the pipeline scripts. Standard library only."""
 import pathlib
+import re
 import urllib.parse
 
 SKILL_DIR = pathlib.Path(__file__).resolve().parent.parent
@@ -45,6 +46,38 @@ def registered_domain(url):
     if len(parts) >= 3 and ".".join(parts[-2:]) in _TWO_PART:
         return ".".join(parts[-3:])
     return ".".join(parts[-2:]) if len(parts) >= 2 else host
+
+
+def load_config():
+    import json
+    return json.loads((SKILL_DIR / "config.json").read_text())
+
+
+# Words too generic to show two names are the same company.
+_GENERIC = {"the", "and", "of", "at", "a", "an", "inc", "llc", "co", "corp",
+            "company", "group", "fitness", "gym", "club", "center", "centre",
+            "health", "wellness", "studio", "athletic", "training", "sport",
+            "sports", "llp", "ltd"}
+
+
+def name_words(name):
+    out = set()
+    for w in re.findall(r"[a-z0-9]+", (name or "").lower()):
+        if len(w) < 2 or w in _GENERIC:
+            continue
+        stem = w[:-1] if w.endswith("s") and not w.endswith("ss") and len(w) > 3 else w
+        if stem not in _GENERIC:
+            out.add(stem)
+    return out
+
+
+def names_agree(crm_name, apollo_name):
+    """True when the names share a meaningful word, or when one name with
+    spaces and punctuation removed contains the other (FitClub, OrthoIllinois)."""
+    if name_words(crm_name) & name_words(apollo_name):
+        return True
+    a, b = (re.sub(r"[^a-z0-9]", "", (n or "").lower()) for n in (crm_name, apollo_name))
+    return bool(a and b) and (a in b or b in a)
 
 
 def load_env(name):
