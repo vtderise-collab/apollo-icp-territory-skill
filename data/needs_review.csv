@@ -1,0 +1,43 @@
+account_id,name,city,state,segment,reason_code,website,evidence
+ACC-0013,Anytime Fitness,Schererville,IN,Enterprise,parked_or_empty,https://anytimefitness.com/locations/schererville-indiana-3272,Website could not be read: thin_content
+ACC-0036,Crunch Fitness,Schererville,IN,Enterprise,parked_or_empty,https://crunch.com/locations/schererville,Website could not be read: thin_content
+ACC-0044,9Round,Milwaukee,WI,Enterprise,scrape_failed,https://9round.com/fitness/milwaukee-wisconsin,Website could not be read: http_404
+ACC-0060,Blink Fitness,Merrionette Park,IL,Enterprise,scrape_failed,https://blink-fitness.com,Website could not be read: http_403
+ACC-0086,GNC,,,Enterprise,scrape_failed,https://gnc.com/store-details,Website could not be read: http_307
+ACC-0075,Hibbett Sports,,,Enterprise,scrape_failed,https://hibbett.com/storedetails/WI/Madison/1669,Website could not be read: http_403
+ACC-0010,Planet Fitness,West Allis,WI,Enterprise,scrape_failed,https://planetfitness.com/gyms/west-allis-wi,Website could not be read: http_403
+ACC-0057,Pure Barre,Bloomington,IN,Enterprise,scrape_failed,https://purebarre.com,Website could not be read: http_403
+ACC-0092,Vitamin World,Champaign,IL,Enterprise,scrape_failed,https://vitaminworld.com,Website could not be read: http_403
+ACC-0062,Fitness Matrix,Evanston,IL,Mid-Market,cannot_tell,https://thefitnessmatrix.me,"Then we formulate a personalized fitness plan powered by science, and get to work! Call to schedule your introductory class today."
+ACC-0082,A1 Archery,Hudson,WI,Mid-Market,parked_or_empty,https://a1archery.com,Website could not be read: thin_content
+ACC-0046,Kru Strength + Fitness,Chicago,IL,Mid-Market,parked_or_empty,https://krustrengthandfitness.com,Website could not be read: thin_content
+ACC-0100,Level 10 Nutrition,Crown Point,IN,Mid-Market,parked_or_empty,https://level10nutrition.square.site,Website could not be read: thin_content
+ACC-0081,Naperville Running Co.,Naperville,IL,Mid-Market,parked_or_empty,https://runningcompany.com,Website could not be read: thin_content
+ACC-0090,One Nation Nutrition,East Alton,IL,Mid-Market,parked_or_empty,https://1nationnutrition.com,Website could not be read: thin_content
+ACC-0034,USA Ninja Challenge,Brookfield,WI,Mid-Market,parked_or_empty,https://ninjabrookfield.com,Website could not be read: thin_content
+ACC-0022,Wilmington Park District,Wilmington,IL,Mid-Market,parked_or_empty,https://islandparkdistrict.activityreg.com/ClientPage_t2.wcs,"From here you may register for any programs, classes and activities that we currently offer."
+ACC-0009,105F Yoga,Chicago,IL,Mid-Market,scrape_failed,https://105f.com/schedule/lincoln-park-studio,Website could not be read: http_403
+ACC-0041,ASCENT Gym,,,Mid-Market,scrape_failed,https://ascentforlife.org,Website could not be read: connect_failed
+ACC-0098,Active Nutrition & Supplements,Vincennes,IN,Mid-Market,scrape_failed,https://activenutritionstore.com,Website could not be read: http_403
+ACC-0077,Adidas,,,Mid-Market,scrape_failed,https://premiumoutlets.com/outlet/pleasant-prairie/stores/adidas,Website could not be read: http_307
+ACC-0027,Brick Yard Gym,Chicago,IL,Mid-Market,scrape_failed,https://blades-brick-yard-gym.business.site,Website could not be read: http_404
+ACC-0083,City Sports,Chicago,IL,Mid-Market,scrape_failed,https://chicagocitysports.com,Website could not be read: http_403
+ACC-0024,Double R Boxing & Fitness,,,Mid-Market,scrape_failed,https://goshenboxing.com,Website could not be read: connect_failed
+ACC-0135,ES3 MEDICAL GROUP & ES3 FITNESS REHAB,Calumet City,IL,Mid-Market,scrape_failed,https://es3fitnessrehab.com,Website could not be read: dns_failure
+ACC-0045,Fit For You Yoga,Evansville,WI,Mid-Market,scrape_failed,https://facebook.com/profile.php,Website could not be read: http_400
+ACC-0066,FitStop,,,Mid-Market,scrape_failed,https://eastlakeclubs.com/locations/eastlake-middlebury,Website could not be read: http_403
+ACC-0111,Foot Wellness,Noblesville,IN,Mid-Market,scrape_failed,https://footwellness.weebly.com,Website could not be read: http_404
+ACC-0026,Gymnastics Academy of Rockford South Trampoline Park,Cherry Valley,IL,Mid-Market,scrape_failed,https://garsouth.com,Website could not be read: dns_failure
+ACC-0040,Gymnastics Divine,Dixon,IL,Mid-Market,scrape_failed,https://gymnasticsdivine.com,Website could not be read: dns_failure
+ACC-0132,InStep Physical Therapy & Running Center,Milwaukee,,Mid-Market,scrape_failed,https://performancerunning.com/locations,Website could not be read: http_403
+ACC-0069,Journey Fitness,Columbia City,IN,Mid-Market,scrape_failed,https://journeyfitness333.com,Website could not be read: dns_failure
+ACC-0039,Leisure World Health Club,Bethalto,IL,Mid-Market,scrape_failed,https://leisureworldhealthclub.com,Website could not be read: http_403
+ACC-0095,Live Well Hemp,Frankfort,IN,Mid-Market,scrape_failed,https://livewellhemp.org,Website could not be read: dns_failure
+ACC-0049,Quads Gym,Chicago,IL,Mid-Market,scrape_failed,https://quadsgym.com,Website could not be read: http_403
+ACC-0018,Reidefined Fitness,,,Mid-Market,scrape_failed,https://reidefinedfitnesd.com,Website could not be read: dns_failure
+ACC-0067,Septi Fitness,,,Mid-Market,scrape_failed,https://septifit.com,Website could not be read: connect_failed
+ACC-0099,Supplement Warehouse,West Allis,WI,Mid-Market,scrape_failed,https://supplementwarehouse.com/pages/supplement-warehouse-westallis,Website could not be read: http_403
+ACC-0097,Svpplements,Granger,IN,Mid-Market,scrape_failed,https://svpplements.com,Website could not be read: http_503
+ACC-0089,The Healthy Place,,,Mid-Market,scrape_failed,https://findyourhealthyplace.com,Website could not be read: http_403
+ACC-0051,West Loop Athletic Club,Chicago,IL,Mid-Market,scrape_failed,https://chicagoathleticclubs.com/locations/west-loop,Website could not be read: http_404
+ACC-0005,pilatesplusunlimited,Sycamore,IL,Mid-Market,scrape_failed,https://pilatesplusunlimited.com,Website could not be read: dns_failure

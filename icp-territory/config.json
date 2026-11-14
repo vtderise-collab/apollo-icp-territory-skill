@@ -58,5 +58,39 @@
       "day pass",
       "equipment"
     ]
+  },
+  "territories": {
+    "_about": "Anchor customers are made up (Rackwell is fictional) but sit at real places: approximate centroids of real ZIP codes. One radius for v1. target_per_territory is a book-size goal used to report shortfall; it never removes an in-range Fit.",
+    "radius_miles": 60,
+    "target_per_territory": 5,
+    "anchors": [
+      {
+        "territory": "Chicagoland",
+        "anchor": "Prairie Line Athletic Club (made up)",
+        "city": "Schaumburg",
+        "state": "IL",
+        "postal_code": "60173",
+        "lat": 42.057,
+        "lon": -88.048
+      },
+      {
+        "territory": "Milwaukee",
+        "anchor": "Harbor Point Fitness (made up)",
+        "city": "Milwaukee",
+        "state": "WI",
+        "postal_code": "53202",
+        "lat": 43.045,
+        "lon": -87.898
+      },
+      {
+        "territory": "Michiana",
+        "anchor": "St. Joe Valley Strength (made up)",
+        "city": "South Bend",
+        "state": "IN",
+        "postal_code": "46601",
+        "lat": 41.672,
+        "lon": -86.253
+      }
+    ]
   }
 }

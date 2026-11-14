@@ -33,6 +33,10 @@ All commands run from the repo root. Data lives in `data/`.
    If it fails the pass bar, show the misses. Do not edit the ICP yourself;
    propose changes and wait for the policy owner.
 5. **Build territories**: `python3 icp-territory/scripts/territories.py`
+   Anchors, radius and target live in `config.json` under `territories`.
+   Writes `data/territory_plan.csv`, `territory_summary.csv`,
+   `enterprise_handoff.csv` and `needs_review.csv`. Show the user the
+   summary table and the findings as printed; do not add numbers of your own.
 
 ## Grading rules
 
