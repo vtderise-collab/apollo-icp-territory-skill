@@ -1,0 +1,20 @@
+# Working notes. Never public.
+HANDOFF - read me first.md
+ICP Territory Skill - Design Spec.md
+notes/
+
+# Raw API and scrape caches (rebuildable, and raw Apollo data stays private)
+data/cache/
+
+# Personal Claude Code settings for this project
+.claude/settings.local.json
+
+# Secrets
+.env
+.env.*
+
+# Local clutter
+.DS_Store
+__pycache__/
+*.pyc
+.venv/

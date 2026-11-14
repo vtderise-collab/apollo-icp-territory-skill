@@ -1,0 +1,20 @@
+{
+  "_about": "Everything vertical-specific lives here and in skill/references/icp.md. Pointing the skill at a different business means editing these two files, not the code.",
+
+  "company": "Rackwell (fictional): sells and services commercial gym equipment",
+
+  "region_states": ["US-IL", "US-WI", "US-IN"],
+
+  "seed": {
+    "_about": "Demo-data setup only. Builds a stand-in for 'prospect accounts exported from the CRM, fit unknown'. Mixed categories on purpose: a real CRM list is messy.",
+    "random_seed": 42,
+    "categories": {
+      "gym":          {"osm": ["leisure=fitness_centre"],                 "take": 70},
+      "sports_shop":  {"osm": ["shop=sports"],                            "take": 15},
+      "supplements":  {"osm": ["shop=nutrition_supplements"],             "take": 15},
+      "spa_massage":  {"osm": ["shop=massage", "shop=beauty][beauty=spa"], "take": 20},
+      "chiropractor": {"osm": ["healthcare=chiropractor"],                "take": 15},
+      "physio":       {"osm": ["healthcare=physiotherapist"],             "take": 15}
+    }
+  }
+}

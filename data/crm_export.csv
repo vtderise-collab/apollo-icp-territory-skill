@@ -1,0 +1,137 @@
+account_id,name,website,domain,city,state,postal_code,lat,lon,location_match
+ACC-0001,UFC Gym,https://ufcgym.com/locations/chicago-wrigleyville,ufcgym.com,Chicago,IL,60657,41.9468195,-87.6559895,zip
+ACC-0002,The Hot Room Downtown,https://thehotroom.com,thehotroom.com,Indianapolis,IN,46204,39.770958,-86.1521681,zip
+ACC-0003,LA Fitness,https://lafitness.com/pages/clubhome.aspx,lafitness.com,Chicago,IL,60657,41.9413029,-87.6691504,zip
+ACC-0004,Orangetheory Fitness,https://orangetheory.com/en-us/locations/illinois/harwood-heights/4747-n-harlem-ave-suite-1115-a,orangetheory.com,Harwood Heights,IL,60706,41.9667505,-87.8056981,zip
+ACC-0005,pilatesplusunlimited,https://pilatesplusunlimited.com,pilatesplusunlimited.com,Sycamore,IL,60178,41.9596077,-88.7187601,zip
+ACC-0006,Fit & Fight Gym,https://fitandfightgym.com,fitandfightgym.com,Niles,IL,60714,42.0535472,-87.8364985,zip
+ACC-0007,EduFit,https://edufitforlife.com,edufitforlife.com,Delavan,WI,53115,42.6328289,-88.6308242,zip
+ACC-0008,Delavan Fitness Center and Rocky's Gym,https://rockysdfc.com,rockysdfc.com,Delavan,WI,53115,42.6336886,-88.6458142,zip
+ACC-0009,105F Yoga,https://105f.com/schedule/lincoln-park-studio,105f.com,Chicago,IL,60614,41.9323059,-87.6449724,zip
+ACC-0010,Planet Fitness,https://planetfitness.com/gyms/west-allis-wi,planetfitness.com,West Allis,WI,53214,43.0173558,-87.9962992,zip
+ACC-0011,SOLO YOGA + BXNG,https://solo.yoga,solo.yoga,,,,44.9757063,-92.7561152,only_candidate
+ACC-0012,Vita Physical Therapy & Fitness,https://thevitaadvantage.com,thevitaadvantage.com,Milwaukee,,53202,43.0289312,-87.9044523,zip
+ACC-0013,Anytime Fitness,https://anytimefitness.com/locations/schererville-indiana-3272,anytimefitness.com,Schererville,IN,46375,41.4825458,-87.4701089,zip
+ACC-0014,O-Town Iron,https://otowniron.com,otowniron.com,,,,44.0411626,-88.5405554,only_candidate
+ACC-0015,Body Tech Total Fitness,https://bodytechtotalfitness.com,bodytechtotalfitness.com,Joliet,IL,60431,41.5736954,-88.1709775,zip
+ACC-0016,The House Barbell Club,https://thehousepeoria.com,thehousepeoria.com,Peoria,IL,61615,40.7846064,-89.612692,zip
+ACC-0017,TITLE Boxing Club,https://titleboxingclub.com/location/chicago-lincoln-park-il,titleboxingclub.com,Chicago,IL,60614,41.9260038,-87.6405346,zip
+ACC-0018,Reidefined Fitness,https://reidefinedfitnesd.com,reidefinedfitnesd.com,,,46725,41.1718123,-85.5065625,zip
+ACC-0019,Farrell's eXtreme Bodyshaping,https://fxbhudson.com,fxbhudson.com,Hudson,WI,54016,44.9568202,-92.7256753,zip
+ACC-0020,Institute for Human Performance,https://ihp-deerfield.com,ihp-deerfield.com,Deerfield,IL,60015,42.1501371,-87.8457394,zip
+ACC-0021,Strrretch,https://stretchmetoday.com,stretchmetoday.com,Wauwatosa,WI,53226,43.0604716,-88.0593613,zip
+ACC-0022,Wilmington Park District,https://islandparkdistrict.activityreg.com/ClientPage_t2.wcs,activityreg.com,Wilmington,IL,60481,41.3102258,-88.1473141,zip
+ACC-0023,Rhuomai Studio,https://rhuomai.com,rhuomai.com,Dixon,IL,61021,41.8436829,-89.4818736,zip
+ACC-0024,Double R Boxing & Fitness,https://goshenboxing.com,goshenboxing.com,,,,41.5928712,-85.8502711,only_candidate
+ACC-0025,Burn Boot Camp Mt. Pleasant,https://burnbootcamp.com/locations/mt-pleasant-wi,burnbootcamp.com,Mt. Pleasant,WI,53406,42.7200276,-87.8603001,zip
+ACC-0026,Gymnastics Academy of Rockford South Trampoline Park,https://garsouth.com,garsouth.com,Cherry Valley,IL,61016,42.2472089,-88.9709999,zip
+ACC-0027,Brick Yard Gym,https://blades-brick-yard-gym.business.site,blades-brick-yard-gym.business.site,Chicago,IL,60632,41.80768,-87.7255963,zip
+ACC-0028,PCY Muay Thai,https://pcymuaythai.com,pcymuaythai.com,Madison,WI,53713,43.0263092,-89.3979165,zip
+ACC-0029,Fitness Formula Club,https://ffc.com/club-locations/park-ridge,ffc.com,Park Ridge,IL,60068,42.0114265,-87.8351105,zip
+ACC-0030,Northwestern Medicine Huntley Health & Fitness Center,https://nmhfc.com,nmhfc.com,Huntley,Illinois,60142,42.1764167,-88.4000733,zip
+ACC-0031,The Yoga Post,https://theyogapostchicago.com,theyogapostchicago.com,Evanston,IL,60201,42.0644742,-87.7005479,zip
+ACC-0032,Snap Fitness,https://snapfitness.com/us/gyms/woodstock-il,snapfitness.com,,,,43.0542114,-87.8913035,name_low_confidence
+ACC-0033,Fitness Freedom,https://fitnessfreedomwi.com,fitnessfreedomwi.com,Eau Claire,WI,54701,44.8124077,-91.5009792,zip
+ACC-0034,USA Ninja Challenge,https://ninjabrookfield.com,ninjabrookfield.com,Brookfield,WI,53045,43.0777609,-88.1834303,zip
+ACC-0035,Torres Martial Arts Academy,https://torresmartialarts.com,torresmartialarts.com,Hobart,IN,46342,41.5512327,-87.2355143,zip
+ACC-0036,Crunch Fitness,https://crunch.com/locations/schererville,crunch.com,Schererville,IN,46375,41.5108651,-87.469063,zip
+ACC-0037,Fit Club,https://fitclub.net,fitclub.net,Springfield,IL,62703,39.7525004,-89.6464279,zip
+ACC-0038,D1 Training,https://d1training.com/fox-valley,d1training.com,Aurora,IL,60504,41.7504219,-88.2087363,zip
+ACC-0039,Leisure World Health Club,https://leisureworldhealthclub.com,leisureworldhealthclub.com,Bethalto,IL,62010,38.9000073,-90.0378066,zip
+ACC-0040,Gymnastics Divine,https://gymnasticsdivine.com,gymnasticsdivine.com,Dixon,IL,61021,41.8450292,-89.4757499,zip
+ACC-0041,ASCENT Gym,https://ascentforlife.org,ascentforlife.org,,,,43.0439041,-87.9158073,only_candidate
+ACC-0042,Equinox,https://equinox.com/clubs/chicago/fulton-market,equinox.com,,,,41.8859654,-87.6506815,only_candidate
+ACC-0043,All in Motion,https://aimgymchicago.com,aimgymchicago.com,Chicago,IL,60607,41.8799055,-87.6509806,zip
+ACC-0044,9Round,https://9round.com/fitness/milwaukee-wisconsin,9round.com,Milwaukee,WI,53203,43.0384525,-87.912833,zip
+ACC-0045,Fit For You Yoga,https://facebook.com/profile.php,facebook.com,Evansville,WI,53536,42.780215,-89.2999205,zip
+ACC-0046,Kru Strength + Fitness,https://krustrengthandfitness.com,krustrengthandfitness.com,Chicago,IL,60640,41.9748405,-87.6680258,zip
+ACC-0047,Fitness Premier,https://fitnesspremierclubs.com/locations/mahomet,fitnesspremierclubs.com,Mahomet,IL,61853,40.1855733,-88.3751779,zip
+ACC-0048,Troybuild Fitness,https://troybuiltfitness.com,troybuiltfitness.com,Michigan City,MI,46360,41.6881573,-86.9485888,zip
+ACC-0049,Quads Gym,https://quadsgym.com,quadsgym.com,Chicago,IL,60613,41.9499744,-87.6487315,zip
+ACC-0050,SNO Yoga and Wellness Center,https://snodream.com,snodream.com,Chilton,WI,53014,44.0303889,-88.1585623,zip
+ACC-0051,West Loop Athletic Club,https://chicagoathleticclubs.com/locations/west-loop,chicagoathleticclubs.com,Chicago,IL,60607,41.8845749,-87.6617701,zip
+ACC-0052,"Heaven Meets Earth  YOGA, Ecstatic Dance Evolution",https://heavenmeetsearthyoga.com,heavenmeetsearthyoga.com,Evanston,IL,60201,42.0642998,-87.7127752,zip
+ACC-0053,Gold's Gym,https://goldsgym.com/milwaukeewi,goldsgym.com,Milwaukee,,53202,43.0394116,-87.9093412,zip
+ACC-0054,Village of Shorewood YMCA,https://jolietymca.org/locations/village-of-shorewood-ymca,jolietymca.org,Shorewood,IL,60404,41.5202407,-88.2335889,zip
+ACC-0055,Pilates in the Pines,https://pilatesinthepineswi.com,pilatesinthepineswi.com,Hayward,WI,54843,46.001266,-91.489256,zip
+ACC-0056,Club Pilates,https://clubpilates.com/parkridge,clubpilates.com,Park Ridge,IL,60068,42.0116262,-87.8304064,zip
+ACC-0057,Pure Barre,https://purebarre.com,purebarre.com,Bloomington,IN,47401,39.1628575,-86.4960385,zip
+ACC-0058,Twisted Fitness,https://twistedfitnessgym.com,twistedfitnessgym.com,Madison,WI,53714,43.1081346,-89.3350467,zip
+ACC-0059,CorePower Yoga,https://corepoweryoga.com/yoga-studios/il/chicago/naperville-south,corepoweryoga.com,Naperville,IL,60563,41.7489121,-88.1988014,zip
+ACC-0060,Blink Fitness,https://blink-fitness.com,blink-fitness.com,Merrionette Park,IL,60803,41.6831796,-87.7014445,zip
+ACC-0061,Healing Motion Yoga Yurt,https://healingmotion.me,healingmotion.me,,,,46.793992,-90.7541314,only_candidate
+ACC-0062,Fitness Matrix,https://thefitnessmatrix.me,thefitnessmatrix.me,Evanston,IL,60202,42.0333904,-87.7058581,zip
+ACC-0063,Refiner's Fire CrossFit,https://refinersfirecf.com,refinersfirecf.com,,,,41.6607219,-85.9698175,only_candidate
+ACC-0064,AIR Aerial Fitness,https://airfitnow.com/southloop,airfitnow.com,Chicago,IL,60605,41.8652722,-87.6239117,zip
+ACC-0065,Revel Modern Pilates,https://revelmethodpilates.com,revelmethodpilates.com,,,53715,43.0549305,-89.3969113,zip
+ACC-0066,FitStop,https://eastlakeclubs.com/locations/eastlake-middlebury,eastlakeclubs.com,,,,41.67802,-85.7055276,name_low_confidence
+ACC-0067,Septi Fitness,https://septifit.com,septifit.com,,,,43.0735167,-89.3851036,only_candidate
+ACC-0068,Life Time,https://lifetime.life/life-time-locations/il-lake-zurich.html,lifetime.life,Lake Zurich,IL,60047,42.2041854,-88.1103799,zip
+ACC-0069,Journey Fitness,https://journeyfitness333.com,journeyfitness333.com,Columbia City,IN,46725,41.1709165,-85.5005693,zip
+ACC-0070,Arlington Ridge Center (ARC),https://ahpd.org/facilities/arc,ahpd.org,Arlington Heights,IL,,42.0533676,-87.9931135,city
+ACC-0071,Champs Sports,https://stores.champssports.com/il/chicagoridge/120-chicago-ridge-mall-14484.html,champssports.com,Chicago Ridge,IL,60415,41.7173957,-87.7830511,zip
+ACC-0072,Finish Line,https://stores.finishline.com/il/peoria/northwoods-mall.html,finishline.com,,,,39.9917337,-85.9319409,name_low_confidence
+ACC-0073,"The Great Outdoors of Indiana, Inc.",https://greatoutdoorsindiana.com,greatoutdoorsindiana.com,Jasper,IN,47546,38.3895334,-86.9441035,zip
+ACC-0074,Dick's Sporting Goods,https://stores.dickssportinggoods.com/in/greenwood/181,dickssportinggoods.com,Greenwood,IN,46142,39.6316403,-86.1190013,zip
+ACC-0075,Hibbett Sports,https://hibbett.com/storedetails/WI/Madison/1669,hibbett.com,,,,38.526737,-90.0331668,name_low_confidence
+ACC-0076,Les Moise,https://lesmoiseinc.com,lesmoiseinc.com,Mequon,WI,,43.201897,-87.9237105,city
+ACC-0077,Adidas,https://premiumoutlets.com/outlet/pleasant-prairie/stores/adidas,premiumoutlets.com,,,,42.5171584,-87.9481959,name_low_confidence
+ACC-0078,Critter's Sporting Goods,https://critterssports.com,critterssports.com,Winneconne,WI,54986,44.111976,-88.7214023,zip
+ACC-0079,JD Sports,https://stores.jdsports.com/wi/wauwatosa/mayfair-mall.html,jdsports.com,,,,43.064066,-88.0452921,name_low_confidence
+ACC-0080,Play It Again Sports,https://playitagainsports.com/locations/edwardsville-il,playitagainsports.com,Edwardsville,IL,62025,38.7792454,-89.9832521,zip
+ACC-0081,Naperville Running Co.,https://runningcompany.com,runningcompany.com,Naperville,IL,60564,41.7032325,-88.2046311,zip
+ACC-0082,A1 Archery,https://a1archery.com,a1archery.com,Hudson,WI,54016,44.9699406,-92.6837618,zip
+ACC-0083,City Sports,https://chicagocitysports.com,chicagocitysports.com,Chicago,IL,60642,41.9035489,-87.6664676,zip
+ACC-0084,Playerz Choice Hockey,https://playerzchoicehockey.club,playerzchoicehockey.club,,,,43.1991494,-87.9236948,only_candidate
+ACC-0085,Kirhofer's Sports,https://kirhoferssports.com/contact,kirhoferssports.com,Aurora,IL,60506,41.7635621,-88.3675814,zip
+ACC-0086,GNC,https://gnc.com/store-details,gnc.com,,,,44.465131,-87.9833085,name_low_confidence
+ACC-0087,The Vitamin Shoppe,https://locations.vitaminshoppe.com/il/springfield/vitamins-supplements-springfield-il-601.html,vitaminshoppe.com,Springfield,IL,62704,39.758604,-89.7072149,zip
+ACC-0088,Sunrise Health Foods,https://sunrisehealthfoods.com,sunrisehealthfoods.com,,,,41.4669094,-87.0395846,only_candidate
+ACC-0089,The Healthy Place,https://findyourhealthyplace.com,findyourhealthyplace.com,,,,43.0153549,-89.4816471,only_candidate
+ACC-0090,One Nation Nutrition,https://1nationnutrition.com,1nationnutrition.com,East Alton,IL,62024,38.8796256,-90.1190944,zip
+ACC-0091,Walsh Natural Health,https://walshnatural.com,walshnatural.com,Evanston,IL,60201,42.0642005,-87.7029567,zip
+ACC-0092,Vitamin World,https://vitaminworld.com,vitaminworld.com,Champaign,IL,61820,40.1418177,-88.2442102,zip
+ACC-0093,CBD American Shaman,https://cbdwausau.com,cbdwausau.com,Wausau,WI,54401,44.9504253,-89.654921,zip
+ACC-0094,Wild Theory CBD Co.,https://wildtheory.com,wildtheory.com,Fitchburg,WI,53719,43.0107662,-89.4571637,zip
+ACC-0095,Live Well Hemp,https://livewellhemp.org,livewellhemp.org,Frankfort,IN,46041,40.2778464,-86.4972568,zip
+ACC-0096,Stellah Health,https://stellahhealth.com,stellahhealth.com,Springfield,IL,62704,39.7714199,-89.6875995,zip
+ACC-0097,Svpplements,https://svpplements.com,svpplements.com,Granger,IN,46530,41.7245544,-86.184319,zip
+ACC-0098,Active Nutrition & Supplements,https://activenutritionstore.com,activenutritionstore.com,Vincennes,IN,47591,38.6618343,-87.5043924,zip
+ACC-0099,Supplement Warehouse,https://supplementwarehouse.com/pages/supplement-warehouse-westallis,supplementwarehouse.com,West Allis,WI,53214,43.0168231,-88.0016331,zip
+ACC-0100,Level 10 Nutrition,https://level10nutrition.square.site,level10nutrition.square.site,Crown Point,IN,46307,41.4199775,-87.2492959,zip
+ACC-0101,Lavender Spa,https://lavenderspachi.com,lavenderspachi.com,Buffalo Grove,IL,60089,42.1545957,-87.9622887,zip
+ACC-0102,Day Spa,https://dayspail.wixsite.com/61820,dayspail.wixsite.com,Champaign,IL,61820,40.1430598,-88.2424851,zip
+ACC-0103,Kinetic Repose Massage,https://kineticrepose.com,kineticrepose.com,Greenfield,WI,53220,42.9649459,-87.9977843,zip
+ACC-0104,Elements Massage,https://elementsmassage.com/south-loop,elementsmassage.com,Chicago,IL,60605,41.8676471,-87.6243735,zip
+ACC-0105,The Retreat at Serendipity Province,https://serendipityprovince.com,serendipityprovince.com,Valparaiso,IN,46385,41.4679437,-87.1320805,zip
+ACC-0106,Spa Soak,https://spasoakchicago.com,spasoakchicago.com,Chicago,IL,60647,41.9130687,-87.6811709,zip
+ACC-0107,Massage Envy,https://locations.massageenvy.com/indiana/west-lafayette/500-sagamore-parkway-w.html,massageenvy.com,West Lafayette,IN,47906,40.4541102,-86.9125821,zip
+ACC-0108,Joint Effects,https://jointeffects.net,jointeffects.net,Baraboo,WI,53913,43.471215,-89.7423385,zip
+ACC-0109,JJ's Spa,https://jjsspabrownsburg.com,jjsspabrownsburg.com,Brownsburg,IN,46112,39.8433574,-86.397488,zip
+ACC-0110,The Lymph Current,https://thelymphcurrent.com,thelymphcurrent.com,Palatine,IL,60067,42.1224541,-88.0387185,zip
+ACC-0111,Foot Wellness,https://footwellness.weebly.com,footwellness.weebly.com,Noblesville,IN,46062,40.0011308,-86.0687066,zip
+ACC-0112,Touchstone Wellness Center,https://touchstonewellness.com,touchstonewellness.com,Bloomington,IN,47404,39.1820762,-86.5353419,zip
+ACC-0113,Bodycraft Wellness & Massage Center,https://bodycraft-wellness.com,bodycraft-wellness.com,Rockford,IL,61107,42.272727,-88.9990018,zip
+ACC-0114,Elite Therapeutic Massage & Tanning,https://elitetherapeuticmassageandtanning.com,elitetherapeuticmassageandtanning.com,Paoli,IN,47454,38.5557895,-86.465286,zip
+ACC-0115,Massage Experience,https://massageexperiencefw.com,massageexperiencefw.com,Fort Wayne,,46825,41.1212611,-85.1394211,zip
+ACC-0116,Redd Room,https://reddroommassage.com,reddroommassage.com,,,,43.0896689,-87.9873862,only_candidate
+ACC-0117,West River Spa,https://westriverspa.com,westriverspa.com,Chicago,IL,60642,41.8912194,-87.6579989,zip
+ACC-0118,Rejuvenation Spa,https://rejuvenationspa.net,rejuvenationspa.net,,,,43.0611391,-89.5111564,only_candidate
+ACC-0119,Lily Swedish Body Massage,https://lilyspamassage.com/service-page/lily-swedish-body-massage,lilyspamassage.com,West Allis,WI,53227,42.9878217,-88.0452678,zip
+ACC-0120,Abby Meyers Massage Therapist,https://abbymeyersmassage.com,abbymeyersmassage.com,Champaign,IL,61820,40.0967155,-88.2583157,zip
+ACC-0121,Siren Chiropractic,https://sirenchiropractic.com,sirenchiropractic.com,Siren,WI,54872,45.7890364,-92.3805596,zip
+ACC-0122,CORA Physical Therapy Belvidere,https://coraphysicaltherapy.com/location/belvidere-illinois,coraphysicaltherapy.com,Belvidere,IL,61008,42.274486,-88.8617613,zip
+ACC-0123,Evanston Health Collective,https://evanstonhealth.com,evanstonhealth.com,Evanston,IL,60201,42.0474738,-87.6815988,zip
+ACC-0124,Apex Network Physical Therapy,https://apexnetworkpt.com/bellevillewestil,apexnetworkpt.com,Belleville,IL,62223,38.5352716,-90.0356805,zip
+ACC-0125,Ortho Illinois Elgin,https://orthoillinois.com/locations/physical-therapy-elgin-il,orthoillinois.com,Elgin,IL,60123,42.0724793,-88.3366283,zip
+ACC-0126,Orthopaedic Associates of Wisconsin Physical Therapy,https://orthowisconsin.com/locations/new-berlin-wisconsin-therapy,orthowisconsin.com,New Berlin,WI,53146,42.9471765,-88.1573823,zip
+ACC-0127,Athletico Physical Therapy,https://athletico.com/locations/naperville-route-59,athletico.com,Naperville,IL,60564,41.709436,-88.1913798,zip
+ACC-0128,MotionWorks Physical Therapy,https://motionworkspt.com,motionworkspt.com,Neenah,,54956,44.1732622,-88.4933776,zip
+ACC-0129,ProRehab,https://prorehab.com/location/effingham-il,prorehab.com,Effingham,IL,62401,39.1398615,-88.5646141,zip
+ACC-0130,Premier Physical Therapy,https://premierphysicaltherapy.com,premierphysicaltherapy.com,Naperville,IL,60563,41.795022,-88.20441,zip
+ACC-0131,Momentum Physical Therapy,https://momentumphysicaltherapy.com,momentumphysicaltherapy.com,Naperville,IL,60563,41.7974949,-88.1177086,zip
+ACC-0132,InStep Physical Therapy & Running Center,https://performancerunning.com/locations,performancerunning.com,Milwaukee,,53202,43.0338534,-87.9057733,zip
+ACC-0133,ATI Physical Therapy,https://atipt.com,atipt.com,,,46224,39.7999543,-86.2730611,zip
+ACC-0134,Alton Physical Therapy,https://altonpt.com,altonpt.com,Alton,IL,62002,38.9041961,-90.1464739,zip
+ACC-0135,ES3 MEDICAL GROUP & ES3 FITNESS REHAB,https://es3fitnessrehab.com,es3fitnessrehab.com,Calumet City,IL,60409,41.5951064,-87.5593602,zip
+ACC-0136,Wisconsin Orthopedic Physical Therapy,https://wiscopt.com,wiscopt.com,Wauwatosa,WI,53226,43.060389,-88.0591212,zip
