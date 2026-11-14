@@ -17,36 +17,43 @@ lumps gyms with yoga studios and spas: 52 accounts share one tag. Reps waste
 calls, and territories are drawn around accounts that will never buy.
 
 **What it saves**
-- **Time.** I hand-labeled 30 accounts in 25 minutes, about 50 seconds each.
-  The skill graded 96 within one 15-minute session, at least five times
-  faster per account. It runs unattended, with a checkable quote on every
-  grade. For an example CRM of 50,000 accounts (not a real company), manual
-  labeling would be about 700 hours.
-- **Rep focus.** 70 of 136 accounts are confirmed not worth a call. Only 24
-  are real fits.
-- **Better territory decisions.** The plan found 6 fits that no territory
-  covers and moved 7 chains to enterprise. A carve based on the tag would
-  miss both.
+- **Time.** I hand-labeled 30 accounts at about 50 seconds each. The skill
+  graded 96 within one 15-minute session, at least five times faster. It runs
+  unattended, with a checkable quote on every grade. For an example CRM of
+  50,000 accounts, manual labeling would take about 700 hours.
+- **Rep focus.** 70 of 136 accounts are confirmed not worth a call.
+- **Better territories.** It found 6 fits that no territory covers and moved
+  7 chains to enterprise. A carve based on the tag misses both.
 
 ## Why this problem
 
 I solved it for real in my current role. Sales leadership wanted territories
-rebuilt around marquee accounts, with no way to grade accounts or map them.
-I built a scorer from a CRM export and written fit rules, and leadership
-validated it. Reps got a prioritized book. Here I rebuilt it on **Apollo**.
-Apollo's size and headquarters data splits regional from enterprise, and the
-skill audits that data instead of trusting it blindly. That is ideas #1 and
-#4 from the brief.
+rebuilt around marquee accounts, with no way to grade or map accounts.
+Leadership validated the scores, and reps got a prioritized book. Here I
+rebuilt it from scratch on **Apollo**. Apollo's size and headquarters data
+splits regional from enterprise, and the skill audits that data instead of
+trusting it. That is ideas #1 and #4 from the brief. No code or data from
+the original build is in this repo.
 
-## Who uses it and what they get
+## Who uses it
 
-- **Sales leader:** the map and territory summary, to approve the plan and
-  see gaps.
-- **Rep:** their book of fits, with the sentence each grade rests on.
-- **RevOps:** data-hygiene findings. These are Apollo name mismatches,
-  headquarters versus site location, and unreadable sites.
-- **Next, not built:** write grade, evidence, segment and territory back to
-  the CRM.
+- **Sales leader:** the map and summary, to approve the plan and see gaps.
+- **Rep:** a book of fits, with the sentence each grade rests on.
+- **RevOps:** data-hygiene findings on Apollo mismatches, headquarters
+  versus site location, and unreadable sites.
+
+## Rollout and success
+
+- **Pilot:** half the mid-market reps use it for a quarter, with the other
+  half as the comparison.
+- **Managers approve:** the territory plan, ownership changes and holdover
+  requests.
+- **Then:** write grade and territory to the CRM, and expand to the team.
+- **Targets:**
+  - Fit conversion above the rest of the book.
+  - Pipeline per territory.
+  - Referrals near marquee anchors.
+  - Live grades at 90% or better.
 
 ## How it works
 
@@ -56,30 +63,31 @@ CRM export -> 1 Enrich (Apollo) -> 2 Read websites -> 3 Grade (Claude, one writt
 ```
 
 The model makes one judgment per account, with an exact quote that code
-checks. Scripts do everything else. The policy is one sentence the business
-owns: "A Fit runs a member-facing floor of cardio or strength machines."
-
-## Numbers
+checks. Scripts do the rest. The policy is one sentence the business owns:
+"A Fit runs a member-facing floor of cardio or strength machines."
 
 | What | Result |
 |------|--------|
-| Apollo enrichment (the data-hygiene audit) | 88 trusted, 34 no record, 9 flagged as name mismatches and ignored, 5 skipped |
+| Apollo audit | 88 trusted, 34 no record, 9 name mismatches flagged and ignored, 5 skipped |
 | Websites readable | 96 of 136 (71%) |
-| Validation | Run 1: 77% (text cap cut evidence). Run 2: 87%, 3 of 4 misses were blocked sites. |
-| Territories (60 mi, target 5) | Chicagoland 6, Milwaukee 3, Michiana 2. 6 fits out of range, mostly downstate Illinois. |
+| Validation | Run 1: 77%, text cap cut evidence. Run 2: 87%, 3 of 4 misses were blocked sites. |
+| Territories (60 mi) | Chicagoland 6, Milwaukee 3, Michiana 2. 6 fits out of range. |
 
 ## Design and trust
 
 - **Why a skill:** the judgment needs a model, the rest needs code, and the
   policy must be a file a sales leader can read. An Apollo call alone
   returns data, not a decision.
-- **Where I overrode the AI:** I reframed the problem to qualifying the
-  existing CRM. I kept Needs Review for "could not see" only. I required CRM
-  locations over Apollo's headquarters. I separated segment from fit. I
-  guarded against wrong Apollo matches. I moved grading to a blind session.
-- **Production next:** a larger fixture, a headless browser for JavaScript
-  sites, image evidence, a scoped key, and CRM write-back after approval.
-
-*Pre-existing:* the approach comes from an ICP classifier and territory
-assigner I built in my current role. Nothing from it is in this repo. All of it
-was rewritten for this exercise.
+- **Where I overrode the AI:**
+  - Qualify the existing CRM rather than source new accounts.
+  - Needs Review only for "could not see".
+  - CRM locations, not Apollo headquarters.
+  - Segment kept separate from fit.
+  - A guard against wrong Apollo matches.
+  - Blind grading.
+- **Production next:**
+  - A larger fixture.
+  - A headless browser.
+  - Image evidence.
+  - A scoped key.
+  - CRM write-back after approval.

@@ -198,6 +198,37 @@ stronger:
 - **Next step, not built:** write the grade, evidence, segment and territory
   back to the CRM account.
 
+## Rollout and success plan
+
+In my current role this went to the whole mid-market team at once, because
+leadership was testing how territories built around marquee accounts
+performed. For Rackwell I would roll it out in three steps.
+
+1. **Pilot with a comparison.** Half the mid-market reps work from the
+   skill's books for one quarter. The other half keep their current lists.
+   A whole-team launch cannot show whether the skill made the difference. A
+   split can.
+2. **Keep managers in the loop.** The sales leader signs off on the
+   territory plan before anyone's book changes. Managers still approve
+   account ownership changes and holdover requests, where a rep asks to keep
+   an account from an old territory. Only the policy owner changes the ICP,
+   and only after the fixture passes again.
+3. **Label the CRM, then expand.** Write the grade, segment and territory
+   onto each CRM account, so every report can split by fit and by territory.
+   Then roll out to the full team.
+
+What I would track. These are targets, not results, since a prototype has
+none. Baselines come from the first month.
+- **Fit conversion:** the opportunity and close rate of Fit accounts,
+  compared with the rest of the book. The target is that Fits clearly
+  outperform.
+- **Territory performance:** pipeline and close rate per territory, to see
+  which carves work and where coverage is thin.
+- **Marquee pull-through:** referrals and new opportunities near each
+  marquee anchor account.
+- **Guardrail:** a monthly sample of live grades stays at or above the 90%
+  bar.
+
 ## Why a skill, not a script or an MCP call
 
 - **The core step is a judgment.** Reading a website and deciding whether
