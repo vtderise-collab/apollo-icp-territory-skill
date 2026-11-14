@@ -1,13 +1,62 @@
 {
   "_about": "Business settings the policy owner controls. Changing the region, segment thresholds or territories means editing this file, not the code.",
-  "region_states": ["Illinois", "Wisconsin", "Indiana"],
+  "region_states": [
+    "Illinois",
+    "Wisconsin",
+    "Indiana"
+  ],
   "segment": {
     "_rule": "Enterprise needs a trusted Apollo match AND (HQ outside the region with at least out_of_region_min_employees, OR at least any_region_min_employees). Everything else is Mid-Market.",
     "out_of_region_min_employees": 200,
     "any_region_min_employees": 1000
   },
-  "apollo_skip_hosts": ["square.site", "wixsite.com", "weebly.com", "business.site",
-                        "squarespace.com", "godaddysites.com", "wordpress.com",
-                        "blogspot.com", "myshopify.com", "facebook.com",
-                        "instagram.com", "linktr.ee"]
+  "apollo_skip_hosts": [
+    "square.site",
+    "wixsite.com",
+    "weebly.com",
+    "business.site",
+    "squarespace.com",
+    "godaddysites.com",
+    "wordpress.com",
+    "blogspot.com",
+    "myshopify.com",
+    "facebook.com",
+    "instagram.com",
+    "linktr.ee"
+  ],
+  "evidence_words": {
+    "_about": "Equipment and facility words. The scraper copies a short snippet around each hit on the homepage and subpages, so evidence deep in a page is not lost to the text cap. They only choose what text the grader sees; they decide nothing.",
+    "words": [
+      "treadmill",
+      "elliptical",
+      "rower",
+      "rowing machine",
+      "stair climber",
+      "exercise bike",
+      "stationary bike",
+      "spin bike",
+      "free weights",
+      "dumbbell",
+      "barbell",
+      "kettlebell",
+      "squat rack",
+      "power rack",
+      "cable machine",
+      "strength machine",
+      "weight machine",
+      "plate loaded",
+      "cardio",
+      "weight room",
+      "fitness center",
+      "fitness floor",
+      "gym floor",
+      "open gym",
+      "weight lifting",
+      "weightlifting",
+      "24/7",
+      "24 hour",
+      "day pass",
+      "equipment"
+    ]
+  }
 }

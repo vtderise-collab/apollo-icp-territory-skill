@@ -1,0 +1,68 @@
+account_id,name,grade,reason_code,evidence,confidence,tag_disagrees,graded_by
+ACC-0002,The Hot Room Downtown,Unlikely,,Experience the Top Choice for Hot Yoga and Heated Fitness in Zionsville Become Your Best Self with The Hot Room,high,False,model
+ACC-0004,Orangetheory Fitness,Needs Review,cannot_tell,"Fitness Studio & Gym in Harwood Heights-Portage Park, IL Closest studio to you Harwood Heights-Portage Park, IL Try A Class Join Now",low,False,model
+ACC-0005,pilatesplusunlimited,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0006,Fit & Fight Gym,Unlikely,,"At Fit & Fight Gym , we offer Muay Thai classes for adults and kids , taught by world-class coaches.",high,False,model
+ACC-0007,EduFit,Fit,,Basic Gym Membership A basic fitness membership with limited access provides entry to essential gym facilities,medium,False,model
+ACC-0009,105F Yoga,Unlikely,,"Yoga and pilates memberships, packages, and plans for every lifestyle, schedule, and budget.",high,False,model
+ACC-0010,Planet Fitness,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0011,SOLO YOGA + BXNG,Unlikely,,"What started as a yoga studio has grown into a blend of yoga, pilates, barre, boxing and strength training",high,False,model
+ACC-0012,Vita Physical Therapy & Fitness,Fit,,Insurances Accepted GetVitaFit Blog Patient Testimonials Fitness App Gym Membership-Wauwatosa Contact Us Appointments,medium,False,model
+ACC-0013,Anytime Fitness,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0014,O-Town Iron,Fit,,Our facility combines the energy of a serious weight lifting gym with the accessibility of a welcoming community.,high,False,model
+ACC-0015,Body Tech Total Fitness,Fit,,"Body Tech Total Fitness is your premier gym in Mokena & Joliet, IL. Whether you’re in Mokena",high,False,model
+ACC-0016,The House Barbell Club,Fit,,"Our gym membership is affordable and flexible, with options for individuals, couples, families, students, and veterans.",high,False,model
+ACC-0017,TITLE Boxing Club,Unlikely,,"Our classes are all about you and the heavy bag. We focus on fitness, technique, and fun",high,False,model
+ACC-0018,Reidefined Fitness,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0024,Double R Boxing & Fitness,Needs Review,scrape_failed,Website could not be read: connect_failed,,,script
+ACC-0025,Burn Boot Camp Mt. Pleasant,Needs Review,cannot_tell,Access to your Home Gym Unlimited Workouts Complimentary Childwatch Unlimited Focus Meetings Expert Personal Training in a Group Setting,low,False,model
+ACC-0026,Gymnastics Academy of Rockford South Trampoline Park,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0027,Brick Yard Gym,Needs Review,scrape_failed,Website could not be read: http_404,,,script
+ACC-0028,PCY Muay Thai,Unlikely,,Class Structure Agility Ladder Callisthenics Shadowboxing Bag work Partner Drills Technique and Strategy Pad work (Voluntary) Sparring Ab Work,high,False,model
+ACC-0029,Fitness Formula Club,Fit,,"Get in a great workout with our high-end strength and cardio equipment, swim laps indoors or outside",high,False,model
+ACC-0030,Northwestern Medicine Huntley Health & Fitness Center,Fit,,"Our top-tier fitness equipment and full menu of amenities are designed to create an invigorating, relaxing experience for all to enjoy.",high,False,model
+ACC-0034,USA Ninja Challenge,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0036,Crunch Fitness,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0038,D1 Training,Needs Review,cannot_tell,Customized sport-specific training program Strength & conditioning that translates to gameday performance Dedicated & certified coach Group camaraderie and cohesiveness,low,False,model
+ACC-0039,Leisure World Health Club,Fit,,Personal Training Equipment Cardio Equipment Strength Training Equipment The Turf Room Olympic Sized Pool Amenities Spacious Locker Rooms,high,True,model
+ACC-0040,Gymnastics Divine,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0041,ASCENT Gym,Needs Review,scrape_failed,Website could not be read: connect_failed,,,script
+ACC-0044,9Round,Needs Review,scrape_failed,Website could not be read: http_404,,,script
+ACC-0045,Fit For You Yoga,Needs Review,scrape_failed,Website could not be read: http_400,,,script
+ACC-0046,Kru Strength + Fitness,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0049,Quads Gym,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0051,West Loop Athletic Club,Needs Review,scrape_failed,Website could not be read: http_404,,,script
+ACC-0053,Gold's Gym,Fit,,EQUIPMENT for every goal Gold's Gym is equipped with cutting-edge,high,False,model
+ACC-0054,Village of Shorewood YMCA,Fit,,Membership Join the Y Membership Benefits Rates Financial Assistance YMCA On the Go App My Y Rewards Membership Referral Program,medium,False,model
+ACC-0056,Club Pilates,Unlikely,,"Reformer-based Pilates for every body. Right here in Park Ridge Eight class types, four skill levels",high,False,model
+ACC-0057,Pure Barre,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0058,Twisted Fitness,Fit,,"The Gym Strongman, Powerlifting, Olympic Weightlifting and More. Coaching Available. Learn More Online Courses Members Only",medium,False,model
+ACC-0060,Blink Fitness,Fit,,"Starting at just $17/month, Blink gives you access to top-tier equipment and amenities",high,False,model
+ACC-0063,Refiner's Fire CrossFit,Needs Review,cannot_tell,Skip to main content Programs CrossFit Strength Conditioning Drop In Schedule About us Contact Privacy Policy,low,False,model
+ACC-0067,Septi Fitness,Needs Review,scrape_failed,Website could not be read: connect_failed,,,script
+ACC-0069,Journey Fitness,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0070,Arlington Ridge Center (ARC),Needs Review,cannot_tell,Facilities Find a Facility Arlington Ridge Center (ARC) Community Centers Swimming Pools Golf Clubs Tennis Clubs Senior Center Museum,low,False,model
+ACC-0074,Dick's Sporting Goods,Unlikely,,"Shop holiday deals from top brands like Nike, On, Under Armour and more! Shop Holiday Deals Now",high,False,model
+ACC-0075,Hibbett Sports,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0077,Adidas,Needs Review,scrape_failed,Website could not be read: http_307,,,script
+ACC-0080,Play It Again Sports,Unlikely,,Select a Store Shop Online Back to Main Menu SHOP ALL PRODUCTS Athletic Apparel Back to Shop Online,high,True,model
+ACC-0081,Naperville Running Co.,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0082,A1 Archery,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0083,City Sports,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0086,GNC,Needs Review,scrape_failed,Website could not be read: http_307,,,script
+ACC-0087,The Vitamin Shoppe,Needs Review,scrape_failed,Website could not be read: http_500,,,script
+ACC-0088,Sunrise Health Foods,Unlikely,,Juice Bar & Grab-N-Go Foods Good For You Grocery Bath & Beauty Organic & Local Produce,high,True,model
+ACC-0089,The Healthy Place,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0090,One Nation Nutrition,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0092,Vitamin World,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0095,Live Well Hemp,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script
+ACC-0097,Svpplements,Needs Review,scrape_failed,Website could not be read: http_503,,,script
+ACC-0098,Active Nutrition & Supplements,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0099,Supplement Warehouse,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0100,Level 10 Nutrition,Needs Review,parked_or_empty,Website could not be read: thin_content,,,script
+ACC-0106,Spa Soak,Unlikely,,"Spa Soak is a full service spa located in Bucktown/Wicker Park, offering a peaceful retreat since 2005.",high,False,model
+ACC-0111,Foot Wellness,Needs Review,scrape_failed,Website could not be read: http_404,,,script
+ACC-0123,Evanston Health Collective,Unlikely,,A modern clinic for all your health concerns. Massage Therapy Physical Therapy Counseling Yoga,high,False,model
+ACC-0127,Athletico Physical Therapy,Unlikely,,We offer a wide range of physical therapy and orthopedic rehabilitation services to help you get back to doing the things you love to do.,high,False,model
+ACC-0132,InStep Physical Therapy & Running Center,Needs Review,scrape_failed,Website could not be read: http_403,,,script
+ACC-0135,ES3 MEDICAL GROUP & ES3 FITNESS REHAB,Needs Review,scrape_failed,Website could not be read: dns_failure,,,script

@@ -3,9 +3,19 @@
 
 For each account: fetch the homepage, then up to MAX_SUBPAGES same-site pages
 whose links look useful (about, membership, amenities...). Strip scripts and
-styles, keep visible text, cap the total so one account costs a bounded
-amount to grade. Every failure gets a named status. Results are cached per
-normalized URL in data/cache/web/, so re-runs are free.
+styles, keep visible text. The record sent to the grader has four parts:
+
+  1. the opening text of each page (cookie banners and menu text repeated
+     across pages removed),
+  2. [META] the meta description,
+  3. [ALT] image alt text,
+  4. [SNIPPETS] about 150 characters each side of every equipment or facility
+     word (config.json evidence_words) found anywhere on any fetched page.
+
+Part 4 exists because a plain character cap cut real evidence deep in long
+pages. The total is still capped so one account costs a bounded amount to
+grade. Every failure gets a named status. Results are cached per normalized
+URL in data/cache/web/, so re-runs are free.
 
 Writes data/evidence.jsonl: one record per account (CRM fields, Apollo tag
 for cross-checking, scrape status, text).
@@ -25,14 +35,24 @@ import sys
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from common import DATA, normalize_url
+from common import DATA, load_config, normalize_url
 
 CACHE = DATA / "cache" / "web"
 WORKERS = 8            # one site per worker, so each domain is hit serially
 MAX_SUBPAGES = 3
-HOME_CHARS = 2000
-SUBPAGE_CHARS = 700
-TOTAL_CHARS = 3500     # hard cap on text sent to the grader per account
+HOME_CHARS = 1500      # opening text kept from the homepage
+SUBPAGE_CHARS = 500    # opening text kept from each subpage
+META_CHARS = 300
+ALT_CHARS = 600
+SNIPPET_SIDE = 150     # characters kept each side of an evidence word
+MAX_SNIPPETS = 12
+TOTAL_CHARS = 7000     # hard cap on text sent to the grader per account
+EVIDENCE_WORDS = load_config()["evidence_words"]["words"]
+WORD_RE = re.compile(r"(?<![a-z0-9])(" + "|".join(
+    re.escape(w) for w in sorted(EVIDENCE_WORDS, key=len, reverse=True)) + r")",
+    re.I)
+COOKIE_RE = re.compile(r"cookie|consent preferences|privacy preference|"
+                       r"accept all|reject all|we use cookies", re.I)
 THIN_CHARS = 200
 USER_AGENT = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
               "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36")
@@ -49,8 +69,16 @@ class TextAndLinks(html.parser.HTMLParser):
     def __init__(self):
         super().__init__()
         self.depth, self.text, self.links = 0, [], []
+        self.alts, self.meta = [], ""
 
     def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag == "meta" and not self.meta:
+            key = (a.get("name") or a.get("property") or "").lower()
+            if key in ("description", "og:description") and a.get("content"):
+                self.meta = a["content"].strip()
+        if tag == "img" and (a.get("alt") or "").strip():
+            self.alts.append(a["alt"].strip())
         if tag in self.SKIP:
             self.depth += 1
         if tag == "a":
@@ -89,12 +117,60 @@ def curl(url):
 
 
 def parse(html):
+    """Return (text, links). Plain visible text, nothing removed."""
+    p = _feed(html)
+    return re.sub(r"\s+", " ", " ".join(p.text)).strip(), p.links
+
+
+def _feed(html):
     p = TextAndLinks()
     try:
         p.feed(html)
     except Exception:
         pass
-    return re.sub(r"\s+", " ", " ".join(p.text)).strip(), p.links
+    return p
+
+
+def clean_segments(segments, seen):
+    """Drop cookie-banner text and text segments already seen on an earlier
+    page (menus, footers). Updates `seen`."""
+    out = []
+    for seg in segments:
+        seg = re.sub(r"\s+", " ", seg).strip()
+        key = seg.lower()
+        if not seg or COOKIE_RE.search(seg) or (len(seg) > 2 and key in seen):
+            continue
+        seen.add(key)
+        out.append(seg)
+    return " ".join(out)
+
+
+def snippets(pages_text):
+    """Short windows around evidence words, overlapping windows merged, at
+    most MAX_SNIPPETS, spread across different words first."""
+    found = []   # (word, snippet)
+    for text in pages_text:
+        spans = []
+        for m in WORD_RE.finditer(text):
+            a, b = max(0, m.start() - SNIPPET_SIDE), m.end() + SNIPPET_SIDE
+            if spans and a <= spans[-1][1]:
+                spans[-1][1] = b
+                spans[-1][2].append(m.group(1).lower())
+            else:
+                spans.append([a, b, [m.group(1).lower()]])
+        for a, b, words in spans:
+            found.append((words[0], text[a:b].strip()))
+    picked, used_words, seen = [], set(), set()
+    for first_pass in (True, False):   # one per word first, then the rest
+        for word, snip in found:
+            if len(picked) >= MAX_SNIPPETS:
+                break
+            if snip in seen or (first_pass and word in used_words):
+                continue
+            picked.append(snip)
+            seen.add(snip)
+            used_words.add(word)
+    return picked
 
 
 def pick_subpages(base, links):
@@ -129,16 +205,36 @@ def gather(url):
     if status != "ok":
         result = {"scrape_status": status, "pages": [key], "text": ""}
     else:
-        home_text, links = parse(html)
-        parts = [f"[HOME] {home_text[:HOME_CHARS]}"]
-        pages = [final]
-        for sub in pick_subpages(final, links):
+        home = _feed(html)
+        home_text = re.sub(r"\s+", " ", " ".join(home.text)).strip()
+        seen = set()
+        parts = [f"[HOME] {clean_segments(home.text, seen)[:HOME_CHARS]}"]
+        pages, full_texts = [final], [home_text]
+        metas, alts = [home.meta] if home.meta else [], list(home.alts)
+        for sub in pick_subpages(final, home.links):
             s, f, h = curl(sub)
-            if s == "ok":
-                t, _ = parse(h)
-                if t:
-                    parts.append(f"[{urllib.parse.urlsplit(f).path}] {t[:SUBPAGE_CHARS]}")
-                    pages.append(f)
+            if s != "ok":
+                continue
+            p = _feed(h)
+            full = re.sub(r"\s+", " ", " ".join(p.text)).strip()
+            if not full:
+                continue
+            opening = clean_segments(p.text, seen)[:SUBPAGE_CHARS]
+            if opening:
+                parts.append(f"[{urllib.parse.urlsplit(f).path}] {opening}")
+            pages.append(f)
+            full_texts.append(full)
+            if p.meta and p.meta not in metas:
+                metas.append(p.meta)
+            alts += p.alts
+        if metas:
+            parts.append("[META] " + " | ".join(metas)[:META_CHARS])
+        alts = list(dict.fromkeys(a for a in alts if len(a) > 3))
+        if alts:
+            parts.append("[ALT] " + " | ".join(alts)[:ALT_CHARS])
+        snips = snippets(full_texts)
+        if snips:
+            parts.append("[SNIPPETS] " + " ... ".join(snips))
         text = " ".join(parts)[:TOTAL_CHARS]
         low = home_text.lower()
         if any(p in low for p in PARKED) and len(home_text) < 1500:
