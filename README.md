@@ -130,6 +130,9 @@ but sit at real ZIP codes)**
   Equinox, Life Time). They go to the enterprise team, not a regional rep.
 - **Needs Review:** 42 accounts, 9 of them Enterprise and listed first.
 
+Map: `data/territory_map.html` shows anchors, radius circles, every Fit and every Needs Review
+account, with the evidence quote on hover (`scripts/territory_map.py`).
+
 Outputs are in `data/`: `territory_plan.csv`, `territory_summary.csv`,
 `enterprise_handoff.csv`, `needs_review.csv`, `graded.csv`.
 
@@ -238,3 +241,7 @@ Where I did not trust it (full list in my correction log):
 > The approach comes from an ICP classifier and territory assigner I designed and ran in my last role. Nothing from that build is in this repo. I rewrote it from scratch for this exercise on public data: a different company, a different ICP, Apollo as the account source, and a skill in place of a standalone script.
 
 Everything here was written new for this exercise with Claude Code.
+
+## More of my work
+
+A RevOps hub demo with its architecture: https://revops-hub-demo-vtderise-collabs-projects.vercel.app/architecture

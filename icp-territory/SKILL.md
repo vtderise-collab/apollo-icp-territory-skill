@@ -39,6 +39,8 @@ Run every command from the project folder, which holds `data/` and `.env`.
    Writes `data/territory_plan.csv`, `territory_summary.csv`,
    `enterprise_handoff.csv` and `needs_review.csv`. Show the user the
    summary table and the findings as printed; do not add numbers of your own.
+   Last, draw the map: `python3 <skill>/scripts/territory_map.py`
+   (writes `data/territory_map.html`; open it in a browser).
 
 ## Grading rules
 
