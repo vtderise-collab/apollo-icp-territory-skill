@@ -10,7 +10,7 @@ an account ID, a name, a website and an address. Fit is unknown.
 The OSM category is written to a separate file (data/seed_source.csv) so it
 never reaches the grader. It is used only to pick a balanced validation set.
 
-Run once from the repo root:  python3 scripts/seed_crm_from_osm.py
+Run once from the repo root:  python3 setup/seed_crm_from_osm.py
 """
 import csv
 import json

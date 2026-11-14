@@ -4,8 +4,10 @@ import re
 import urllib.parse
 
 SKILL_DIR = pathlib.Path(__file__).resolve().parent.parent
-# The repo root holds .env and data/. The skill folder holds code and policy.
-ROOT = SKILL_DIR.parent
+# The project folder you run from holds .env and data/. The skill folder
+# holds code and policy, so it works in this repo or copied into
+# .claude/skills/.
+ROOT = pathlib.Path.cwd()
 DATA = ROOT / "data"
 
 # Two-part public suffixes we are likely to meet. Not a full list; good

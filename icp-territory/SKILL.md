@@ -10,29 +10,31 @@ work. You make exactly one judgment per account: its grade under the written
 ICP in `references/icp.md`. You never supply a fact, and you never change
 the ICP.
 
-All commands run from the repo root. Data lives in `data/`.
+Run every command from the project folder, which holds `data/` and `.env`.
+`<skill>` below is this skill's folder: `icp-territory` in the repo, or
+`.claude/skills/icp-territory` once installed.
 
 ## Steps
 
 1. **Enrich** with Apollo (needs `APOLLO_API_KEY` in `.env`):
-   `python3 icp-territory/scripts/enrich_accounts.py`
+   `python3 <skill>/scripts/enrich_accounts.py`
    Cached, batched by 25, stops at the first credit or plan error. Report the
    stop to the user; do not retry around it.
 2. **Gather evidence** from each website:
-   `python3 icp-territory/scripts/fetch_evidence.py`
+   `python3 <skill>/scripts/fetch_evidence.py`
 3. **Grade** (your step). Read `references/icp.md` in full first. Then loop:
-   - `python3 icp-territory/scripts/grading.py batch --size 10`
+   - `python3 <skill>/scripts/grading.py batch --size 10`
      (add `--ids data/validation_labels.csv` to grade the validation set only)
    - For each record printed, append one line to `data/grades.jsonl` (format
      below).
    - Repeat until the batch command says 0 left.
-   - `python3 icp-territory/scripts/grading.py check`
+   - `python3 <skill>/scripts/grading.py check`
    Report every FAILED CHECK line to the user as is.
 4. **Validate** before trusting any grades:
-   `python3 icp-territory/scripts/validate.py`
+   `python3 <skill>/scripts/validate.py`
    If it fails the pass bar, show the misses. Do not edit the ICP yourself;
    propose changes and wait for the policy owner.
-5. **Build territories**: `python3 icp-territory/scripts/territories.py`
+5. **Build territories**: `python3 <skill>/scripts/territories.py`
    Anchors, radius and target live in `config.json` under `territories`.
    Writes `data/territory_plan.csv`, `territory_summary.csv`,
    `enterprise_handoff.csv` and `needs_review.csv`. Show the user the
