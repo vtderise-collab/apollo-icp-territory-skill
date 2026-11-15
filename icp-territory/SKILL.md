@@ -14,6 +14,26 @@ Run every command from the project folder, which holds `data/` and `.env`.
 `<skill>` below is this skill's folder: `icp-territory` in the repo, or
 `.claude/skills/icp-territory` once installed.
 
+## Check what is already done (always first)
+
+Earlier steps are cached and may already be finished. Check before running
+anything, and start at the first step that is not done:
+
+- `data/accounts.csv` exists: enrichment is done.
+- `data/evidence.jsonl` exists: evidence is done.
+- `python3 <skill>/scripts/grading.py batch --size 1` prints "0 readable
+  accounts left to grade": grading is done. Run the check, then go to
+  validate or territories.
+
+Rules for reading state:
+- Never count CSV lines to count accounts. Fields contain line breaks. Use
+  the scripts' own counts, or a CSV reader.
+- Unreadable websites are graded Needs Review by a script, not by you. Fewer
+  lines in `grades.jsonl` than accounts is normal, not a partial run.
+- Do not regrade or re-enrich anything already done unless the user asks.
+  Regrading throws away grades that were validated. Re-enrichment spends
+  Apollo credits.
+
 ## Steps
 
 1. **Enrich** with Apollo (needs `APOLLO_API_KEY` in `.env`):
