@@ -28,7 +28,7 @@ import json
 import shutil
 import subprocess
 
-from common import DATA, SKILL_DIR
+from common import DATA, SKILL_DIR, need
 from territories import load_overrides, resolve_anchors
 
 COLORS = ["#1f6feb", "#d1495b", "#2a9d8f", "#e9a23b", "#8e44ad"]
@@ -62,6 +62,7 @@ def node_check(data, params):
 
 
 def main():
+    need('territory_plan.csv', 'territory_summary.csv', 'graded.csv')
     full = json.load(open(SKILL_DIR / "config.json"))
     cfg = full["territories"]
     marquee = cfg.get("method", "marquee") == "marquee"

@@ -35,7 +35,7 @@ import sys
 import urllib.parse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from common import DATA, load_config, normalize_url
+from common import DATA, load_config, normalize_url, need
 
 CACHE = DATA / "cache" / "web"
 WORKERS = 8            # one site per worker, so each domain is hit serially
@@ -249,6 +249,7 @@ def gather(url):
 
 
 def main():
+    need('accounts.csv')
     CACHE.mkdir(parents=True, exist_ok=True)
     with open(DATA / "accounts.csv", newline="") as f:
         accounts = list(csv.DictReader(f))

@@ -24,7 +24,7 @@ import collections
 import csv
 import json
 
-from common import DATA
+from common import DATA, need
 from territories import state_code
 
 TRUSTED_LOCATION = {"zip", "city"}
@@ -39,6 +39,7 @@ SCRAPE_FIX = {
 
 
 def main():
+    need('crm_export.csv', 'accounts.csv', 'evidence.jsonl')
     crm = list(csv.DictReader(open(DATA / "crm_export.csv")))
     acc = {r["account_id"]: r for r in csv.DictReader(open(DATA / "accounts.csv"))}
     ev = {json.loads(l)["account_id"]: json.loads(l) for l in open(DATA / "evidence.jsonl")}

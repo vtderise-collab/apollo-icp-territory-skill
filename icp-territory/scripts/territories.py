@@ -39,7 +39,7 @@ import json
 import math
 import sys
 
-from common import DATA, SKILL_DIR
+from common import DATA, SKILL_DIR, need
 
 TRUSTED_LOCATION = {"zip", "city"}
 
@@ -177,6 +177,7 @@ def load_overrides(territories):
 
 
 def main():
+    need('crm_export.csv', 'accounts.csv', 'graded.csv')
     full = json.load(open(SKILL_DIR / "config.json"))
     cfg = full["territories"]
     method = cfg.get("method", "marquee")

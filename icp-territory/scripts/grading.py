@@ -24,7 +24,7 @@ import json
 import re
 import sys
 
-from common import DATA
+from common import DATA, need
 
 GRADES = {"Fit", "Needs Review", "Unlikely"}
 REASONS = {"scrape_failed", "parked_or_empty", "wrong_business", "cannot_tell"}
@@ -118,6 +118,7 @@ def cmd_check(_):
 
 
 def main():
+    need('evidence.jsonl')
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
     b = sub.add_parser("batch")

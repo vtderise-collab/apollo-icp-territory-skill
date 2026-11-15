@@ -18,13 +18,14 @@ import csv
 import json
 import sys
 
-from common import DATA
+from common import DATA, need
 
 PASS_BAR = {"overall": 0.90, "Fit": 0.85, "Unlikely": 0.85}   # set 11/14, do not move
 GRADES = ["Fit", "Needs Review", "Unlikely"]
 
 
 def main():
+    need('evidence.jsonl', 'graded.csv')
     evidence = [json.loads(l) for l in open(DATA / "evidence.jsonl")]
     readable = sum(1 for e in evidence if e["scrape_status"] == "ok")
     print(f"Scrape coverage: {readable} of {len(evidence)} accounts readable "

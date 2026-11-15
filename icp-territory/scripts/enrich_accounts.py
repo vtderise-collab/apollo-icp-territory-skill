@@ -23,7 +23,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
-from common import DATA, load_config, load_env, names_agree
+from common import DATA, load_config, load_env, names_agree, need
 
 API = "https://api.apollo.io/api/v1/organizations/enrich"
 CACHE = DATA / "cache" / "apollo"
@@ -126,6 +126,7 @@ def write(rows):
 
 
 def main():
+    need('crm_export.csv')
     key = load_env("APOLLO_API_KEY")
     if not key:
         sys.exit("APOLLO_API_KEY is empty in .env")

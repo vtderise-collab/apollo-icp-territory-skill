@@ -89,3 +89,22 @@ def load_env(name):
             if line.strip().startswith(name + "="):
                 return line.split("=", 1)[1].strip().strip('"').strip("'")
     return ""
+
+
+STEP_FOR = {
+    "crm_export.csv": "put your CRM export at data/crm_export.csv",
+    "accounts.csv": "run enrich_accounts.py (step 1)",
+    "evidence.jsonl": "run fetch_evidence.py (step 2)",
+    "graded.csv": "grade, then run grading.py check (step 3)",
+    "territory_plan.csv": "run territories.py (step 6)",
+    "territory_summary.csv": "run territories.py (step 6)",
+}
+
+
+def need(*names):
+    """Stop with a plain message if an earlier step has not run yet."""
+    import sys
+    missing = [n for n in names if not (DATA / n).exists()]
+    if missing:
+        sys.exit("Not ready: " + "; ".join(f"data/{n} is missing, so {STEP_FOR.get(n, 'run the earlier step')}"
+                                          for n in missing) + ".")
