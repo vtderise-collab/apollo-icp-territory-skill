@@ -4,7 +4,7 @@
 balanced rep territories.** It grades every account against a plain-English
 ICP using the company's own website, enriches it with Apollo, and assigns
 the real fits to reps. Every grade comes with its evidence.
-Live planner: https://vtderise-collab.github.io/apollo-icp-territory-skill/data/territory_map.html
+Live planner: https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 
 ## What it does for a GTM team
 

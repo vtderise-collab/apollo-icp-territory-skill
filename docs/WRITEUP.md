@@ -14,7 +14,7 @@ the enterprise team and flagged **42** accounts for review. Validation scored
 **87%** against a 90% bar, and **26 of 27** on the sites it could read.
 
 - One-page summary: [ONE-PAGER.md](../ONE-PAGER.md)
-- Territory planner (live): https://vtderise-collab.github.io/apollo-icp-territory-skill/data/territory_map.html
+- Territory planner (live): https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 
 ## What the skill does
 
@@ -155,8 +155,8 @@ radius, balanced with a 90-mile stretch radius)**
   Equinox, Life Time). They go to the enterprise team, not a regional rep.
 - **Needs Review:** 42 accounts, 9 of them Enterprise and listed first.
 
-**Territory planner (`data/territory_map.html`, live at
-https://vtderise-collab.github.io/apollo-icp-territory-skill/data/territory_map.html).**
+**Territory planner (`example/territory_map.html`, live at
+https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html).**
 A sales leader can try changes on the map: radius, stretch radius,
 balancing, book-size goal, marquee accounts on or off, and manual assignment
 of any fit. The books table and findings update live.
@@ -195,8 +195,11 @@ accounts, each with a proposed fix. Nothing is applied to the CRM.
 | Site-builder or social page instead of a company domain | 5 |
 | Industry tag contradicted by the website | 1 |
 
-Outputs are in `data/`: `territory_plan.csv`, `territory_summary.csv`,
-`enterprise_handoff.csv`, `needs_review.csv`, `graded.csv`.
+A run writes its outputs to `data/`. This example run's outputs are
+committed in `example/`: `territory_plan.csv`, `territory_summary.csv`,
+`enterprise_handoff.csv`, `needs_review.csv`, `data_hygiene.csv`,
+`graded.csv` and `territory_map.html`. The repo ships `data/` with only the
+inputs, so every new run starts clean.
 
 ## The problem
 

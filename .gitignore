@@ -27,3 +27,10 @@ __pycache__/
 
 # The assessment brief (private)
 *.pdf
+
+# Run outputs stay local. The repo ships only the inputs in data/; the
+# example run's finished outputs are in example/.
+data/*
+!data/crm_export.csv
+!data/validation_labels.csv
+!data/seed_source.csv

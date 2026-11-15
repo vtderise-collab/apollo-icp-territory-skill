@@ -30,7 +30,14 @@ def main():
     print(f"Scrape coverage: {readable} of {len(evidence)} accounts readable "
           f"({readable / len(evidence):.0%}). Not part of grading accuracy.\n")
 
-    labels = {r["account_id"]: r for r in csv.DictReader(open(DATA / "validation_labels.csv"))}
+    labels_path = DATA / "validation_labels.csv"
+    if not labels_path.exists():
+        print("No hand labels found, so these grades are NOT validated.\n"
+              "To validate: pick about 30 accounts, write the grade you expect for each in\n"
+              "data/validation_labels.csv (columns: account_id,name,website,expected_grade,why),\n"
+              "then run this again. Treat the grades as a draft until then.")
+        return
+    labels = {r["account_id"]: r for r in csv.DictReader(open(labels_path))}
     graded = {r["account_id"]: r for r in csv.DictReader(open(DATA / "graded.csv"))}
     missing = [a for a in labels if a not in graded or not labels[a]["expected_grade"]]
     if missing:

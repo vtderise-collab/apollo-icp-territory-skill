@@ -6,7 +6,7 @@ company's own website as evidence. It enriches each account with Apollo,
 builds balanced rep territories from the real fits, and audits your records
 for data problems.
 
-**Try the territory planner:** https://vtderise-collab.github.io/apollo-icp-territory-skill/data/territory_map.html
+**Try the territory planner:** https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 
 **What you provide**
 
@@ -84,8 +84,10 @@ You need Python 3 (standard library only) and Claude Code.
    territories for my reps." The skill asks how to build territories before
    it builds them.
 
-The skill checks what is already done first, so it never reruns finished,
-validated work. `setup/` only rebuilds the example data, and it needs
+The repo ships `data/` with only the example inputs, so a new run starts
+clean. The example run's finished outputs are in `example/`. The skill
+checks what is already done first, so it never reruns finished, validated
+work. `setup/` only rebuilds the example data, and it needs
 `curl`.
 
 ## Example run
