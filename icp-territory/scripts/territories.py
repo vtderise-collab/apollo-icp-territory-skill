@@ -21,8 +21,13 @@ Both methods
   - Flag location_match other than zip/city as "check location".
   - Put Needs Review on its own list, Enterprise first.
 
+Manager overrides (optional): data/territory_overrides.csv with columns
+account_id, territory. The territory planner page (territory_map.py)
+exports this file. Each listed fit is placed exactly as the manager chose
+(a territory name, or "Unassigned"), and balancing never moves it.
+
 Inputs   data/graded.csv, data/crm_export.csv, data/accounts.csv (segment),
-         config.json
+         config.json, data/territory_overrides.csv (optional)
 Outputs  data/territory_plan.csv, territory_summary.csv,
          enterprise_handoff.csv, needs_review.csv
 
@@ -128,6 +133,7 @@ def balance(plan, anchors, radius, stretch):
     while True:  # 2. contested fits go to the shorter book
         moves = [(counts[r["territory"]] - counts[u], -r["_dist"][u], r, u)
                  for r in plan if r["status"] == "assigned" and r.get("_dist")
+                 and r["assigned_by"] != "manager override"
                  for u in names if u != r["territory"] and r["_dist"][u] <= radius
                  and counts[r["territory"]] - counts[u] >= 2]
         if not moves:
@@ -152,6 +158,24 @@ def balance(plan, anchors, radius, stretch):
     return before, fair, sorted(t for t in names if counts[t] < fair)
 
 
+def load_overrides(territories):
+    """Read the manager's manual assignments, if any. Unknown territory
+    names are reported and ignored, never guessed."""
+    p = DATA / "territory_overrides.csv"
+    if not p.exists():
+        return {}
+    out = {}
+    for r in csv.DictReader(open(p)):
+        aid, t = (r.get("account_id") or "").strip(), (r.get("territory") or "").strip()
+        if not aid or not t:
+            continue
+        if t != "Unassigned" and t not in territories:
+            print(f"Override ignored: {aid} -> {t!r} is not a territory ({', '.join(territories)}).")
+            continue
+        out[aid] = t
+    return out
+
+
 def main():
     full = json.load(open(SKILL_DIR / "config.json"))
     cfg = full["territories"]
@@ -172,6 +196,7 @@ def main():
     else:
         sys.exit(f"Unknown territory method {method!r}. Use 'marquee' or 'state'.")
 
+    overrides = load_overrides(territories)
     plan, enterprise, review = [], [], []
     for g in graded:
         aid = g["account_id"]
@@ -193,6 +218,21 @@ def main():
                "status": "", "assigned_by": "", "location_check": ""}
         if c["location_match"] not in TRUSTED_LOCATION:
             row["location_check"] = f"check location ({c['location_match'] or 'none'})"
+
+        if aid in overrides:
+            t = overrides[aid]
+            row["assigned_by"] = "manager override"
+            dist = {}
+            if method == "marquee" and c["lat"] and c["lon"]:
+                dist = {a["territory"]: miles(float(c["lat"]), float(c["lon"]), a["lat"], a["lon"]) for a in anchors}
+            if t == "Unassigned":
+                row["status"] = "unassigned by manager"
+            else:
+                a = next((x for x in anchors if x["territory"] == t), None)
+                row.update(territory=t, status="assigned", anchor=a["anchor"] if a else "",
+                           miles=round(dist[t]) if t in dist else "")
+            plan.append(row)
+            continue
 
         if method == "state":
             st = state_code(c["state"])
@@ -323,6 +363,10 @@ def main():
     if checks:
         print(f"- {len(checks)} Fit(s) rely on a low-confidence CRM location: "
               + ", ".join(r["name"] for r in checks) + ".")
+    manual = [r for r in plan if r["assigned_by"] == "manager override"]
+    if manual:
+        print(f"- {len(manual)} manager override(s) applied and kept out of balancing: "
+              + "; ".join(f"{r['name']} -> {r['territory'] or 'Unassigned'}" for r in manual) + ".")
     ent_review = sum(1 for r in review if r["segment"] == "Enterprise")
     print(f"- Enterprise handoff: {len(enterprise)} Fits for the enterprise team, not in any territory.")
     print(f"- Needs Review: {len(review)} accounts ({ent_review} Enterprise, listed first).")

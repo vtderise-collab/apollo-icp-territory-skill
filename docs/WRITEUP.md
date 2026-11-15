@@ -149,8 +149,18 @@ radius, balanced with a 90-mile stretch radius)**
   Equinox, Life Time). They go to the enterprise team, not a regional rep.
 - **Needs Review:** 42 accounts, 9 of them Enterprise and listed first.
 
-Map: `data/territory_map.html` shows anchors, radius circles, every Fit and every Needs Review
-account, with the evidence quote on hover (`scripts/territory_map.py`).
+**Territory planner (`data/territory_map.html`, live at
+https://vtderise-collab.github.io/apollo-icp-territory-skill/data/territory_map.html).**
+A sales leader can try changes on the map: radius, stretch radius,
+balancing, book-size goal, marquee accounts on or off, and manual assignment
+of any fit. The books table and findings update live.
+- "Download overrides" saves the manual choices as
+  `territory_overrides.csv`. The skill applies them on the next run, and
+  balancing never moves them.
+- The page carries its own copy of the rules (`assets/planner.js`). That
+  copy could drift from the Python, so every build runs it with Node and
+  checks it reproduces `territory_plan.csv` exactly. I tested that check
+  across seven settings, including manual overrides.
 
 **Two ways to build territories.** The skill asks the user which one; it
 never assumes.

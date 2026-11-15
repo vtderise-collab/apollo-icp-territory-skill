@@ -1,68 +1,376 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rackwell territory map</title>
+<title>Territory planner</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
- body { margin:0; font:14px/1.4 system-ui, sans-serif; background:#fff; color:#1b1f24; }
- header { padding:12px 16px; }
- h1 { font-size:18px; margin:0 0 4px; }
- .counts { font-weight:600; margin-bottom:6px; }
- .note { color:#57606a; font-size:12px; }
- .legend { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:8px; }
- .item { display:inline-flex; align-items:center; gap:6px; }
- .dot { width:12px; height:12px; border-radius:50%; display:inline-block; }
- .sq { width:11px; height:11px; background:#111; display:inline-block; }
- .ring { width:8px; height:8px; border:2px solid; border-radius:50%; display:inline-block; }
- .star { font-size:16px; }
- #map { height: calc(100vh - 130px); min-height:420px; }
+ :root { --ink:#1b1f24; --muted:#57606a; --line:#d8dee4; --panel:#f6f8fa; --short:#b42318; --over:#9a6700; --even:#1a7f37; }
+ * { box-sizing:border-box; }
+ body { margin:0; font:14px/1.45 system-ui, -apple-system, sans-serif; background:#fff; color:var(--ink); }
+ header { padding:12px 16px; border-bottom:1px solid var(--line); }
+ h1 { font-size:18px; margin:0 0 2px; }
+ #counts { font-weight:600; }
+ .note, .muted { color:var(--muted); font-size:12px; }
+ .wrap { display:grid; grid-template-columns:340px 1fr; height:calc(100vh - 86px); min-height:520px; }
+ aside { overflow:auto; padding:12px 16px; background:var(--panel); border-right:1px solid var(--line); }
+ #map { height:100%; }
+ h2 { font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:16px 0 6px; }
+ .ctl { margin:8px 0 12px; }
+ .ctl label { display:flex; justify-content:space-between; font-weight:600; }
+ .ctl input[type=range] { width:100%; }
+ .off { opacity:.4; pointer-events:none; }
+ .chk { display:flex; align-items:center; gap:6px; margin:4px 0; }
+ .dot { width:11px; height:11px; border-radius:50%; display:inline-block; margin-right:4px; vertical-align:middle; }
+ table { width:100%; border-collapse:collapse; background:#fff; }
+ th, td { text-align:left; padding:5px 6px; border-bottom:1px solid var(--line); font-size:13px; }
+ td.short { color:var(--short); font-weight:600; } td.over { color:var(--over); font-weight:600; } td.even { color:var(--even); }
+ #findings { padding-left:18px; margin:6px 0; }
+ #findings li { margin:4px 0; }
+ .btns { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+ button { font:inherit; padding:6px 10px; border:1px solid var(--line); border-radius:6px; background:#fff; cursor:pointer; }
+ button:hover { border-color:var(--muted); }
+ .key { font-size:12px; color:var(--muted); line-height:1.7; }
+ .key i { display:inline-block; width:11px; height:11px; border-radius:50%; vertical-align:middle; margin-right:4px; }
  .ent { width:12px; height:12px; background:#111; border:2px solid #fff; box-shadow:0 0 0 1px #111; }
  .anc { font-size:22px; line-height:22px; text-shadow:0 0 3px #fff; }
  .leaflet-tooltip { max-width:320px; white-space:normal; }
-</style></head><body>
+ .pop { min-width:220px; } .pop .ev { margin:6px 0; font-style:italic; } .pop select { width:100%; margin-top:4px; }
+ body.static .planner { display:none; }
+ @media (max-width: 800px) {
+   .wrap { grid-template-columns:1fr; height:auto; }
+   aside { border-right:0; border-bottom:1px solid var(--line); }
+   #map { height:65vh; }
+ }
+</style></head><body class="">
 <header>
- <h1>Rackwell territory plan</h1>
- <div class="counts">136 accounts · 24 Fit · 12 in territories · 5 out of range · 7 Enterprise handoff · 42 Needs Review</div>
- <div class="note">Territories are built around marquee accounts. Circles are the 60-mile radius.
- Locations are CRM coordinates, never Apollo headquarters. Hover a dot for the evidence.</div>
- <div class="legend"><span class="item"><span class="dot" style="background:#1f6feb"></span>Chicagoland</span><span class="item"><span class="dot" style="background:#d1495b"></span>Milwaukee</span><span class="item"><span class="dot" style="background:#2a9d8f"></span>Michiana</span><span class="item"><span class="dot" style="background:#8a8f98"></span>Out of range Fit</span><span class="item"><span class="sq"></span>Enterprise Fit</span><span class="item"><span class="ring" style="border-color:#6b4f2a"></span>Needs Review</span><span class="item"><span class="star">&#9733;</span>Marquee account</span></div>
+ <h1>Territory planner</h1>
+ <div id="counts"></div>
+ <div class="note">Territories are built around marquee accounts, then balanced so each rep gets about the same number of fits. Drag the sliders or click a fit to try changes. Locations are CRM coordinates, never Apollo headquarters.</div>
 </header>
-<div id="map"></div>
+<div class="wrap">
+ <aside>
+  <div class="planner">
+   <h2>Try changes</h2>
+   <div class="ctl"><label>Radius <span id="radius_v"></span></label><input id="radius" type="range" min="20" max="150" step="5"></div>
+   <div class="ctl"><label class="chk" style="justify-content:flex-start"><input id="balance" type="checkbox"> Balance the books</label></div>
+   <div class="ctl" id="stretchrow"><label>Stretch radius <span id="stretch_v"></span></label><input id="stretch" type="range" min="20" max="250" step="5">
+     <div class="muted">How far a short book may reach for unclaimed fits.</div></div>
+   <div class="ctl"><label>Book-size goal <span id="goal_v"></span></label><input id="goal" type="range" min="0" max="10" step="1">
+     <div class="muted">0 = equal share of the fits in range.</div></div>
+   <h2>Marquee accounts</h2>
+   <div id="anchors"></div>
+  </div>
+  <h2>Books</h2>
+  <table id="summary"></table>
+  <h2>What the plan says</h2>
+  <ul id="findings"></ul>
+  <div class="planner">
+   <div class="btns"><button id="reset">Reset</button><button id="dl_plan">Download plan</button><button id="dl_over">Download overrides</button></div>
+   <p class="muted">Click any fit on the map to assign it by hand. To make your changes official, put
+   <code>territory_overrides.csv</code> in <code>data/</code> and rerun the skill's territory step.</p>
+  </div>
+  <h2>Key</h2>
+  <div class="key">Colored dot: fit in that book · grey: no territory covers it<br>
+  Dashed ring: moved by balancing · thick black ring: your manual assignment<br>
+  &#9733; marquee account · black square: Enterprise handoff · small ring: Needs Review</div>
+ </aside>
+ <div id="map"></div>
+</div>
+<script>window.PLANNER_DATA = {"static": false, "anchors": [{"territory": "Chicagoland", "anchor": "Prairie Line Athletic Club (made up)", "lat": 42.057, "lon": -88.048, "city": "Schaumburg", "state": "IL", "postal_code": "60173", "color": "#1f6feb"}, {"territory": "Milwaukee", "anchor": "Harbor Point Fitness (made up)", "lat": 43.045, "lon": -87.898, "city": "Milwaukee", "state": "WI", "postal_code": "53202", "color": "#d1495b"}, {"territory": "Michiana", "anchor": "St. Joe Valley Strength (made up)", "lat": 41.672, "lon": -86.253, "city": "South Bend", "state": "IN", "postal_code": "46601", "color": "#2a9d8f"}], "fits": [{"id": "ACC-0007", "name": "EduFit", "city": "Delavan", "state": "WI", "lat": 42.6328289, "lon": -88.6308242, "evidence": "A basic fitness membership with limited access provides entry to essential gym facilities", "territory": "Milwaukee", "status": "assigned"}, {"id": "ACC-0008", "name": "Delavan Fitness Center and Rocky's Gym", "city": "Delavan", "state": "WI", "lat": 42.6336886, "lon": -88.6458142, "evidence": "We have the friendliest staff, cleanest facility, and the most comprehensive selection of cardio, free-weights, and machines.", "territory": "Milwaukee", "status": "assigned"}, {"id": "ACC-0012", "name": "Vita Physical Therapy & Fitness", "city": "Milwaukee", "state": "", "lat": 43.0289312, "lon": -87.9044523, "evidence": "24/7 access, allowing you to work out on your schedule. Membership pricing starts at $59", "territory": "Milwaukee", "status": "assigned"}, {"id": "ACC-0014", "name": "O-Town Iron", "city": "", "state": "", "lat": 44.0411626, "lon": -88.5405554, "evidence": "Our facility offers a wide range of strength training equipment, cardio machines, functional fitness tools, and workout spaces", "territory": "", "status": "out of range"}, {"id": "ACC-0015", "name": "Body Tech Total Fitness", "city": "Joliet", "state": "IL", "lat": 41.5736954, "lon": -88.1709775, "evidence": "One membership opens the door to everything: 250+ cardio and strength machines, 40+ weekly group classes, recovery amenities", "territory": "Chicagoland", "status": "assigned"}, {"id": "ACC-0016", "name": "The House Barbell Club", "city": "Peoria", "state": "IL", "lat": 40.7846064, "lon": -89.612692, "evidence": "Open Gym | 24/7 365 Access Student/Hero Discount $55/month Adult Membership $70/month", "territory": "", "status": "out of range"}, {"id": "ACC-0020", "name": "Institute for Human Performance", "city": "Deerfield", "state": "IL", "lat": 42.1501371, "lon": -87.8457394, "evidence": "Join our gym today for best results. Start training at our gym with your personal trainer at affordable rate.", "territory": "Chicagoland", "status": "assigned"}, {"id": "ACC-0029", "name": "Fitness Formula Club", "city": "Park Ridge", "state": "IL", "lat": 42.0114265, "lon": -87.8351105, "evidence": "Get in a great workout with our high-end strength and cardio equipment, swim laps indoors or outside", "territory": "Chicagoland", "status": "assigned"}, {"id": "ACC-0030", "name": "Northwestern Medicine Huntley Health & Fitness Center", "city": "Huntley", "state": "Illinois", "lat": 42.1764167, "lon": -88.4000733, "evidence": "Our top-tier fitness equipment and full menu of amenities are designed to create an invigorating, relaxing experience", "territory": "Chicagoland", "status": "assigned"}, {"id": "ACC-0033", "name": "Fitness Freedom", "city": "Eau Claire", "state": "WI", "lat": 44.8124077, "lon": -91.5009792, "evidence": "With your Fitness Freedom membership, you can access our facility at your convenience 24/7 that works on your schedule.", "territory": "", "status": "out of range"}, {"id": "ACC-0035", "name": "Torres Martial Arts Academy", "city": "Hobart", "state": "IN", "lat": 41.5512327, "lon": -87.2355143, "evidence": "Members may use equipment during these times, with the exception of scheduled classes.", "territory": "Michiana", "status": "assigned"}, {"id": "ACC-0037", "name": "Fit Club", "city": "Springfield", "state": "IL", "lat": 39.7525004, "lon": -89.6464279, "evidence": "Our facility is equipped with a huge selection of free weights, cardio equipment, and selectorized machines, a lap pool", "territory": "", "status": "out of range"}, {"id": "ACC-0047", "name": "Fitness Premier", "city": "Mahomet", "state": "IL", "lat": 40.1855733, "lon": -88.3751779, "evidence": "Full line of True Fitness Cardio and Strength Training Equipment LesMills Group X & Virtual Classes 24/7 Access for Members", "territory": "", "status": "out of range"}, {"id": "ACC-0054", "name": "Village of Shorewood YMCA", "city": "Shorewood", "state": "IL", "lat": 41.5202407, "lon": -88.2335889, "evidence": "State-of-the-Art Wellness Centers Includes first-rate strength and cardio equipment. Free Group Exercise Classes", "territory": "Chicagoland", "status": "assigned"}, {"id": "ACC-0058", "name": "Twisted Fitness", "city": "Madison", "state": "WI", "lat": 43.1081346, "lon": -89.3350467, "evidence": "The Gym Strongman, Powerlifting, Olympic Weightlifting and More. Coaching Available.", "territory": "Milwaukee", "status": "assigned"}, {"id": "ACC-0063", "name": "Refiner's Fire CrossFit", "city": "", "state": "", "lat": 41.6607219, "lon": -85.9698175, "evidence": "combines high-intensity functional movements across various exercises like weightlifting, running, and gymnastics", "territory": "Michiana", "status": "assigned"}, {"id": "ACC-0070", "name": "Arlington Ridge Center (ARC)", "city": "Arlington Heights", "state": "IL", "lat": 42.0533676, "lon": -87.9931135, "evidence": "You must have a membership or pay a daily fee to use the facility", "territory": "Chicagoland", "status": "assigned"}], "others": [{"kind": "enterprise", "name": "UFC Gym", "lat": 41.9468195, "lon": -87.6559895, "label": "Fit \u00b7 Enterprise handoff", "evidence": "Typical club amenities include a bag rack, indoor turf, mat area, free weights, and essential cardio and weight equipment."}, {"kind": "enterprise", "name": "LA Fitness", "lat": 41.9413029, "lon": -87.6691504, "label": "Fit \u00b7 Enterprise handoff", "evidence": "Complete access to Pool, Spa and Sauna Premium weights, strength and cardio equipment"}, {"kind": "enterprise", "name": "Orangetheory Fitness", "lat": 41.9667505, "lon": -87.8056981, "label": "Fit \u00b7 Enterprise handoff", "evidence": "Boost your energy and heart health with variable-intensity intervals on treadmills, rowers, and the floor."}, {"kind": "enterprise", "name": "Snap Fitness", "lat": 43.0542114, "lon": -87.8913035, "label": "Fit \u00b7 Enterprise handoff", "evidence": "Members get access to the best range of cardio, strength, and functional training equipment, plus a member app"}, {"kind": "enterprise", "name": "Equinox", "lat": 41.8859654, "lon": -87.6506815, "label": "Fit \u00b7 Enterprise handoff", "evidence": "Our expansive training floors offer everything from free weights and kettlebells to cable systems and Woodway treadmills."}, {"kind": "enterprise", "name": "Gold's Gym", "lat": 43.0394116, "lon": -87.9093412, "label": "Fit \u00b7 Enterprise handoff", "evidence": "Gold's Gym is equipped with cutting-edge machines and free weights designed to help every athlete reach their potential"}, {"kind": "enterprise", "name": "Life Time", "lat": 42.2041854, "lon": -88.1103799, "label": "Fit \u00b7 Enterprise handoff", "evidence": "Workout Floor A stunning, expansive space packed with premium equipment. Build strength. Gain confidence."}, {"kind": "review", "name": "Anytime Fitness", "lat": 41.4825458, "lon": -87.4701089, "label": "Needs Review \u00b7 Enterprise \u00b7 parked_or_empty", "evidence": "Website could not be read: thin_content"}, {"kind": "review", "name": "Crunch Fitness", "lat": 41.5108651, "lon": -87.469063, "label": "Needs Review \u00b7 Enterprise \u00b7 parked_or_empty", "evidence": "Website could not be read: thin_content"}, {"kind": "review", "name": "9Round", "lat": 43.0384525, "lon": -87.912833, "label": "Needs Review \u00b7 Enterprise \u00b7 scrape_failed", "evidence": "Website could not be read: http_404"}, {"kind": "review", "name": "Blink Fitness", "lat": 41.6831796, "lon": -87.7014445, "label": "Needs Review \u00b7 Enterprise \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "GNC", "lat": 44.465131, "lon": -87.9833085, "label": "Needs Review \u00b7 Enterprise \u00b7 scrape_failed", "evidence": "Website could not be read: http_307"}, {"kind": "review", "name": "Hibbett Sports", "lat": 38.526737, "lon": -90.0331668, "label": "Needs Review \u00b7 Enterprise \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Planet Fitness", "lat": 43.0173558, "lon": -87.9962992, "label": "Needs Review \u00b7 Enterprise \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Pure Barre", "lat": 39.1628575, "lon": -86.4960385, "label": "Needs Review \u00b7 Enterprise \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Vitamin World", "lat": 40.1418177, "lon": -88.2442102, "label": "Needs Review \u00b7 Enterprise \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Fitness Matrix", "lat": 42.0333904, "lon": -87.7058581, "label": "Needs Review \u00b7 Mid-Market \u00b7 cannot_tell", "evidence": "Then we formulate a personalized fitness plan powered by science, and get to work! Call to schedule your introductory class today."}, {"kind": "review", "name": "A1 Archery", "lat": 44.9699406, "lon": -92.6837618, "label": "Needs Review \u00b7 Mid-Market \u00b7 parked_or_empty", "evidence": "Website could not be read: thin_content"}, {"kind": "review", "name": "Kru Strength + Fitness", "lat": 41.9748405, "lon": -87.6680258, "label": "Needs Review \u00b7 Mid-Market \u00b7 parked_or_empty", "evidence": "Website could not be read: thin_content"}, {"kind": "review", "name": "Level 10 Nutrition", "lat": 41.4199775, "lon": -87.2492959, "label": "Needs Review \u00b7 Mid-Market \u00b7 parked_or_empty", "evidence": "Website could not be read: thin_content"}, {"kind": "review", "name": "Naperville Running Co.", "lat": 41.7032325, "lon": -88.2046311, "label": "Needs Review \u00b7 Mid-Market \u00b7 parked_or_empty", "evidence": "Website could not be read: thin_content"}, {"kind": "review", "name": "One Nation Nutrition", "lat": 38.8796256, "lon": -90.1190944, "label": "Needs Review \u00b7 Mid-Market \u00b7 parked_or_empty", "evidence": "Website could not be read: thin_content"}, {"kind": "review", "name": "USA Ninja Challenge", "lat": 43.0777609, "lon": -88.1834303, "label": "Needs Review \u00b7 Mid-Market \u00b7 parked_or_empty", "evidence": "Website could not be read: thin_content"}, {"kind": "review", "name": "Wilmington Park District", "lat": 41.3102258, "lon": -88.1473141, "label": "Needs Review \u00b7 Mid-Market \u00b7 parked_or_empty", "evidence": "From here you may register for any programs, classes and activities that we currently offer."}, {"kind": "review", "name": "105F Yoga", "lat": 41.9323059, "lon": -87.6449724, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "ASCENT Gym", "lat": 43.0439041, "lon": -87.9158073, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: connect_failed"}, {"kind": "review", "name": "Active Nutrition & Supplements", "lat": 38.6618343, "lon": -87.5043924, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Adidas", "lat": 42.5171584, "lon": -87.9481959, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_307"}, {"kind": "review", "name": "Brick Yard Gym", "lat": 41.80768, "lon": -87.7255963, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_404"}, {"kind": "review", "name": "City Sports", "lat": 41.9035489, "lon": -87.6664676, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Double R Boxing & Fitness", "lat": 41.5928712, "lon": -85.8502711, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: connect_failed"}, {"kind": "review", "name": "ES3 MEDICAL GROUP & ES3 FITNESS REHAB", "lat": 41.5951064, "lon": -87.5593602, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: dns_failure"}, {"kind": "review", "name": "Fit For You Yoga", "lat": 42.780215, "lon": -89.2999205, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_400"}, {"kind": "review", "name": "FitStop", "lat": 41.67802, "lon": -85.7055276, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Foot Wellness", "lat": 40.0011308, "lon": -86.0687066, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_404"}, {"kind": "review", "name": "Gymnastics Academy of Rockford South Trampoline Park", "lat": 42.2472089, "lon": -88.9709999, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: dns_failure"}, {"kind": "review", "name": "Gymnastics Divine", "lat": 41.8450292, "lon": -89.4757499, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: dns_failure"}, {"kind": "review", "name": "InStep Physical Therapy & Running Center", "lat": 43.0338534, "lon": -87.9057733, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Journey Fitness", "lat": 41.1709165, "lon": -85.5005693, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: dns_failure"}, {"kind": "review", "name": "Leisure World Health Club", "lat": 38.9000073, "lon": -90.0378066, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Live Well Hemp", "lat": 40.2778464, "lon": -86.4972568, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: dns_failure"}, {"kind": "review", "name": "Quads Gym", "lat": 41.9499744, "lon": -87.6487315, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Reidefined Fitness", "lat": 41.1718123, "lon": -85.5065625, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: dns_failure"}, {"kind": "review", "name": "Septi Fitness", "lat": 43.0735167, "lon": -89.3851036, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: connect_failed"}, {"kind": "review", "name": "Supplement Warehouse", "lat": 43.0168231, "lon": -88.0016331, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "Svpplements", "lat": 41.7245544, "lon": -86.184319, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_503"}, {"kind": "review", "name": "The Healthy Place", "lat": 43.0153549, "lon": -89.4816471, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_403"}, {"kind": "review", "name": "West Loop Athletic Club", "lat": 41.8845749, "lon": -87.6617701, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: http_404"}, {"kind": "review", "name": "pilatesplusunlimited", "lat": 41.9596077, "lon": -88.7187601, "label": "Needs Review \u00b7 Mid-Market \u00b7 scrape_failed", "evidence": "Website could not be read: dns_failure"}], "defaults": {"radius": 60, "stretch": 90, "balance": true, "overrides": {}}, "totals": {"accounts": 136, "fits": 24, "enterprise": 7, "review": 42}};</script>
 <script>
-const anchors = [{"lat": 42.057, "lon": -88.048, "color": "#1f6feb", "tip": "<b>Chicagoland<\/b><br>Prairie Line Athletic Club (made up)<br>Schaumburg, IL 60173"}, {"lat": 43.045, "lon": -87.898, "color": "#d1495b", "tip": "<b>Milwaukee<\/b><br>Harbor Point Fitness (made up)<br>Milwaukee, WI 53202"}, {"lat": 41.672, "lon": -86.253, "color": "#2a9d8f", "tip": "<b>Michiana<\/b><br>St. Joe Valley Strength (made up)<br>South Bend, IN 46601"}];
-const points = [{"lat": 42.0533676, "lon": -87.9931135, "kind": "fit", "color": "#1f6feb", "tip": "<b>Arlington Ridge Center (ARC)<\/b><br>Fit \u00b7 Mid-Market<br>Chicagoland, 3 mi from anchor<br><i>You must have a membership or pay a daily fee to use the facility<\/i>"}, {"lat": 42.0114265, "lon": -87.8351105, "kind": "fit", "color": "#1f6feb", "tip": "<b>Fitness Formula Club<\/b><br>Fit \u00b7 Mid-Market<br>Chicagoland, 11 mi from anchor<br><i>Get in a great workout with our high-end strength and cardio equipment, swim laps indoors or outside<\/i>"}, {"lat": 42.1501371, "lon": -87.8457394, "kind": "fit", "color": "#1f6feb", "tip": "<b>Institute for Human Performance<\/b><br>Fit \u00b7 Mid-Market<br>Chicagoland, 12 mi from anchor<br><i>Join our gym today for best results. Start training at our gym with your personal trainer at affordable rate.<\/i>"}, {"lat": 42.1764167, "lon": -88.4000733, "kind": "fit", "color": "#1f6feb", "tip": "<b>Northwestern Medicine Huntley Health &amp; Fitness Center<\/b><br>Fit \u00b7 Mid-Market<br>Chicagoland, 20 mi from anchor<br><i>Our top-tier fitness equipment and full menu of amenities are designed to create an invigorating, relaxing experience<\/i>"}, {"lat": 41.5736954, "lon": -88.1709775, "kind": "fit", "color": "#1f6feb", "tip": "<b>Body Tech Total Fitness<\/b><br>Fit \u00b7 Mid-Market<br>Chicagoland, 34 mi from anchor<br><i>One membership opens the door to everything: 250+ cardio and strength machines, 40+ weekly group classes, recovery amenities<\/i>"}, {"lat": 41.5202407, "lon": -88.2335889, "kind": "fit", "color": "#1f6feb", "tip": "<b>Village of Shorewood YMCA<\/b><br>Fit \u00b7 Mid-Market<br>Chicagoland, 38 mi from anchor<br><i>State-of-the-Art Wellness Centers Includes first-rate strength and cardio equipment. Free Group Exercise Classes<\/i>"}, {"lat": 43.0289312, "lon": -87.9044523, "kind": "fit", "color": "#d1495b", "tip": "<b>Vita Physical Therapy &amp; Fitness<\/b><br>Fit \u00b7 Mid-Market<br>Milwaukee, 1 mi from anchor<br><i>24/7 access, allowing you to work out on your schedule. Membership pricing starts at $59<\/i>"}, {"lat": 42.6336886, "lon": -88.6458142, "kind": "fit", "color": "#d1495b", "tip": "<b>Delavan Fitness Center and Rocky&#x27;s Gym<\/b><br>Fit \u00b7 Mid-Market<br>Milwaukee, 47 mi from anchor<br><i>We have the friendliest staff, cleanest facility, and the most comprehensive selection of cardio, free-weights, and machines.<\/i>"}, {"lat": 42.6328289, "lon": -88.6308242, "kind": "fit", "color": "#d1495b", "tip": "<b>EduFit<\/b><br>Fit \u00b7 Mid-Market<br>Milwaukee, 47 mi from anchor<br><i>A basic fitness membership with limited access provides entry to essential gym facilities<\/i>"}, {"lat": 43.1081346, "lon": -89.3350467, "kind": "fit", "color": "#d1495b", "tip": "<b>Twisted Fitness<\/b><br>Fit \u00b7 Mid-Market<br>Milwaukee, 73 mi from anchor. Balanced: claimed within the 90-mile stretch radius<br><i>The Gym Strongman, Powerlifting, Olympic Weightlifting and More. Coaching Available.<\/i>"}, {"lat": 41.6607219, "lon": -85.9698175, "kind": "fit", "color": "#2a9d8f", "tip": "<b>Refiner&#x27;s Fire CrossFit<\/b><br>Fit \u00b7 Mid-Market<br>Michiana, 15 mi from anchor<br><i>combines high-intensity functional movements across various exercises like weightlifting, running, and gymnastics<\/i>"}, {"lat": 41.5512327, "lon": -87.2355143, "kind": "fit", "color": "#2a9d8f", "tip": "<b>Torres Martial Arts Academy<\/b><br>Fit \u00b7 Mid-Market<br>Michiana, 51 mi from anchor<br><i>Members may use equipment during these times, with the exception of scheduled classes.<\/i>"}, {"lat": 44.0411626, "lon": -88.5405554, "kind": "fit", "color": "#8a8f98", "tip": "<b>O-Town Iron<\/b><br>Fit \u00b7 Mid-Market<br>out of range (76 mi, nearest: Milwaukee)<br><i>Our facility offers a wide range of strength training equipment, cardio machines, functional fitness tools, and workout spaces<\/i>"}, {"lat": 40.7846064, "lon": -89.612692, "kind": "fit", "color": "#8a8f98", "tip": "<b>The House Barbell Club<\/b><br>Fit \u00b7 Mid-Market<br>out of range (120 mi, nearest: Chicagoland)<br><i>Open Gym | 24/7 365 Access Student/Hero Discount $55/month Adult Membership $70/month<\/i>"}, {"lat": 40.1855733, "lon": -88.3751779, "kind": "fit", "color": "#8a8f98", "tip": "<b>Fitness Premier<\/b><br>Fit \u00b7 Mid-Market<br>out of range (130 mi, nearest: Chicagoland)<br><i>Full line of True Fitness Cardio and Strength Training Equipment LesMills Group X &amp; Virtual Classes 24/7 Access for Members<\/i>"}, {"lat": 39.7525004, "lon": -89.6464279, "kind": "fit", "color": "#8a8f98", "tip": "<b>Fit Club<\/b><br>Fit \u00b7 Mid-Market<br>out of range (180 mi, nearest: Chicagoland)<br><i>Our facility is equipped with a huge selection of free weights, cardio equipment, and selectorized machines, a lap pool<\/i>"}, {"lat": 44.8124077, "lon": -91.5009792, "kind": "fit", "color": "#8a8f98", "tip": "<b>Fitness Freedom<\/b><br>Fit \u00b7 Mid-Market<br>out of range (217 mi, nearest: Milwaukee)<br><i>With your Fitness Freedom membership, you can access our facility at your convenience 24/7 that works on your schedule.<\/i>"}, {"lat": 41.9468195, "lon": -87.6559895, "kind": "enterprise", "color": "#111111", "tip": "<b>UFC Gym<\/b><br>Fit \u00b7 Enterprise<br>Enterprise handoff<br><i>Typical club amenities include a bag rack, indoor turf, mat area, free weights, and essential cardio and weight equipment.<\/i>"}, {"lat": 41.9413029, "lon": -87.6691504, "kind": "enterprise", "color": "#111111", "tip": "<b>LA Fitness<\/b><br>Fit \u00b7 Enterprise<br>Enterprise handoff<br><i>Complete access to Pool, Spa and Sauna Premium weights, strength and cardio equipment<\/i>"}, {"lat": 41.9667505, "lon": -87.8056981, "kind": "enterprise", "color": "#111111", "tip": "<b>Orangetheory Fitness<\/b><br>Fit \u00b7 Enterprise<br>Enterprise handoff<br><i>Boost your energy and heart health with variable-intensity intervals on treadmills, rowers, and the floor.<\/i>"}, {"lat": 43.0542114, "lon": -87.8913035, "kind": "enterprise", "color": "#111111", "tip": "<b>Snap Fitness<\/b><br>Fit \u00b7 Enterprise<br>Enterprise handoff<br><i>Members get access to the best range of cardio, strength, and functional training equipment, plus a member app<\/i>"}, {"lat": 41.8859654, "lon": -87.6506815, "kind": "enterprise", "color": "#111111", "tip": "<b>Equinox<\/b><br>Fit \u00b7 Enterprise<br>Enterprise handoff<br><i>Our expansive training floors offer everything from free weights and kettlebells to cable systems and Woodway treadmills.<\/i>"}, {"lat": 43.0394116, "lon": -87.9093412, "kind": "enterprise", "color": "#111111", "tip": "<b>Gold&#x27;s Gym<\/b><br>Fit \u00b7 Enterprise<br>Enterprise handoff<br><i>Gold&#x27;s Gym is equipped with cutting-edge machines and free weights designed to help every athlete reach their potential<\/i>"}, {"lat": 42.2041854, "lon": -88.1103799, "kind": "enterprise", "color": "#111111", "tip": "<b>Life Time<\/b><br>Fit \u00b7 Enterprise<br>Enterprise handoff<br><i>Workout Floor A stunning, expansive space packed with premium equipment. Build strength. Gain confidence.<\/i>"}, {"lat": 41.4825458, "lon": -87.4701089, "kind": "review", "color": "#6b4f2a", "tip": "<b>Anytime Fitness<\/b><br>Needs Review \u00b7 Enterprise<br>parked_or_empty<br><i>Website could not be read: thin_content<\/i>"}, {"lat": 41.5108651, "lon": -87.469063, "kind": "review", "color": "#6b4f2a", "tip": "<b>Crunch Fitness<\/b><br>Needs Review \u00b7 Enterprise<br>parked_or_empty<br><i>Website could not be read: thin_content<\/i>"}, {"lat": 43.0384525, "lon": -87.912833, "kind": "review", "color": "#6b4f2a", "tip": "<b>9Round<\/b><br>Needs Review \u00b7 Enterprise<br>scrape_failed<br><i>Website could not be read: http_404<\/i>"}, {"lat": 41.6831796, "lon": -87.7014445, "kind": "review", "color": "#6b4f2a", "tip": "<b>Blink Fitness<\/b><br>Needs Review \u00b7 Enterprise<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 44.465131, "lon": -87.9833085, "kind": "review", "color": "#6b4f2a", "tip": "<b>GNC<\/b><br>Needs Review \u00b7 Enterprise<br>scrape_failed<br><i>Website could not be read: http_307<\/i>"}, {"lat": 38.526737, "lon": -90.0331668, "kind": "review", "color": "#6b4f2a", "tip": "<b>Hibbett Sports<\/b><br>Needs Review \u00b7 Enterprise<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 43.0173558, "lon": -87.9962992, "kind": "review", "color": "#6b4f2a", "tip": "<b>Planet Fitness<\/b><br>Needs Review \u00b7 Enterprise<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 39.1628575, "lon": -86.4960385, "kind": "review", "color": "#6b4f2a", "tip": "<b>Pure Barre<\/b><br>Needs Review \u00b7 Enterprise<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 40.1418177, "lon": -88.2442102, "kind": "review", "color": "#6b4f2a", "tip": "<b>Vitamin World<\/b><br>Needs Review \u00b7 Enterprise<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 42.0333904, "lon": -87.7058581, "kind": "review", "color": "#6b4f2a", "tip": "<b>Fitness Matrix<\/b><br>Needs Review \u00b7 Mid-Market<br>cannot_tell<br><i>Then we formulate a personalized fitness plan powered by science, and get to work! Call to schedule your introductory class today.<\/i>"}, {"lat": 44.9699406, "lon": -92.6837618, "kind": "review", "color": "#6b4f2a", "tip": "<b>A1 Archery<\/b><br>Needs Review \u00b7 Mid-Market<br>parked_or_empty<br><i>Website could not be read: thin_content<\/i>"}, {"lat": 41.9748405, "lon": -87.6680258, "kind": "review", "color": "#6b4f2a", "tip": "<b>Kru Strength + Fitness<\/b><br>Needs Review \u00b7 Mid-Market<br>parked_or_empty<br><i>Website could not be read: thin_content<\/i>"}, {"lat": 41.4199775, "lon": -87.2492959, "kind": "review", "color": "#6b4f2a", "tip": "<b>Level 10 Nutrition<\/b><br>Needs Review \u00b7 Mid-Market<br>parked_or_empty<br><i>Website could not be read: thin_content<\/i>"}, {"lat": 41.7032325, "lon": -88.2046311, "kind": "review", "color": "#6b4f2a", "tip": "<b>Naperville Running Co.<\/b><br>Needs Review \u00b7 Mid-Market<br>parked_or_empty<br><i>Website could not be read: thin_content<\/i>"}, {"lat": 38.8796256, "lon": -90.1190944, "kind": "review", "color": "#6b4f2a", "tip": "<b>One Nation Nutrition<\/b><br>Needs Review \u00b7 Mid-Market<br>parked_or_empty<br><i>Website could not be read: thin_content<\/i>"}, {"lat": 43.0777609, "lon": -88.1834303, "kind": "review", "color": "#6b4f2a", "tip": "<b>USA Ninja Challenge<\/b><br>Needs Review \u00b7 Mid-Market<br>parked_or_empty<br><i>Website could not be read: thin_content<\/i>"}, {"lat": 41.3102258, "lon": -88.1473141, "kind": "review", "color": "#6b4f2a", "tip": "<b>Wilmington Park District<\/b><br>Needs Review \u00b7 Mid-Market<br>parked_or_empty<br><i>From here you may register for any programs, classes and activities that we currently offer.<\/i>"}, {"lat": 41.9323059, "lon": -87.6449724, "kind": "review", "color": "#6b4f2a", "tip": "<b>105F Yoga<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 43.0439041, "lon": -87.9158073, "kind": "review", "color": "#6b4f2a", "tip": "<b>ASCENT Gym<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: connect_failed<\/i>"}, {"lat": 38.6618343, "lon": -87.5043924, "kind": "review", "color": "#6b4f2a", "tip": "<b>Active Nutrition &amp; Supplements<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 42.5171584, "lon": -87.9481959, "kind": "review", "color": "#6b4f2a", "tip": "<b>Adidas<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_307<\/i>"}, {"lat": 41.80768, "lon": -87.7255963, "kind": "review", "color": "#6b4f2a", "tip": "<b>Brick Yard Gym<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_404<\/i>"}, {"lat": 41.9035489, "lon": -87.6664676, "kind": "review", "color": "#6b4f2a", "tip": "<b>City Sports<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 41.5928712, "lon": -85.8502711, "kind": "review", "color": "#6b4f2a", "tip": "<b>Double R Boxing &amp; Fitness<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: connect_failed<\/i>"}, {"lat": 41.5951064, "lon": -87.5593602, "kind": "review", "color": "#6b4f2a", "tip": "<b>ES3 MEDICAL GROUP &amp; ES3 FITNESS REHAB<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: dns_failure<\/i>"}, {"lat": 42.780215, "lon": -89.2999205, "kind": "review", "color": "#6b4f2a", "tip": "<b>Fit For You Yoga<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_400<\/i>"}, {"lat": 41.67802, "lon": -85.7055276, "kind": "review", "color": "#6b4f2a", "tip": "<b>FitStop<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 40.0011308, "lon": -86.0687066, "kind": "review", "color": "#6b4f2a", "tip": "<b>Foot Wellness<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_404<\/i>"}, {"lat": 42.2472089, "lon": -88.9709999, "kind": "review", "color": "#6b4f2a", "tip": "<b>Gymnastics Academy of Rockford South Trampoline Park<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: dns_failure<\/i>"}, {"lat": 41.8450292, "lon": -89.4757499, "kind": "review", "color": "#6b4f2a", "tip": "<b>Gymnastics Divine<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: dns_failure<\/i>"}, {"lat": 43.0338534, "lon": -87.9057733, "kind": "review", "color": "#6b4f2a", "tip": "<b>InStep Physical Therapy &amp; Running Center<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 41.1709165, "lon": -85.5005693, "kind": "review", "color": "#6b4f2a", "tip": "<b>Journey Fitness<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: dns_failure<\/i>"}, {"lat": 38.9000073, "lon": -90.0378066, "kind": "review", "color": "#6b4f2a", "tip": "<b>Leisure World Health Club<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 40.2778464, "lon": -86.4972568, "kind": "review", "color": "#6b4f2a", "tip": "<b>Live Well Hemp<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: dns_failure<\/i>"}, {"lat": 41.9499744, "lon": -87.6487315, "kind": "review", "color": "#6b4f2a", "tip": "<b>Quads Gym<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 41.1718123, "lon": -85.5065625, "kind": "review", "color": "#6b4f2a", "tip": "<b>Reidefined Fitness<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: dns_failure<\/i>"}, {"lat": 43.0735167, "lon": -89.3851036, "kind": "review", "color": "#6b4f2a", "tip": "<b>Septi Fitness<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: connect_failed<\/i>"}, {"lat": 43.0168231, "lon": -88.0016331, "kind": "review", "color": "#6b4f2a", "tip": "<b>Supplement Warehouse<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 41.7245544, "lon": -86.184319, "kind": "review", "color": "#6b4f2a", "tip": "<b>Svpplements<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_503<\/i>"}, {"lat": 43.0153549, "lon": -89.4816471, "kind": "review", "color": "#6b4f2a", "tip": "<b>The Healthy Place<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_403<\/i>"}, {"lat": 41.8845749, "lon": -87.6617701, "kind": "review", "color": "#6b4f2a", "tip": "<b>West Loop Athletic Club<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: http_404<\/i>"}, {"lat": 41.9596077, "lon": -88.7187601, "kind": "review", "color": "#6b4f2a", "tip": "<b>pilatesplusunlimited<\/b><br>Needs Review \u00b7 Mid-Market<br>scrape_failed<br><i>Website could not be read: dns_failure<\/i>"}];
-const radius = 96560.4;
-const map = L.map('map');
-// Esri World Light Gray basemap plus its label layer. Keyless and works from
-// a file opened on disk. (OSM's own servers block pages without a Referer;
-// CARTO now needs an API key.)
-const esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/';
-L.tileLayer(esri + 'World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-  maxZoom: 16, attribution: 'Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors'
-}).addTo(map);
-L.tileLayer(esri + 'World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {maxZoom: 16}).addTo(map);
-const bounds = [];
-for (const a of anchors) {
-  L.circle([a.lat, a.lon], {radius, color:a.color, weight:1.5, fillOpacity:0.06}).addTo(map);
-  L.marker([a.lat, a.lon], {icon: L.divIcon({className:'', html:'<div class="anc" style="color:'+a.color+'">&#9733;</div>', iconSize:[22,22], iconAnchor:[11,11]}), zIndexOffset: 1000})
-    .bindTooltip(a.tip).addTo(map);
-  bounds.push([a.lat, a.lon]);
+/* Territory planner: the browser copy of the assignment and balancing rules
+ * in scripts/territories.py, so a sales leader can try changes live.
+ *
+ * computePlan() must give the same result as territories.py for the same
+ * settings. territory_map.py checks this with Node every time it builds the
+ * page. If you change a rule in one place, change it in the other.
+ *
+ * The rest of the file is the page UI. It runs only in a browser.
+ */
+
+function milesBetween(lat1, lon1, lat2, lon2) {
+  const r = 3958.8;
+  const rad = (d) => d * Math.PI / 180;
+  const p1 = rad(lat1), p2 = rad(lat2);
+  const dp = p2 - p1, dl = rad(lon2 - lon1);
+  const a = Math.sin(dp / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2;
+  return 2 * r * Math.asin(Math.sqrt(a));
 }
-const order = {review:0, fit:1, enterprise:2};
-points.sort((p, q) => order[p.kind] - order[q.kind]);
-for (const p of points) {
-  let m;
-  if (p.kind === 'enterprise') {
-    m = L.marker([p.lat, p.lon], {icon: L.divIcon({className:'', html:'<div class="ent"></div>', iconSize:[12,12], iconAnchor:[6,6]})});
-  } else if (p.kind === 'review') {
-    m = L.circleMarker([p.lat, p.lon], {radius:4, color:p.color, weight:1.5, fill:false});
-  } else {
-    m = L.circleMarker([p.lat, p.lon], {radius:7, color:'#fff', weight:1.5, fillColor:p.color, fillOpacity:0.95});
+
+/* fits: Mid-Market Fits in graded order: {id, name, lat, lon, ...}
+ * anchors: marquee accounts in config order: {territory, anchor, lat, lon}
+ * p: {radius, stretch, balance, goal (0 = auto), active: [territory...],
+ *     overrides: {id: territory or "Unassigned"}} */
+function computePlan(fits, anchors, p) {
+  const act = anchors.filter((a) => p.active.includes(a.territory));
+  const names = act.map((a) => a.territory);
+  const byName = Object.fromEntries(act.map((a) => [a.territory, a]));
+  const rows = fits.map((f) => ({ ...f, territory: "", status: "", assigned_by: "", miles: null, dist: null }));
+
+  for (const r of rows) {
+    const hasLoc = r.lat != null && r.lon != null;
+    if (hasLoc) r.dist = Object.fromEntries(act.map((a) => [a.territory, milesBetween(r.lat, r.lon, a.lat, a.lon)]));
+    const ov = p.overrides[r.id];
+    if (ov) { // the manager's choice wins, with or without a location
+      r.assigned_by = "manager override";
+      if (ov !== "Unassigned" && byName[ov]) {
+        r.territory = ov; r.status = "assigned"; r.miles = hasLoc ? r.dist[ov] : null;
+      } else {
+        r.status = "unassigned by manager";
+      }
+      continue;
+    }
+    if (!hasLoc) { r.status = "no location in CRM"; continue; }
+    if (!act.length) { r.status = "out of range"; continue; }
+    // nearest; ties keep config order, like Python's stable sort
+    let best = null;
+    for (const a of act) if (best === null || r.dist[a.territory] < r.dist[best]) best = a.territory;
+    if (r.dist[best] <= p.radius) {
+      r.territory = best; r.status = "assigned"; r.assigned_by = "nearest marquee account"; r.miles = r.dist[best];
+    } else {
+      r.status = "out of range"; r.nearest = best; r.miles = r.dist[best];
+    }
   }
-  m.bindTooltip(p.tip).addTo(map);
-  bounds.push([p.lat, p.lon]);
+
+  const counts = Object.fromEntries(names.map((t) => [t, 0]));
+  for (const r of rows) if (r.status === "assigned") counts[r.territory] += 1;
+  const before = { ...counts };
+  const assignedTotal = Object.values(counts).reduce((x, y) => x + y, 0);
+  const autoGoal = names.length ? Math.ceil(assignedTotal / names.length) : 0;
+  const goal = p.goal > 0 ? p.goal : autoGoal;
+  const moved = [], claimed = [];
+  let stillShort = [];
+
+  const place = (r, t, how) => {
+    if (r.territory) counts[r.territory] -= 1;
+    r.territory = t; r.status = "assigned"; r.assigned_by = how; r.miles = r.dist[t];
+    counts[t] += 1;
+  };
+
+  if (p.balance && names.length) {
+    for (;;) { // contested fits go to the shorter book
+      let pick = null;
+      for (const r of rows) {
+        if (r.status !== "assigned" || !r.dist || r.assigned_by === "manager override") continue;
+        for (const u of names) {
+          if (u === r.territory || r.dist[u] > p.radius) continue;
+          const diff = counts[r.territory] - counts[u];
+          if (diff < 2) continue;
+          const key = [diff, -r.dist[u]];
+          if (!pick || key[0] > pick.key[0] || (key[0] === pick.key[0] && key[1] > pick.key[1])) pick = { key, r, u };
+        }
+      }
+      if (!pick) break;
+      moved.push({ name: pick.r.name, from: pick.r.territory, to: pick.u });
+      place(pick.r, pick.u, "balanced: contested fit moved to the shorter book");
+    }
+    const stretch = Math.max(p.stretch, p.radius);
+    const blocked = new Set();
+    for (;;) { // short books stretch for unclaimed fits
+      const short = names.filter((t) => counts[t] < goal && !blocked.has(t))
+        .sort((a, b) => counts[a] - counts[b]);
+      if (!short.length) break;
+      const t = short[0];
+      let pickR = null;
+      for (const r of rows) {
+        if (r.status !== "out of range" || !r.dist || r.dist[t] > stretch) continue;
+        if (!pickR || r.dist[t] < pickR.dist[t]) pickR = r;
+      }
+      if (!pickR) { blocked.add(t); continue; }
+      claimed.push({ name: pickR.name, to: t, miles: pickR.dist[t] });
+      place(pickR, t, `balanced: claimed within the ${stretch}-mile stretch radius`);
+    }
+    stillShort = names.filter((t) => counts[t] < goal);
+  }
+  return { rows, names, before, after: counts, goal, autoGoal, moved, claimed, stillShort };
 }
-map.fitBounds(bounds, {padding:[20,20]});
+
+if (typeof module !== "undefined") module.exports = { computePlan, milesBetween };
+
+/* ------------------------------------------------------------------ */
+/* Page UI (browser only). Expects window.PLANNER_DATA and Leaflet.     */
+/* ------------------------------------------------------------------ */
+if (typeof window !== "undefined") window.addEventListener("DOMContentLoaded", () => {
+  const D = window.PLANNER_DATA;
+  const GREY = "#8a8f98", REVIEW = "#6b4f2a";
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const color = Object.fromEntries(D.anchors.map((a) => [a.territory, a.color]));
+  const defaults = () => ({ radius: D.defaults.radius, stretch: D.defaults.stretch, balance: D.defaults.balance,
+    goal: 0, active: D.anchors.map((a) => a.territory), overrides: { ...D.defaults.overrides } });
+  let p = defaults();
+
+  const map = L.map("map");
+  const esri = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/";
+  L.tileLayer(esri + "World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+    maxZoom: 16, attribution: "Tiles &copy; Esri, HERE, Garmin, &copy; OpenStreetMap contributors" }).addTo(map);
+  L.tileLayer(esri + "World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxZoom: 16 }).addTo(map);
+
+  const staticLayer = L.layerGroup().addTo(map);
+  if (D.static) { // by-state plan: show it as built, no planner controls
+    const bnds = [];
+    const counts = Object.fromEntries(D.anchors.map((a) => [a.territory, 0]));
+    for (const f of D.fits) {
+      if (f.status === "assigned") counts[f.territory] += 1;
+      if (f.lat == null) continue;
+      L.circleMarker([f.lat, f.lon], { radius: 7, color: "#fff", weight: 1.5, fillOpacity: 0.95,
+        fillColor: f.status === "assigned" ? color[f.territory] : GREY })
+        .bindTooltip(`<b>${esc(f.name)}</b><br>${esc(f.territory || f.status)}<br><i>${esc(f.evidence)}</i>`).addTo(staticLayer);
+      bnds.push([f.lat, f.lon]);
+    }
+    for (const s of D.others) {
+      L.circleMarker([s.lat, s.lon], { radius: 4, color: s.kind === "enterprise" ? "#111" : REVIEW, weight: 1.5, fill: false })
+        .bindTooltip(`<b>${esc(s.name)}</b><br>${esc(s.label)}`).addTo(staticLayer);
+      bnds.push([s.lat, s.lon]);
+    }
+    document.getElementById("summary").innerHTML = "<tr><th>Book</th><th>Fits</th></tr>" + D.anchors.map((a) =>
+      `<tr><td><span class="dot" style="background:${a.color}"></span>${esc(a.territory)}</td><td>${counts[a.territory]}</td></tr>`).join("");
+    document.getElementById("counts").textContent = `${D.totals.accounts} accounts · ${D.totals.fits} Fit · ${D.totals.enterprise} Enterprise handoff · ${D.totals.review} Needs Review`;
+    map.fitBounds(bnds, { padding: [20, 20] });
+    return;
+  }
+  const circleLayer = L.layerGroup().addTo(map);
+  const fitLayer = L.layerGroup().addTo(map);
+  const anchorLayer = L.layerGroup().addTo(map);
+  const bounds = [];
+  for (const s of D.others) {
+    const m = s.kind === "enterprise"
+      ? L.marker([s.lat, s.lon], { icon: L.divIcon({ className: "", html: '<div class="ent"></div>', iconSize: [12, 12], iconAnchor: [6, 6] }) })
+      : L.circleMarker([s.lat, s.lon], { radius: 4, color: REVIEW, weight: 1.5, fill: false });
+    m.bindTooltip(`<b>${esc(s.name)}</b><br>${esc(s.label)}<br><i>${esc(s.evidence)}</i>`).addTo(staticLayer);
+  }
+  // open on the territories: fits and marquee accounts, not far-off review dots
+  for (const a of D.anchors) bounds.push([a.lat, a.lon]);
+  for (const f of D.fits) if (f.lat != null) bounds.push([f.lat, f.lon]);
+
+  const $ = (id) => document.getElementById(id);
+  const fmtMi = (x) => (x == null ? "" : `${Math.round(x)} mi`);
+
+  function popupFor(r) {
+    const div = document.createElement("div");
+    div.className = "pop";
+    const where = r.status === "assigned" ? `${r.territory}, ${fmtMi(r.miles)}` : r.status;
+    div.innerHTML = `<b>${esc(r.name)}</b><div class="muted">${esc(r.city)} ${esc(r.state)} · ${esc(where)}</div>`
+      + `<div class="ev">"${esc(r.evidence)}"</div><label>Assign to</label>`;
+    const sel = document.createElement("select");
+    const opts = [["", "Automatic (rules decide)"], ...D.anchors.filter((a) => p.active.includes(a.territory)).map((a) => [a.territory, a.territory]), ["Unassigned", "Unassigned"]];
+    for (const [v, label] of opts) {
+      const o = document.createElement("option"); o.value = v; o.textContent = label;
+      if ((p.overrides[r.id] || "") === v) o.selected = true;
+      sel.appendChild(o);
+    }
+    sel.addEventListener("change", () => {
+      if (sel.value) p.overrides[r.id] = sel.value; else delete p.overrides[r.id];
+      map.closePopup(); render();
+    });
+    div.appendChild(sel);
+    return div;
+  }
+
+  function render() {
+    const res = computePlan(D.fits, D.anchors, p);
+    circleLayer.clearLayers(); fitLayer.clearLayers(); anchorLayer.clearLayers();
+    for (const a of D.anchors) {
+      const on = p.active.includes(a.territory);
+      if (on) L.circle([a.lat, a.lon], { radius: p.radius * 1609.34, color: a.color, weight: 1.5, fillOpacity: 0.06 }).addTo(circleLayer);
+      if (on && p.balance && p.stretch > p.radius)
+        L.circle([a.lat, a.lon], { radius: p.stretch * 1609.34, color: a.color, weight: 1, dashArray: "4 6", fill: false }).addTo(circleLayer);
+      L.marker([a.lat, a.lon], { icon: L.divIcon({ className: "", html: `<div class="anc" style="color:${on ? a.color : GREY}">&#9733;</div>`, iconSize: [22, 22], iconAnchor: [11, 11] }), zIndexOffset: 1000 })
+        .bindTooltip(`<b>${esc(a.territory)}</b>${on ? "" : " (turned off)"}<br>${esc(a.anchor)}<br>${esc(a.city)}, ${esc(a.state)} ${esc(a.postal_code)}`)
+        .addTo(anchorLayer);
+    }
+    for (const r of res.rows) {
+      if (r.lat == null) continue;
+      const assigned = r.status === "assigned";
+      const style = { radius: 7, weight: 1.5, color: "#fff", fillOpacity: 0.95, fillColor: assigned ? color[r.territory] : GREY };
+      if (r.assigned_by === "manager override") Object.assign(style, { color: "#111", weight: 3 });
+      else if (r.assigned_by.startsWith("balanced")) Object.assign(style, { color: "#111", weight: 2, dashArray: "2 2" });
+      if (r.status === "unassigned by manager") Object.assign(style, { fillColor: "#fff", color: GREY, weight: 2 });
+      const how = assigned ? `${r.territory}, ${fmtMi(r.miles)}. ${r.assigned_by}` : `${r.status}${r.nearest ? `, ${fmtMi(r.miles)} from ${r.nearest}` : ""}`;
+      L.circleMarker([r.lat, r.lon], style)
+        .bindTooltip(`<b>${esc(r.name)}</b><br>Fit · Mid-Market<br>${esc(how)}<br><i>${esc(r.evidence)}</i><br><span class="muted">Click to assign by hand</span>`)
+        .bindPopup(() => popupFor(r))
+        .addTo(fitLayer);
+    }
+
+    // summary table
+    const tb = res.names.map((t) => {
+      const gap = res.after[t] - res.goal;
+      const cls = gap < 0 ? "short" : gap > 0 ? "over" : "even";
+      return `<tr><td><span class="dot" style="background:${color[t]}"></span>${esc(t)}</td><td>${p.balance ? res.before[t] : ""}</td>`
+        + `<td><b>${res.after[t]}</b></td><td class="${cls}">${gap > 0 ? "+" : ""}${gap}</td></tr>`;
+    }).join("");
+    $("summary").innerHTML = `<tr><th>Book</th><th>${p.balance ? "Before" : ""}</th><th>Fits</th><th>vs goal</th></tr>${tb}`;
+
+    const assigned = res.rows.filter((r) => r.status === "assigned").length;
+    const out = res.rows.filter((r) => r.status === "out of range");
+    const manual = res.rows.filter((r) => r.assigned_by === "manager override");
+    $("counts").textContent = `${D.totals.accounts} accounts · ${D.totals.fits} Fit · ${assigned} in territories · `
+      + `${out.length} out of range · ${D.totals.enterprise} Enterprise handoff · ${D.totals.review} Needs Review`;
+
+    const f = [];
+    f.push(`Goal: ${res.goal} fits per book${p.goal > 0 ? " (set by you)" : " (equal share)"}.`);
+    for (const m of res.moved) f.push(`${m.name} moved from ${m.from} to ${m.to} (contested fit to the shorter book).`);
+    for (const c of res.claimed) f.push(`${c.to} claimed ${c.name} (${fmtMi(c.miles)}) with the stretch radius.`);
+    for (const t of res.stillShort) f.push(`${t} is below the goal with no unclaimed fits in its stretch radius. Options: another marquee account, a wider radius, or a shared rep.`);
+    for (const t of res.names) {
+      if (res.after[t] <= res.goal) continue;
+      const movable = res.rows.some((r) => r.territory === t && r.assigned_by !== "manager override" && r.dist
+        && res.names.some((u) => u !== t && r.dist[u] <= p.radius));
+      f.push(`${t} is ${res.after[t] - res.goal} over the goal.${movable ? "" : " None of its fits are in range of another marquee account."}`);
+    }
+    if (out.length) f.push(`Not covered (${out.length}): ${out.map((r) => r.name).join(", ")}.`);
+    for (const a of D.anchors) if (!p.active.includes(a.territory)) f.push(`${a.territory} is turned off. Its fits go to other books or out of range.`);
+    if (manual.length) f.push(`Your manual assignments (${manual.length}): ${manual.map((r) => `${r.name} to ${r.territory || "Unassigned"}`).join("; ")}.`);
+    $("findings").innerHTML = f.map((x) => `<li>${esc(x)}</li>`).join("");
+    window.__lastPlan = res;
+  }
+
+  // controls
+  const bind = (id, key, fmt) => {
+    const el = $(id), out = $(id + "_v");
+    el.value = p[key]; out.textContent = fmt(p[key]);
+    el.addEventListener("input", () => { p[key] = Number(el.value); out.textContent = fmt(p[key]); render(); });
+  };
+  bind("radius", "radius", (v) => `${v} mi`);
+  bind("stretch", "stretch", (v) => `${v} mi`);
+  bind("goal", "goal", (v) => (v > 0 ? `${v} fits` : "Auto: equal share"));
+  const bal = $("balance");
+  bal.checked = p.balance;
+  bal.addEventListener("change", () => { p.balance = bal.checked; $("stretchrow").classList.toggle("off", !p.balance); render(); });
+  $("anchors").innerHTML = D.anchors.map((a) => `<label class="chk"><input type="checkbox" data-t="${esc(a.territory)}" checked>`
+    + `<span class="dot" style="background:${a.color}"></span>${esc(a.territory)} <span class="muted">${esc(a.city)}</span></label>`).join("");
+  for (const cb of document.querySelectorAll("#anchors input")) cb.addEventListener("change", () => {
+    p.active = [...document.querySelectorAll("#anchors input")].filter((x) => x.checked).map((x) => x.dataset.t);
+    render();
+  });
+  $("reset").addEventListener("click", () => {
+    p = defaults();
+    for (const [id, k] of [["radius", "radius"], ["stretch", "stretch"], ["goal", "goal"]]) { $(id).value = p[k]; $(id).dispatchEvent(new Event("input")); }
+    bal.checked = p.balance; $("stretchrow").classList.toggle("off", !p.balance);
+    for (const cb of document.querySelectorAll("#anchors input")) cb.checked = true;
+    render();
+  });
+
+  const csvCell = (v) => { const s = String(v ?? ""); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
+  const download = (name, rows) => {
+    const text = rows.map((r) => r.map(csvCell).join(",")).join("\n") + "\n";
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([text], { type: "text/csv" }));
+    a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  };
+  $("dl_plan").addEventListener("click", () => {
+    const res = window.__lastPlan;
+    download("territory_plan_draft.csv", [["account_id", "name", "city", "state", "territory", "status", "assigned_by", "miles", "evidence"],
+      ...res.rows.map((r) => [r.id, r.name, r.city, r.state, r.territory, r.status, r.assigned_by, r.miles == null ? "" : Math.round(r.miles), r.evidence])]);
+  });
+  $("dl_over").addEventListener("click", () => {
+    download("territory_overrides.csv", [["account_id", "territory"], ...Object.entries(p.overrides)]);
+  });
+
+  render();
+  map.fitBounds(bounds, { padding: [20, 20] });
+});
+
 </script>
 </body></html>

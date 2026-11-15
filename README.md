@@ -19,9 +19,14 @@ problems.
 **What you get back**
 - **A book for each rep:** the fits in their territory, each with the
   sentence from the company's website that the grade rests on.
-- **Balanced territories:** each rep gets about the same number of fits. A
-  map and summary show coverage, any book that can't be balanced, and fits
+- **Balanced territories:** each rep gets about the same number of fits.
+  The summary shows coverage, any book that can't be balanced, and fits
   that no territory covers.
+- **An interactive territory planner:** a map where a sales leader drags
+  sliders (radius, stretch radius, book-size goal), turns marquee accounts
+  on or off, and assigns any account by hand. The books and findings update
+  live. Manual choices download as a file that the skill makes official on
+  its next run.
 - **An Enterprise handoff list:** chain and large-company fits, routed away
   from regional reps.
 - **A Needs Review queue:** accounts it could not see clearly, each with a
@@ -51,12 +56,12 @@ anyone trusts it.
                                    with an exact quote that code verifies
                       4 Validate   scored against hand labels and a fixed pass bar
                       5 Set up     asks you: by state, or around marquee accounts + radius
-                      6 Territories CRM locations only, never Apollo headquarters
+                      6 Territories CRM locations only, balanced; manager overrides kept
                       7 Hygiene    every record problem, with a proposed fix
                          │
                          ▼
  territory_plan.csv · territory_summary.csv · enterprise_handoff.csv · needs_review.csv
- data_hygiene.csv · territory_map.html
+ data_hygiene.csv · territory_map.html (interactive planner)
 ```
 
 It touches four systems:
@@ -120,8 +125,10 @@ Wisconsin 4, Indiana 1.
 Three fits can't be placed because their CRM records have no state, and the
 6-fit coverage gap disappears from view.
 
-To see the map, download [`data/territory_map.html`](data/territory_map.html)
-and open it in a browser.
+**Try the planner:** https://vtderise-collab.github.io/apollo-icp-territory-skill/data/territory_map.html
+Drag the radius, or turn off Michiana and watch its fits move. Every time it
+is built, a check confirms the page gives the same answer as the skill's own
+script.
 
 ## Design in brief
 

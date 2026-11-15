@@ -77,8 +77,16 @@ Rules for reading state and reporting:
    Writes `data/territory_plan.csv`, `territory_summary.csv`,
    `enterprise_handoff.csv` and `needs_review.csv`. Show the user the
    summary table and the findings as printed; do not add numbers of your own.
-   Then draw the map: `python3 <skill>/scripts/territory_map.py`
-   (writes `data/territory_map.html`; open it in a browser).
+   If `data/territory_overrides.csv` exists, it holds a manager's manual
+   assignments. territories.py applies them and prints how many; tell the
+   user. Do not edit or delete that file unless the user asks.
+   Then build the planner page: `python3 <skill>/scripts/territory_map.py`
+   It writes `data/territory_map.html`, an interactive map where a sales
+   leader can change the radius, balancing and marquee accounts, and assign
+   any fit by hand. The page's "Download overrides" button saves
+   `territory_overrides.csv`; put it in `data/` and rerun this step to make
+   those choices official. The script also checks that the page reproduces
+   the plan; report any "PLANNER CHECK FAILED" line to the user as is.
 7. **Data-hygiene audit**: `python3 <skill>/scripts/hygiene_report.py`
    Writes `data/data_hygiene.csv`: one row per problem in the records
    (CRM gaps, Apollo conflicts, unreadable sites) with a proposed fix. It

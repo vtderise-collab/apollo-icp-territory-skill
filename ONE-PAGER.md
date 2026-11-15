@@ -7,8 +7,10 @@ reps. Every grade comes with its evidence.
 
 ## What it does for a GTM team
 
-- **Sales leader:** a territory map and summary, with coverage gaps called
-  out, to approve the plan.
+- **Sales leader:** an interactive territory planner. They can drag the
+  radius, turn marquee accounts on and off, and reassign accounts by hand,
+  watching the books rebalance live. Their choices feed back into the
+  official plan.
 - **Rep:** a book of real fits, each with the sentence the grade rests on.
 - **Enterprise team:** a handoff list of chain and large-company fits.
 - **RevOps:** a data-hygiene audit with a proposed fix for every record
