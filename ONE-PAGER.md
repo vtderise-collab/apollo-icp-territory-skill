@@ -1,34 +1,31 @@
 # ICP territory skill
 
-**A Claude Code skill that turns an unqualified CRM account list into rep
-territories.** It grades every account against a plain-English ICP using the
-company's own website, enriches it with Apollo, and assigns the real fits to
-reps. Every grade comes with its evidence.
+**A Claude Code skill that turns an unqualified CRM account list into
+balanced rep territories.** It grades every account against a plain-English
+ICP using the company's own website, enriches it with Apollo, and assigns
+the real fits to reps. Every grade comes with its evidence.
+Live planner: https://vtderise-collab.github.io/apollo-icp-territory-skill/data/territory_map.html
 
 ## What it does for a GTM team
 
-- **Sales leader:** an interactive territory planner. They can drag the
-  radius, turn marquee accounts on and off, and reassign accounts by hand,
-  watching the books rebalance live. Their choices feed back into the
-  official plan.
+- **Sales leader:** an interactive planner. Drag the radius, turn marquee
+  accounts on or off, reassign accounts by hand, and watch the books
+  rebalance live. Their choices feed back into the official plan.
 - **Rep:** a book of real fits, each with the sentence the grade rests on.
 - **Enterprise team:** a handoff list of chain and large-company fits.
-- **RevOps:** a data-hygiene audit with a proposed fix for every record
-  problem, plus a Needs Review queue with a reason on every account.
+- **RevOps:** a hygiene audit with a proposed fix for every record problem,
+  and a Needs Review queue with a reason on every account.
 
-## Why it matters
+## The problem: what it saves and unlocks
 
-- **Time.** Grading takes about 50 seconds per account by hand. At 50,000
-  accounts (an example size), that is about 700 hours of one person's work.
-  The skill runs unattended, at least five times faster, with a checkable
-  quote on every grade.
-- **Rep focus.** Reps stop calling accounts that will never buy. In the
-  example, 70 of 136 accounts were confirmed not worth a call.
-- **Better, fairer territories.** Carves are built on evidence, not an
-  industry tag, and books are balanced so each rep gets about the same
-  number of fits. The example also flagged fits that no territory covers,
-  and moved 7 chains to
-  enterprise.
+- **Time.** Grading by hand takes about 50 seconds an account. At 50,000
+  accounts (an example size), that's 700 hours. The skill runs unattended,
+  at least five times faster, with a checkable quote on every grade.
+- **Rep focus.** In the example, 70 of 136 accounts were confirmed not
+  worth a call.
+- **Fairer territories.** Carves are built on evidence, not an industry tag,
+  and books are balanced. It flags fits no territory covers, and books that
+  can't be balanced.
 
 ## How it works: architecture and data flow
 
@@ -38,70 +35,67 @@ reps. Every grade comes with its evidence.
                       3 Grade      Claude + references/icp.md, quote verified by code
                       4 Validate   hand labels, fixed pass bar
                       5 Set up     asks the user: by state, or around marquee accounts
-                      6 Territories CRM locations only
+                      6 Territories CRM locations only, balanced, manager overrides kept
                       7 Hygiene    record problems, each with a proposed fix
                          ▼
-            rep books · map · Enterprise list · Needs Review · hygiene audit (CSV, HTML)
+     rep books · planner · Enterprise list · Needs Review · hygiene audit (CSV, HTML)
 ```
 
-- **Systems it touches:**
-  - Apollo (live API).
-  - Company websites.
-  - The CRM export (CSV).
-  - CSV and HTML outputs.
-  - Claude Code runs the skill.
-- **Territories, your way:** the skill asks how to build them. By state
-  is the simplest. Around marquee accounts, it balances the books and shows
-  coverage gaps: fits that no territory covers.
-- **Division of labor:** scripts do all data work. The model makes one
-  judgment per account and never edits the policy. The policy is one
-  sentence the business owns: "A Fit runs a member-facing floor of cardio or
-  strength machines."
+**Systems touched:** Apollo's live API, company websites, the CRM export,
+and CSV and HTML outputs. Claude Code runs the skill.
+
+## Design decisions
+
+- **Why a skill, not a script or an MCP call:** the grade is a judgment, so
+  it needs a model. Everything else is deterministic, so it lives in
+  scripts. The policy is one sentence the business owns: "A Fit runs a
+  member-facing floor of cardio or strength machines." An Apollo MCP call
+  returns data, not a decision.
+- **Data shaped for the model:** one record per account goes in (name, tag,
+  website text). One JSON line comes out, with a fixed grade and an exact
+  quote. Code checks the quote. Anything malformed becomes Needs Review.
+- **Left out:** ranked contacts (Apollo's free plan blocks people search),
+  applying fixes, and CRM write-back.
+
+## Assumptions
+
+- The CRM location is the real site. Apollo returns headquarters.
+- Chains buy centrally, so they go to enterprise.
+- The company's website is the most current truth.
+- Every fit counts the same in balancing.
 
 ## Proof: example run
 
-The example is Rackwell, a made-up gym equipment seller with 136 CRM
-accounts across Illinois, Wisconsin and Indiana.
-- **Fits:** 24 found. 12 placed in three balanced marquee territories
-  (6, 4, 2), with one book flagged as unable to balance. 7 went to the
-  enterprise team, and 42 were flagged for review.
-- **Hygiene audit:** 164 record problems on 105 accounts, each with a fix.
-  Apollo matched 88 trusted, 34 had no record, and 9 were name mismatches.
-- **Validation:** 87% against a 90% bar, and 26 of 27 on the sites it could
-  read. Three of the four misses were sites that blocked the scraper.
+Rackwell (made up) sells gym equipment in Illinois, Wisconsin and Indiana.
+- **Fits:** 24 found. 12 placed in three balanced books (6, 4, 2), with one
+  flagged as unable to balance. 7 went to enterprise, and 42 to review.
+- **Hygiene:** 164 problems on 105 of 136 accounts, each with a fix.
+- **Validation:** 87% against a 90% bar. On readable sites, 26 of 27.
 
 ## Why I built it
 
-I solved this problem in my current role. Leadership wanted territories
-rebuilt around marquee accounts, with no way to grade or map accounts. Here I
-rebuilt it from scratch on Apollo. Apollo's size and headquarters data splits
-regional accounts from enterprise ones, and the skill audits that data
-instead of trusting it. No code or data from the original build is in this
-repo.
+I solved this in my current role: leadership wanted territories rebuilt
+around marquee accounts, with no way to grade or map accounts. Here I rebuilt
+it from scratch on Apollo. No code or data from the original build is in
+this repo.
 
-## Rollout
+## Trust, rollout, production
 
-- **Pilot:** half the mid-market reps work from it for a quarter. The other
-  half are the comparison.
-- **Managers approve:** the plan, ownership changes and holdover requests.
-- **Target measures:**
-  - Fit conversion above the rest of the book.
-  - Pipeline per territory.
-  - Referrals near marquee accounts.
-  - Live grades stay at 90% or better.
-
-## Design and trust
-
-- **Why a skill:** the judgment needs a model, the rest needs code, and the
-  policy must be a file a sales leader can read.
 - **Where I overrode the AI:**
-  - CRM locations over Apollo headquarters.
-  - Needs Review only for "could not see".
-  - A guard against wrong Apollo matches.
-  - Blind grading.
+  - Required CRM locations over Apollo headquarters.
+  - Kept Needs Review for "could not see" only.
+  - Added a guard against wrong Apollo matches.
+  - Moved grading to a blind session.
+  - Made territory setup a question, not an assumption.
+- **Rollout:**
+  - Pilot with half the mid-market reps, using the other half as the
+    comparison.
+  - Managers approve the plan and any overrides.
+  - Target: Fit conversion above the rest of the book.
 - **Before reps depend on it:**
   - A larger validation set.
   - A headless browser for JavaScript sites.
   - Image evidence.
+  - One shared rules engine behind the planner.
   - A scoped key.
   - CRM write-back after approval.

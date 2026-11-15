@@ -9,12 +9,12 @@ builds rep territories from the real fits, with Apollo enrichment for size
 and headquarters.
 
 On a stand-in CRM of 136 gym-equipment prospects, it found **24 real fits**
-and placed **11** in three rep territories. It also handed **7 chains** to
+and placed **12** in three balanced rep territories. It also handed **7 chains** to
 the enterprise team and flagged **42** accounts for review. Validation scored
 **87%** against a 90% bar, and **26 of 27** on the sites it could read.
 
 - One-page summary: [ONE-PAGER.md](../ONE-PAGER.md)
-- Territory map: [data/territory_map.html](../data/territory_map.html) (download and open in a browser)
+- Territory planner (live): https://vtderise-collab.github.io/apollo-icp-territory-skill/data/territory_map.html
 
 ## What the skill does
 
@@ -30,9 +30,13 @@ CRM export (136 accounts, with site coordinates)
    |           site. Code rejects any quote not found in the site text.
 4  Validate    Grades are scored against 30 hand labels and a pass bar
    |           set before the first run.
-5  Territories Mid-Market Fits go to the nearest anchor customer within one
-               radius, using CRM coordinates. Enterprise Fits go to a
-               handoff list. Needs Review gets its own list.
+5  Set up      Asks the user how to build territories: by state, or around
+   |           marquee accounts (CRM account ID or coordinates) + radius.
+6  Territories Mid-Market Fits go to a territory using CRM locations only,
+   |           then the books are balanced. Manager overrides are kept.
+   |           Enterprise Fits go to a handoff list; Needs Review to its own.
+   |           Builds the interactive planner page.
+7  Hygiene     Every record problem, each with a proposed fix.
 ```
 
 Scripts do all the data work. The model makes one judgment per account and
@@ -49,8 +53,9 @@ Needs Python 3 (standard library only) and Claude Code.
    `.env` file in the project folder. A free plan works: company enrichment
    is allowed, company and people search are not.
 4. In Claude Code, from the project folder, ask: "Grade my accounts against
-   the ICP and build territories." The skill runs the five steps and stops
-   to show you the validation result.
+   the ICP and build territories." The skill checks what is already done,
+   runs the remaining steps, stops to show you the validation result, and
+   asks how to build territories before it builds them.
 
 To run the scripts by hand, from the project folder:
 
@@ -65,8 +70,9 @@ python3 .claude/skills/icp-territory/scripts/territory_map.py
 python3 .claude/skills/icp-territory/scripts/hygiene_report.py
 ```
 
-Anchors, radius, region and segment thresholds are in
-`icp-territory/config.json`. The policy is `icp-territory/references/icp.md`.
+The skill writes your territory answers (method, marquee accounts, radius,
+balancing) to `icp-territory/config.json`, which also holds the region and
+segment thresholds. The policy is `icp-territory/references/icp.md`.
 
 The `setup/` folder only rebuilds the demo data and is not part of the skill.
 `setup/seed_crm_from_osm.py` needs `curl` on your path.
@@ -307,8 +313,14 @@ the Apollo tag and the website text, ten at a time. The output is one JSON
 line with a fixed set of grades and reason codes. Anything that does not
 parse, or quotes text that is not on the site, becomes Needs Review.
 
-Deliberately left out of v1: comparing several radii, ranked contacts,
-letting Apollo data nudge a grade, and writing results back to the CRM.
+Deliberately left out of v1:
+- Ranked contacts. Apollo's free plan blocks people search.
+- Letting Apollo data nudge a grade.
+- Applying hygiene fixes. The skill only proposes them.
+- Writing results back to the CRM.
+
+Comparing radii is no longer left out: the planner's radius slider does it
+live.
 
 ## Assumptions
 
@@ -324,6 +336,12 @@ letting Apollo data nudge a grade, and writing results back to the CRM.
   does.
 - Each rep is anchored on an existing customer, and 60 miles is about an
   hour's drive.
+- In balancing, every fit counts the same. A rep's book is fair when it has
+  the same number of fits, not the same revenue potential. That is
+  deliberately simple for v1.
+- The CRM export has no last-activity or last-updated dates. So the hygiene
+  audit checks gaps and conflicts, but not staleness. Staleness checks are a
+  next step once the export carries those dates.
 
 ## Where AI helped and where I overrode it
 
@@ -359,6 +377,23 @@ Where I did not trust it (full list in my correction log):
   fresh, blind session.
 - **After run 1 failed,** I fixed what the grader could see, not the policy
   or the bar. Labels were changed only by me, after rechecking the sites.
+- **Territories.** It built territories one fixed way and never asked. I
+  made the skill ask: by state, or around marquee accounts the user names.
+  It is never allowed to pick or locate a marquee account itself.
+
+How I checked the finished skill: I ran it in fresh Claude sessions with no
+history, asking only "Which of my CRM accounts are real fits? Build
+territories for my reps."
+- The first run counted CSV lines instead of rows. Company descriptions
+  contain line breaks, so it read 136 accounts as 153. It then planned to
+  regrade everything, which would have thrown away validated grades. I
+  added a "check what is already done" step, and the retest went straight
+  to the existing results.
+- A later run reported "~56 Needs Review" when the scripts said 42. I added
+  a rule: every number must come from script output, never an estimate.
+- The planner page carries its own copy of the territory rules. Every build
+  runs that copy and checks it matches the Python plan exactly. I tested
+  this across seven settings, including manual overrides.
 
 ## What I would harden for production
 
@@ -385,6 +420,13 @@ Where I did not trust it (full list in my correction log):
   - Batch and parallelize the scrape.
   - Write grades back to the CRM only after a manager approves the
     territory plan.
+- **Planner:**
+  - The page keeps a second copy of the territory rules. Today a test
+    catches drift. In production, both should run from one shared rules
+    service.
+  - Manager overrides should carry who made them, when, and why, as an
+    audit trail.
+  - Approval should happen in the planner rather than by passing a CSV.
 
 ## What was pre-existing
 
