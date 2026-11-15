@@ -1,93 +1,105 @@
-# ICP territory skill: one page
+# ICP territory skill
 
-**136** CRM accounts in. **24** real fits found from their own websites.
-**11** placed in three rep territories, **7** handed to enterprise, **42**
-flagged for review. Validation: **87%** against a 90% bar, **26 of 27** on
-sites it could read.
+**A Claude Code skill that turns an unqualified CRM account list into rep
+territories.** It grades every account against a plain-English ICP using the
+company's own website, enriches it with Apollo, and assigns the real fits to
+reps. Every grade comes with its evidence.
 
-It replaces weeks of manual account qualification with an unattended run, so
-reps only call real fits and territories are built on evidence instead of a
-tag.
+## What it does for a GTM team
 
-## The problem
+- **Sales leader:** a territory map and summary, with coverage gaps called
+  out, to approve the plan.
+- **Rep:** a book of real fits, each with the sentence the grade rests on.
+- **Enterprise team:** a handoff list of chain and large-company fits.
+- **RevOps:** a data-hygiene audit with a proposed fix for every record
+  problem, plus a Needs Review queue with a reason on every account.
 
-Rackwell (made up) sells commercial gym equipment in Illinois, Wisconsin and
-Indiana. Its CRM holds prospect accounts with unknown fit. The industry tag
-lumps gyms with yoga studios and spas: 52 accounts share one tag. Reps waste
-calls, and territories are drawn around accounts that will never buy.
+## Why it matters
 
-**What it saves**
-- **Time.** I hand-labeled 30 accounts at about 50 seconds each. The skill
-  graded 96 within one 15-minute session, at least five times faster. It runs
-  unattended, with a checkable quote on every grade. For an example CRM of
-  50,000 accounts, manual labeling would take about 700 hours.
-- **Rep focus.** 70 of 136 accounts are confirmed not worth a call.
-- **Better territories.** It found 6 fits that no territory covers and moved
-  7 chains to enterprise. A carve based on the tag misses both.
+- **Time.** Grading takes about 50 seconds per account by hand. At 50,000
+  accounts (an example size), that is about 700 hours of one person's work.
+  The skill runs unattended, at least five times faster, with a checkable
+  quote on every grade.
+- **Rep focus.** Reps stop calling accounts that will never buy. In the
+  example, 70 of 136 accounts were confirmed not worth a call.
+- **Better, fairer territories.** Carves are built on evidence, not an
+  industry tag, and books are balanced so each rep gets about the same
+  number of fits. The example also flagged fits that no territory covers,
+  and moved 7 chains to
+  enterprise.
 
-## Why this problem
+## How it works: architecture and data flow
 
-I solved it for real in my current role. Sales leadership wanted territories
-rebuilt around marquee accounts, with no way to grade or map accounts.
-Leadership validated the scores, and reps got a prioritized book. Here I
-rebuilt it from scratch on **Apollo**. Apollo's size and headquarters data
-splits regional from enterprise, and the skill audits that data instead of
-trusting it. That is ideas #1 and #4 from the brief. No code or data from
-the original build is in this repo.
+```
+ CRM export (CSV) ──► 1 Enrich ◄── Apollo API (size, HQ, industry tag)
+                      2 Evidence ◄── company websites (read directly)
+                      3 Grade      Claude + references/icp.md, quote verified by code
+                      4 Validate   hand labels, fixed pass bar
+                      5 Set up     asks the user: by state, or around marquee accounts
+                      6 Territories CRM locations only
+                      7 Hygiene    record problems, each with a proposed fix
+                         ▼
+            rep books · map · Enterprise list · Needs Review · hygiene audit (CSV, HTML)
+```
 
-## Who uses it
+- **Systems it touches:**
+  - Apollo (live API).
+  - Company websites.
+  - The CRM export (CSV).
+  - CSV and HTML outputs.
+  - Claude Code runs the skill.
+- **Territories, your way:** the skill asks how to build them. By state
+  is the simplest. Around marquee accounts, it balances the books and shows
+  coverage gaps: fits that no territory covers.
+- **Division of labor:** scripts do all data work. The model makes one
+  judgment per account and never edits the policy. The policy is one
+  sentence the business owns: "A Fit runs a member-facing floor of cardio or
+  strength machines."
 
-- **Sales leader:** the map and summary, to approve the plan and see gaps.
-- **Rep:** a book of fits, with the sentence each grade rests on.
-- **RevOps:** data-hygiene findings on Apollo mismatches, headquarters
-  versus site location, and unreadable sites.
+## Proof: example run
 
-## Rollout and success
+The example is Rackwell, a made-up gym equipment seller with 136 CRM
+accounts across Illinois, Wisconsin and Indiana.
+- **Fits:** 24 found. 12 placed in three balanced marquee territories
+  (6, 4, 2), with one book flagged as unable to balance. 7 went to the
+  enterprise team, and 42 were flagged for review.
+- **Hygiene audit:** 164 record problems on 105 accounts, each with a fix.
+  Apollo matched 88 trusted, 34 had no record, and 9 were name mismatches.
+- **Validation:** 87% against a 90% bar, and 26 of 27 on the sites it could
+  read. Three of the four misses were sites that blocked the scraper.
 
-- **Pilot:** half the mid-market reps use it for a quarter, with the other
-  half as the comparison.
-- **Managers approve:** the territory plan, ownership changes and holdover
-  requests.
-- **Then:** write grade and territory to the CRM, and expand to the team.
-- **Targets:**
+## Why I built it
+
+I solved this problem in my current role. Leadership wanted territories
+rebuilt around marquee accounts, with no way to grade or map accounts. Here I
+rebuilt it from scratch on Apollo. Apollo's size and headquarters data splits
+regional accounts from enterprise ones, and the skill audits that data
+instead of trusting it. No code or data from the original build is in this
+repo.
+
+## Rollout
+
+- **Pilot:** half the mid-market reps work from it for a quarter. The other
+  half are the comparison.
+- **Managers approve:** the plan, ownership changes and holdover requests.
+- **Target measures:**
   - Fit conversion above the rest of the book.
   - Pipeline per territory.
-  - Referrals near marquee anchors.
-  - Live grades at 90% or better.
-
-## How it works
-
-```
-CRM export -> 1 Enrich (Apollo) -> 2 Read websites -> 3 Grade (Claude, one written rule)
-           -> 4 Validate (30 hand labels, fixed bar) -> 5 Territories (CRM coordinates)
-```
-
-The model makes one judgment per account, with an exact quote that code
-checks. Scripts do the rest. The policy is one sentence the business owns:
-"A Fit runs a member-facing floor of cardio or strength machines."
-
-| What | Result |
-|------|--------|
-| Apollo audit | 88 trusted, 34 no record, 9 name mismatches flagged and ignored, 5 skipped |
-| Websites readable | 96 of 136 (71%) |
-| Validation | Run 1: 77%, text cap cut evidence. Run 2: 87%, 3 of 4 misses were blocked sites. |
-| Territories (60 mi) | Chicagoland 6, Milwaukee 3, Michiana 2. 6 fits out of range. |
+  - Referrals near marquee accounts.
+  - Live grades stay at 90% or better.
 
 ## Design and trust
 
 - **Why a skill:** the judgment needs a model, the rest needs code, and the
-  policy must be a file a sales leader can read. An Apollo call alone
-  returns data, not a decision.
+  policy must be a file a sales leader can read.
 - **Where I overrode the AI:**
-  - Qualify the existing CRM rather than source new accounts.
+  - CRM locations over Apollo headquarters.
   - Needs Review only for "could not see".
-  - CRM locations, not Apollo headquarters.
-  - Segment kept separate from fit.
   - A guard against wrong Apollo matches.
   - Blind grading.
-- **Production next:**
-  - A larger fixture.
-  - A headless browser.
+- **Before reps depend on it:**
+  - A larger validation set.
+  - A headless browser for JavaScript sites.
   - Image evidence.
   - A scoped key.
   - CRM write-back after approval.

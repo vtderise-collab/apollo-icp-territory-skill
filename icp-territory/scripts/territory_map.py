@@ -16,6 +16,7 @@ import html
 import json
 
 from common import DATA, SKILL_DIR
+from territories import resolve_anchors
 
 COLORS = ["#1f6feb", "#d1495b", "#2a9d8f", "#e9a23b", "#8e44ad"]
 GREY = "#8a8f98"
@@ -36,9 +37,12 @@ def tip(name, grade, segment, evidence, extra=""):
 
 def main():
     cfg = json.load(open(SKILL_DIR / "config.json"))["territories"]
-    radius_m = cfg["radius_miles"] * 1609.34
-    anchors = cfg["anchors"]
-    color = {a["territory"]: COLORS[i % len(COLORS)] for i, a in enumerate(anchors)}
+    marquee = cfg.get("method", "marquee") == "marquee"
+    radius_m = (cfg.get("radius_miles") or 0) * 1609.34 if marquee else 0
+    crm_all = {r["account_id"]: r for r in rows("crm_export.csv")}
+    anchors = resolve_anchors(cfg["anchors"], crm_all) if marquee else []
+    names = [r["territory"] for r in rows("territory_summary.csv")]
+    color = {t: COLORS[i % len(COLORS)] for i, t in enumerate(names)}
 
     crm = {r["account_id"]: r for r in rows("crm_export.csv")}
     graded = rows("graded.csv")
@@ -58,7 +62,8 @@ def main():
             unmapped += 1
             continue
         if r["status"] == "assigned":
-            col, extra = color[r["territory"]], f"{r['territory']}, {r['miles']} mi from anchor"
+            col, extra = color[r["territory"]], ((f"{r['territory']}, {r['miles']} mi from anchor" if r["miles"] else r["territory"])
+                          + (f". {r['assigned_by'].capitalize()}" if r.get("assigned_by", "").startswith("balanced") else ""))
         else:
             col, extra = GREY, f"{r['status']} ({r['miles']} mi, {r['anchor']})" if r["miles"] else r["status"]
         points.append({"lat": p[0], "lon": p[1], "kind": "fit", "color": col,
@@ -91,12 +96,15 @@ def main():
                            f"{html.escape(a['city'])}, {html.escape(a['state'])} {html.escape(a['postal_code'])}"}
                    for a in anchors]
     legend = "".join(
-        f'<span class="item"><span class="dot" style="background:{color[a["territory"]]}"></span>'
-        f'{html.escape(a["territory"])}</span>' for a in anchors)
+        f'<span class="item"><span class="dot" style="background:{color[t]}"></span>'
+        f'{html.escape(t)}</span>' for t in names)
     legend += (f'<span class="item"><span class="dot" style="background:{GREY}"></span>Out of range Fit</span>'
                '<span class="item"><span class="sq"></span>Enterprise Fit</span>'
-               f'<span class="item"><span class="ring" style="border-color:{REVIEW}"></span>Needs Review</span>'
-               '<span class="item"><span class="star">&#9733;</span>Anchor customer</span>')
+               f'<span class="item"><span class="ring" style="border-color:{REVIEW}"></span>Needs Review</span>')
+    legend += ('<span class="item"><span class="star">&#9733;</span>Marquee account</span>' if marquee else '')
+
+    method_note = (f"Territories are built around marquee accounts. Circles are the {cfg.get('radius_miles')}-mile radius."
+                   if marquee else "Territories are built by state (CRM state).")
 
     def js(obj):
         return json.dumps(obj).replace("</", "<\\/")
@@ -127,7 +135,7 @@ def main():
 <header>
  <h1>Rackwell territory plan</h1>
  <div class="counts">{html.escape(headline)}</div>
- <div class="note">Anchors are made up, at real ZIP codes. Circles are the {cfg['radius_miles']}-mile radius.
+ <div class="note">{html.escape(method_note)}
  Locations are CRM coordinates, never Apollo headquarters. Hover a dot for the evidence.</div>
  <div class="legend">{legend}</div>
 </header>

@@ -24,3 +24,6 @@ __pycache__/
 
 # Local install of the skill (the repo copy is icp-territory/)
 .claude/
+
+# The assessment brief (private)
+*.pdf

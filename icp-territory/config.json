@@ -60,9 +60,12 @@
     ]
   },
   "territories": {
-    "_about": "Anchor customers are made up (Rackwell is fictional) but sit at real places: approximate centroids of real ZIP codes. One radius for v1. target_per_territory is a book-size goal used to report shortfall; it never removes an in-range Fit.",
+    "_about": "How territories are built. method 'marquee': one territory per marquee customer; each Fit goes to the nearest marquee account within radius_miles. Give each marquee account as a CRM account_id (location comes from the CRM) or with lat/lon. method 'state': one territory per state in region_states; radius and anchors are ignored. target_per_territory is a book-size goal used to report shortfall; it never removes an in-range Fit. The example's marquee accounts are made up, at real ZIP codes. balance: even out the books (fits count equally); contested fits go to the shorter book, and short books may claim unclaimed fits within stretch_radius_miles.",
+    "method": "marquee",
     "radius_miles": 60,
     "target_per_territory": 5,
+    "balance": true,
+    "stretch_radius_miles": 90,
     "anchors": [
       {
         "territory": "Chicagoland",

@@ -1,0 +1,165 @@
+account_id,name,grade,source,issue_type,issue,proposed_fix
+ACC-0044,9Round,Needs Review,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0013,Anytime Fitness,Needs Review,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0060,Blink Fitness,Needs Review,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0025,Burn Boot Camp Mt. Pleasant,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0122,CORA Physical Therapy Belvidere,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0071,Champs Sports,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0056,Club Pilates,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0059,CorePower Yoga,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0036,Crunch Fitness,Needs Review,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0038,D1 Training,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0074,Dick's Sporting Goods,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0104,Elements Massage,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0019,Farrell's eXtreme Bodyshaping,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0109,JJ's Spa,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0003,LA Fitness,Fit,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0068,Life Time,Fit,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0107,Massage Envy,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0004,Orangetheory Fitness,Fit,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0010,Planet Fitness,Needs Review,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0129,ProRehab,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0057,Pure Barre,Needs Review,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0021,Strrretch,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0099,Supplement Warehouse,Needs Review,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0017,TITLE Boxing Club,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0087,The Vitamin Shoppe,Unlikely,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0001,UFC Gym,Fit,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0092,Vitamin World,Needs Review,Apollo,hq_vs_site_state,Apollo headquarters is in a different state than the CRM site.,Keep the CRM site for territories. Treat it as a branch or chain location.
+ACC-0033,Fitness Freedom,Fit,Apollo,industry_tag_conflict,The website contradicts Apollo's industry tag.,Do not route or segment by this tag. The website-based grade stands.
+ACC-0077,Adidas,Needs Review,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0083,City Sports,Needs Review,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0047,Fitness Premier,Fit,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0069,Journey Fitness,Needs Review,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0030,Northwestern Medicine Huntley Health & Fitness Center,Fit,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0080,Play It Again Sports,Unlikely,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0048,Troybuild Fitness,Unlikely,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0051,West Loop Athletic Club,Needs Review,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0022,Wilmington Park District,Needs Review,Apollo,name_mismatch,Apollo returned a company whose name does not match the CRM.,"Apollo data ignored. Confirm the website domain; if it is right, accept the match by hand."
+ACC-0120,Abby Meyers Massage Therapist,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0098,Active Nutrition & Supplements,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0043,All in Motion,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0093,CBD American Shaman,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0024,Double R Boxing & Fitness,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0007,EduFit,Fit,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0114,Elite Therapeutic Massage & Tanning,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0123,Evanston Health Collective,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0066,FitStop,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0062,Fitness Matrix,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0026,Gymnastics Academy of Rockford South Trampoline Park,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0040,Gymnastics Divine,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0061,Healing Motion Yoga Yurt,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0020,Institute for Human Performance,Fit,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0108,Joint Effects,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0103,Kinetic Repose Massage,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0101,Lavender Spa,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0119,Lily Swedish Body Massage,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0095,Live Well Hemp,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0115,Massage Experience,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0090,One Nation Nutrition,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0028,PCY Muay Thai,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0055,Pilates in the Pines,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0116,Redd Room,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0063,Refiner's Fire CrossFit,Fit,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0018,Reidefined Fitness,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0050,SNO Yoga and Wellness Center,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0121,Siren Chiropractic,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0096,Stellah Health,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0110,The Lymph Current,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0035,Torres Martial Arts Academy,Fit,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0034,USA Ninja Challenge,Needs Review,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0117,West River Spa,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0094,Wild Theory CBD Co.,Unlikely,Apollo,no_apollo_record,Apollo has no record for this domain.,Segment defaults to Mid-Market. Confirm size by hand if the account matters.
+ACC-0041,ASCENT Gym,Needs Review,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0077,Adidas,Needs Review,CRM,low_confidence_location,"Site coordinates matched by name_low_confidence, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0024,Double R Boxing & Fitness,Needs Review,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0042,Equinox,Fit,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0072,Finish Line,Unlikely,CRM,low_confidence_location,"Site coordinates matched by name_low_confidence, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0066,FitStop,Needs Review,CRM,low_confidence_location,"Site coordinates matched by name_low_confidence, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0086,GNC,Needs Review,CRM,low_confidence_location,"Site coordinates matched by name_low_confidence, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0061,Healing Motion Yoga Yurt,Unlikely,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0075,Hibbett Sports,Needs Review,CRM,low_confidence_location,"Site coordinates matched by name_low_confidence, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0079,JD Sports,Unlikely,CRM,low_confidence_location,"Site coordinates matched by name_low_confidence, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0014,O-Town Iron,Fit,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0084,Playerz Choice Hockey,Unlikely,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0116,Redd Room,Unlikely,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0063,Refiner's Fire CrossFit,Fit,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0118,Rejuvenation Spa,Unlikely,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0011,SOLO YOGA + BXNG,Unlikely,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0067,Septi Fitness,Needs Review,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0032,Snap Fitness,Fit,CRM,low_confidence_location,"Site coordinates matched by name_low_confidence, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0088,Sunrise Health Foods,Unlikely,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0089,The Healthy Place,Needs Review,CRM,low_confidence_location,"Site coordinates matched by only_candidate, not ZIP or city.",Confirm the street address before relying on territory distance.
+ACC-0041,ASCENT Gym,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0133,ATI Physical Therapy,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0077,Adidas,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0024,Double R Boxing & Fitness,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0042,Equinox,Fit,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0072,Finish Line,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0066,FitStop,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0086,GNC,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0053,Gold's Gym,Fit,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0061,Healing Motion Yoga Yurt,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0075,Hibbett Sports,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0132,InStep Physical Therapy & Running Center,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0079,JD Sports,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0115,Massage Experience,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0128,MotionWorks Physical Therapy,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0014,O-Town Iron,Fit,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0084,Playerz Choice Hockey,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0116,Redd Room,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0063,Refiner's Fire CrossFit,Fit,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0018,Reidefined Fitness,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0118,Rejuvenation Spa,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0065,Revel Modern Pilates,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0011,SOLO YOGA + BXNG,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0067,Septi Fitness,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0032,Snap Fitness,Fit,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0088,Sunrise Health Foods,Unlikely,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0089,The Healthy Place,Needs Review,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0012,Vita Physical Therapy & Fitness,Fit,CRM,missing_location_fields,CRM record has no city or state.,Fill city and state from the site address. Needed for state-based territories.
+ACC-0027,Brick Yard Gym,Needs Review,CRM,shared_host_website,"Website is a site-builder or social page, not the company's own domain.",Add the company's own domain to the CRM so it can be enriched.
+ACC-0102,Day Spa,Unlikely,CRM,shared_host_website,"Website is a site-builder or social page, not the company's own domain.",Add the company's own domain to the CRM so it can be enriched.
+ACC-0045,Fit For You Yoga,Needs Review,CRM,shared_host_website,"Website is a site-builder or social page, not the company's own domain.",Add the company's own domain to the CRM so it can be enriched.
+ACC-0111,Foot Wellness,Needs Review,CRM,shared_host_website,"Website is a site-builder or social page, not the company's own domain.",Add the company's own domain to the CRM so it can be enriched.
+ACC-0100,Level 10 Nutrition,Needs Review,CRM,shared_host_website,"Website is a site-builder or social page, not the company's own domain.",Add the company's own domain to the CRM so it can be enriched.
+ACC-0009,105F Yoga,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0044,9Round,Needs Review,Website,website_unreadable,Website could not be read (http_404).,Page not found. Confirm the website URL in the CRM.
+ACC-0082,A1 Archery,Needs Review,Website,website_unreadable,Website could not be read (thin_content).,Site has almost no readable text (often built in JavaScript). Review by hand.
+ACC-0041,ASCENT Gym,Needs Review,Website,website_unreadable,Website could not be read (connect_failed).,"Site did not answer. Retry later; if it fails again, confirm the website."
+ACC-0098,Active Nutrition & Supplements,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0077,Adidas,Needs Review,Website,website_unreadable,Website could not be read (http_307).,"Site returned an error. Retry later; if it persists, confirm the website."
+ACC-0013,Anytime Fitness,Needs Review,Website,website_unreadable,Website could not be read (thin_content).,Site has almost no readable text (often built in JavaScript). Review by hand.
+ACC-0060,Blink Fitness,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0027,Brick Yard Gym,Needs Review,Website,website_unreadable,Website could not be read (http_404).,Page not found. Confirm the website URL in the CRM.
+ACC-0083,City Sports,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0036,Crunch Fitness,Needs Review,Website,website_unreadable,Website could not be read (thin_content).,Site has almost no readable text (often built in JavaScript). Review by hand.
+ACC-0024,Double R Boxing & Fitness,Needs Review,Website,website_unreadable,Website could not be read (connect_failed).,"Site did not answer. Retry later; if it fails again, confirm the website."
+ACC-0135,ES3 MEDICAL GROUP & ES3 FITNESS REHAB,Needs Review,Website,website_unreadable,Website could not be read (dns_failure).,Domain does not resolve. Confirm the website in the CRM; the business may have closed.
+ACC-0045,Fit For You Yoga,Needs Review,Website,website_unreadable,Website could not be read (http_400).,"Site returned an error. Retry later; if it persists, confirm the website."
+ACC-0066,FitStop,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0111,Foot Wellness,Needs Review,Website,website_unreadable,Website could not be read (http_404).,Page not found. Confirm the website URL in the CRM.
+ACC-0086,GNC,Needs Review,Website,website_unreadable,Website could not be read (http_307).,"Site returned an error. Retry later; if it persists, confirm the website."
+ACC-0026,Gymnastics Academy of Rockford South Trampoline Park,Needs Review,Website,website_unreadable,Website could not be read (dns_failure).,Domain does not resolve. Confirm the website in the CRM; the business may have closed.
+ACC-0040,Gymnastics Divine,Needs Review,Website,website_unreadable,Website could not be read (dns_failure).,Domain does not resolve. Confirm the website in the CRM; the business may have closed.
+ACC-0075,Hibbett Sports,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0132,InStep Physical Therapy & Running Center,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0069,Journey Fitness,Needs Review,Website,website_unreadable,Website could not be read (dns_failure).,Domain does not resolve. Confirm the website in the CRM; the business may have closed.
+ACC-0046,Kru Strength + Fitness,Needs Review,Website,website_unreadable,Website could not be read (thin_content).,Site has almost no readable text (often built in JavaScript). Review by hand.
+ACC-0039,Leisure World Health Club,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0100,Level 10 Nutrition,Needs Review,Website,website_unreadable,Website could not be read (thin_content).,Site has almost no readable text (often built in JavaScript). Review by hand.
+ACC-0095,Live Well Hemp,Needs Review,Website,website_unreadable,Website could not be read (dns_failure).,Domain does not resolve. Confirm the website in the CRM; the business may have closed.
+ACC-0081,Naperville Running Co.,Needs Review,Website,website_unreadable,Website could not be read (thin_content).,Site has almost no readable text (often built in JavaScript). Review by hand.
+ACC-0090,One Nation Nutrition,Needs Review,Website,website_unreadable,Website could not be read (thin_content).,Site has almost no readable text (often built in JavaScript). Review by hand.
+ACC-0010,Planet Fitness,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0057,Pure Barre,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0049,Quads Gym,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0018,Reidefined Fitness,Needs Review,Website,website_unreadable,Website could not be read (dns_failure).,Domain does not resolve. Confirm the website in the CRM; the business may have closed.
+ACC-0067,Septi Fitness,Needs Review,Website,website_unreadable,Website could not be read (connect_failed).,"Site did not answer. Retry later; if it fails again, confirm the website."
+ACC-0099,Supplement Warehouse,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0097,Svpplements,Needs Review,Website,website_unreadable,Website could not be read (http_503).,"Site returned an error. Retry later; if it persists, confirm the website."
+ACC-0089,The Healthy Place,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0034,USA Ninja Challenge,Needs Review,Website,website_unreadable,Website could not be read (thin_content).,Site has almost no readable text (often built in JavaScript). Review by hand.
+ACC-0092,Vitamin World,Needs Review,Website,website_unreadable,Website could not be read (http_403).,Site blocks automated reads. Retry later or review by hand. Do not bypass the block.
+ACC-0051,West Loop Athletic Club,Needs Review,Website,website_unreadable,Website could not be read (http_404).,Page not found. Confirm the website URL in the CRM.
+ACC-0005,pilatesplusunlimited,Needs Review,Website,website_unreadable,Website could not be read (dns_failure).,Domain does not resolve. Confirm the website in the CRM; the business may have closed.

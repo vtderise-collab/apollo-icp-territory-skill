@@ -1,4 +1,4 @@
-territory,anchor,anchor_location,assigned,target,shortfall,secondary_overlaps,farthest_miles,location_checks
-Chicagoland,Prairie Line Athletic Club (made up),"Schaumburg, IL 60173",6,5,0,0,38,0
-Milwaukee,Harbor Point Fitness (made up),"Milwaukee, WI 53202",3,5,2,2,47,0
-Michiana,St. Joe Valley Strength (made up),"South Bend, IN 46601",2,5,3,1,51,1
+territory,anchor,anchor_location,before_balance,fair_share,assigned,target,shortfall,secondary_overlaps,farthest_miles,location_checks
+Chicagoland,Prairie Line Athletic Club (made up),"Schaumburg, IL 60173",6,4,6,4,0,0,38,0
+Milwaukee,Harbor Point Fitness (made up),"Milwaukee, WI 53202",3,4,4,4,0,2,73,0
+Michiana,St. Joe Valley Strength (made up),"South Bend, IN 46601",2,4,2,4,2,1,51,1

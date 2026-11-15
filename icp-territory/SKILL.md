@@ -25,7 +25,10 @@ anything, and start at the first step that is not done:
   accounts left to grade": grading is done. Run the check, then go to
   validate or territories.
 
-Rules for reading state:
+Rules for reading state and reporting:
+- Every number you report to the user must come from a script's printed
+  output or a CSV reader. Never estimate or round ("~56"). If you have not
+  counted it, do not state it.
 - Never count CSV lines to count accounts. Fields contain line breaks. Use
   the scripts' own counts, or a CSV reader.
 - Unreadable websites are graded Needs Review by a script, not by you. Fewer
@@ -54,13 +57,33 @@ Rules for reading state:
    `python3 <skill>/scripts/validate.py`
    If it fails the pass bar, show the misses. Do not edit the ICP yourself;
    propose changes and wait for the policy owner.
-5. **Build territories**: `python3 <skill>/scripts/territories.py`
-   Anchors, radius and target live in `config.json` under `territories`.
+5. **Set up territories with the user** (always ask; never assume).
+   Show what `config.json` -> `territories` holds now, then ask:
+   - **Method:** by state (one territory per state in `region_states`), or
+     around marquee accounts (one territory per marquee customer, fits go to
+     the nearest one within a radius)?
+   - **If marquee:** which accounts? Each needs a CRM `account_id` (location
+     comes from the CRM) or a latitude and longitude from the user. Also ask
+     for the radius in miles, and whether to balance the books (each rep
+     gets about the same number of fits). If balancing, ask for a stretch
+     radius: how far a short book may reach for unclaimed fits.
+   - **Target book size** per territory (used only to report shortfall).
+   Never look up, estimate or invent a location or an account. If the user
+   gives a marquee account with neither an account_id nor coordinates, ask
+   again. Write the answers to `config.json`, read them back to the user,
+   and build only after they confirm. If they say "keep the current setup",
+   use it as is.
+6. **Build territories**: `python3 <skill>/scripts/territories.py`
    Writes `data/territory_plan.csv`, `territory_summary.csv`,
    `enterprise_handoff.csv` and `needs_review.csv`. Show the user the
    summary table and the findings as printed; do not add numbers of your own.
-   Last, draw the map: `python3 <skill>/scripts/territory_map.py`
+   Then draw the map: `python3 <skill>/scripts/territory_map.py`
    (writes `data/territory_map.html`; open it in a browser).
+7. **Data-hygiene audit**: `python3 <skill>/scripts/hygiene_report.py`
+   Writes `data/data_hygiene.csv`: one row per problem in the records
+   (CRM gaps, Apollo conflicts, unreadable sites) with a proposed fix. It
+   proposes fixes only. Do not change the CRM export or apply fixes unless
+   the user asks.
 
 ## Grading rules
 
