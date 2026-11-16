@@ -19,7 +19,11 @@ Run every command from the project folder, which holds `data/` and `.env`.
 Earlier steps are cached and may already be finished. Check before running
 anything, and start at the first step that is not done:
 
-- `data/accounts.csv` exists: enrichment is done.
+- `data/accounts.csv` exists and no row has `apollo_status` = `error`:
+  enrichment is done. If some rows are `error`, enrichment stopped early
+  (usually out of Apollo credits). Tell the user how many, and that those
+  accounts default to Mid-Market until enrichment is rerun. Rerunning looks
+  up only the missing ones.
 - `data/evidence.jsonl` exists: evidence is done.
 - `python3 <skill>/scripts/grading.py batch --size 1` prints "0 readable
   accounts left to grade": grading is done. Run the check, then go to

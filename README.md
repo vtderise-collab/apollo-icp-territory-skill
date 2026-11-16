@@ -79,23 +79,41 @@ never supplies a fact, picks a marquee account, or edits the ICP.
 
 ## Install and run
 
-You need Claude Code, Python 3 (standard library only) and `curl`, which
-comes with macOS and most Linux systems. Node is optional; it runs the check
-that the planner matches the Python plan.
+**You need:** Claude Code (signed in), git, Python 3 and `curl`. Macs come
+with git, Python 3 and curl. Node is optional.
 
-1. Copy `icp-territory/` into your project's `.claude/skills/`.
-2. Put your account list at `data/crm_export.csv`. This repo includes an
-   example list.
-3. Copy `.env.example` to `.env` and add your Apollo key. Write your ICP in
-   `icp-territory/references/icp.md`.
-4. In Claude Code, ask: "Which of my CRM accounts are real fits? Build
-   territories for my reps." The skill asks how to build territories before
-   it builds them.
+**1. Open a terminal and paste these four lines.** They download the repo
+and install the skill into it.
+
+```
+git clone https://github.com/vtderise-collab/apollo-icp-territory-skill.git
+cd apollo-icp-territory-skill
+mkdir -p .claude/skills && cp -R icp-territory .claude/skills/
+cp .env.example .env
+```
+
+**2. Add your Apollo key.** Open `.env` in the new folder and replace
+`your_key_here` with your Apollo API key. The free plan works, but each
+lookup spends a credit. If credits run out, enrichment stops and says so.
+The run can go on: accounts not yet looked up default to Mid-Market. Rerun
+later and it looks up only the missing ones.
+
+**3. Start Claude Code in that folder.** In the same terminal, type `claude`.
+
+**4. Ask:** "Which of my CRM accounts are real fits? Build territories for my
+reps."
+
+The skill enriches the accounts, reads each website, grades and validates,
+then asks how to build territories. Counts may differ slightly from the
+example, because some sites block repeat visits.
+
+**Your own accounts:** replace `data/crm_export.csv`, write your ICP in
+`.claude/skills/icp-territory/references/icp.md`, and delete
+`data/validation_labels.csv` (or add your own labels).
 
 The repo ships `data/` with only the example inputs, so a new run starts
-clean. The example run's finished outputs are in `example/`. The skill
-checks what is already done first, so it never reruns finished, validated
-work. `setup/` only rebuilds the example data.
+clean. The example run's finished outputs are in `example/`. `setup/` only
+rebuilds the example data.
 
 ## Example run
 
