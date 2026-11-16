@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 4: turn graded accounts into a territory plan. No model, no network.
+"""Step 6: turn graded accounts into a territory plan. No model, no network.
 
 Two ways to build territories, chosen in config.json -> territories.method:
 

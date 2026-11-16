@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 3: check the grader against hand labels before trusting it.
+"""Step 4: check the grader against hand labels before trusting it.
 
 Compares data/graded.csv with data/validation_labels.csv (labeled by the
 policy owner before any grading). Reports two separate numbers:
@@ -12,7 +12,7 @@ policy owner before any grading). Reports two separate numbers:
 
 The pass bar is fixed in PASS_BAR and was set before the first run.
 
-Run from the repo root:  python3 icp-territory/scripts/validate.py
+Run from the project folder:  python3 <skill>/scripts/validate.py
 """
 import csv
 import json

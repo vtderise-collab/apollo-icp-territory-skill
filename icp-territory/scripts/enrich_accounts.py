@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 0: enrich the CRM's prospect accounts with Apollo.
+"""Step 1: enrich the CRM's prospect accounts with Apollo.
 
 Reads the account list (today a CSV export; tomorrow a Salesforce query,
 by changing load_crm_accounts only), calls Apollo's organization enrichment
@@ -13,7 +13,7 @@ Every Apollo answer is cached in data/cache/apollo/<domain>.json, so a crash
 or a re-run never pays for the same lookup twice. New lookups run in batches
 of 25, and the run stops at the first credit, plan or rate-limit error.
 
-Run from the repo root:  python3 icp-territory/scripts/enrich_accounts.py
+Run from the project folder:  python3 <skill>/scripts/enrich_accounts.py
 """
 import csv
 import json

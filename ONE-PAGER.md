@@ -3,10 +3,9 @@
 **A Claude Code skill that turns an unqualified CRM account list into
 balanced rep territories a sales leader can edit.** It grades every account
 against a plain-English ICP using the company's own website, enriches it
-with Apollo, and builds territories from the real fits. Books are balanced
-so each rep gets about the same number of fits, and a live planner lets a
-sales leader change territories and reassign accounts. Every grade comes
-with its evidence.
+with Apollo, and builds territories from the real fits. Books are evened out
+where the map allows, and a live planner lets a sales leader change
+territories and reassign accounts. Every grade comes with its evidence.
 
 Live planner: https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 

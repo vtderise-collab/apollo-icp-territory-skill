@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 2 helpers: hand records to the grader, then check what comes back.
+"""Step 3 helpers: hand records to the grader, then check what comes back.
 
 The model makes one judgment per account. Everything around it is code:
 
@@ -14,9 +14,9 @@ Checks: grade is one of three values; Needs Review carries an allowed
 reason_code; Fit and Unlikely carry a quote that really appears in that
 account's scraped text (so the evidence line cannot be invented).
 
-Usage (from the repo root):
-  python3 icp-territory/scripts/grading.py batch --size 10 [--ids FILE]
-  python3 icp-territory/scripts/grading.py check
+Usage (from the project folder):
+  python3 <skill>/scripts/grading.py batch --size 10 [--ids FILE]
+  python3 <skill>/scripts/grading.py check
 """
 import argparse
 import csv

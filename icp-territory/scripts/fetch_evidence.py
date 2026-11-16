@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage 1: gather website evidence for every account.
+"""Step 2: gather website evidence for every account.
 
 For each account: fetch the homepage, then up to MAX_SUBPAGES same-site pages
 whose links look useful (about, membership, amenities...). Strip scripts and
@@ -23,7 +23,7 @@ for cross-checking, scrape status, text).
 Fetches through curl: macOS's built-in Python has an old TLS library that
 some servers refuse.
 
-Run from the repo root:  python3 icp-territory/scripts/fetch_evidence.py
+Run from the project folder:  python3 <skill>/scripts/fetch_evidence.py
 """
 import csv
 import hashlib

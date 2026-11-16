@@ -56,7 +56,9 @@ Rules for reading state and reporting:
 4. **Validate** before trusting any grades:
    `python3 <skill>/scripts/validate.py`
    If it fails the pass bar, show the misses. Do not edit the ICP yourself;
-   propose changes and wait for the policy owner.
+   propose changes and wait for the policy owner. If the user still wants
+   territories, say they are a draft built on unvalidated grades, for
+   review before reps use them.
 5. **Set up territories with the user** (always ask; never assume).
    Show what `config.json` -> `territories` holds now, then ask:
    - **Method:** by state (one territory per state in `region_states`), or

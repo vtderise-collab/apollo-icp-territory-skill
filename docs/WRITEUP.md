@@ -33,9 +33,10 @@ territories get drawn around the wrong accounts.
   size, not a real company) is about 700 hours of one person's work.
 - **Rep focus.** 70 of the 136 accounts are confirmed not worth a call, and
   only 24 are real fits. Reps stop working the other half.
-- **Better territory decisions.** The plan evens out the books between
-  reps. It found 6 real fits outside every territory, pulled one into the
-  shortest book, and flagged the rest as a coverage gap. It also moved 7
+- **Better territory decisions.** The plan evens out the books where it
+  can. It found 6 real fits outside every territory, pulled one into
+  Milwaukee's book with the stretch radius, and flagged the rest as a
+  coverage gap. It also flags Michiana as too short to balance. It also moved 7
   chains to the enterprise team. A carve based on the industry tag would
   have missed all of it.
 
@@ -168,7 +169,9 @@ Of run 2's 4 misses, 3 are sites that blocked the rescrape (HTTP 403). The
 script sent them to Needs Review before the model saw them. On the 27 sites
 it could read, the grader got **26 of 27** right. The real miss was a
 training gym whose evidence is in photos, which the grader cannot see.
-Run 2 is reported as final. Nothing was tuned after it.
+Run 2 is reported as final. Nothing was tuned after it. Because it did not
+clear the bar, the territories in the example are a draft. They are built
+on these grades for a sales leader to review, not to hand to reps as is.
 
 **Territories (3 marquee accounts, made up but at real ZIP codes; 60-mile
 radius, balanced with a 90-mile stretch radius)**
@@ -193,7 +196,8 @@ radius, balanced with a 90-mile stretch radius)**
   range: Oshkosh (76 mi), plus Peoria, Mahomet, Springfield and Eau Claire
   at 120 to 217 miles. That points to a missing downstate Illinois
   territory.
-- 2 assigned Fits rely on a low-confidence CRM location and are flagged.
+- 2 Fits rely on a low-confidence CRM location and are flagged: one
+  assigned (Michiana), one out of range.
 - **Enterprise handoff:** 7 Fits (chain locations such as LA Fitness,
   Equinox, Life Time). They go to the enterprise team, not a regional rep.
 - **Needs Review:** 42 accounts, 9 of them Enterprise and listed first.
@@ -259,7 +263,8 @@ inputs, so every new run starts clean.
   search is blocked anyway. Only enrichment works.
 - **A plain script would hard-code the prompt** and hide the judgment step.
   The skill keeps that step visible and checked: every grade has a verified
-  quote, and nothing is trusted until it passes the fixture.
+  quote, and the grades are scored against hand labels before anyone acts
+  on them.
 
 How the data is shaped for the model: one record per account with the name,
 the Apollo tag and the website text, ten at a time. The output is one JSON
@@ -302,7 +307,7 @@ labels. I decided what to act on below.
 AI wrote the code, drafted the ICP for my approval and graded all 96
 readable accounts. Its exact quotes caught 3 errors in my own hand labels.
 
-Where I did not trust it (full list in my correction log):
+Where I did not trust it:
 - **Framing.** It framed Apollo as the place to find accounts. I reframed it:
   a revenue team's real problem is the thousands of accounts already in the
   CRM that nobody has qualified.
@@ -353,7 +358,10 @@ territories for my reps."
   - Read image evidence, since the one real miss was in photos.
 - **Coverage:**
   - Use a headless browser for sites that render with JavaScript.
-  - Retry blocked sites later. Never work around a bot block.
+  - Identify the scraper honestly and honor robots.txt. Today the scraper
+    sends a browser user agent and does not read robots.txt. That was fine
+    for a one-time test on public homepages, not for production.
+  - Retry blocked sites later instead of working around the block.
   - Track scrape coverage as its own metric.
 - **Reliability:**
   - Run grading through the API with structured output and retries.

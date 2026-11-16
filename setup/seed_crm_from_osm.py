@@ -26,7 +26,6 @@ from common import registered_domain, normalize_url  # noqa: E402
 
 SERVERS = [
     "https://overpass-api.de/api/interpreter",
-    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
     "https://overpass.kumi.systems/api/interpreter",
     "https://overpass.private.coffee/api/interpreter",
 ]

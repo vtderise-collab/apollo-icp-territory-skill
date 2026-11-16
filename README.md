@@ -8,11 +8,17 @@ for data problems.
 
 **Try the territory planner:** https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 
+**No Apollo key? Start here.** The finished example run is in
+[`example/`](example/), and the planner above needs nothing installed. The
+enriched accounts and scraped website text are not in this repo, because
+they hold Apollo's data and third-party site text. So the Apollo figures and
+the quote check can't be rerun without your own key.
+
 **What you provide**
 
 | Input | How |
 |---|---|
-| CRM account list | `data/crm_export.csv`: name, website, city, state, coordinates |
+| CRM account list | `data/crm_export.csv` with columns account_id, name, website, domain, city, state, postal_code, lat, lon, location_match |
 | Your ICP | Plain English in `icp-territory/references/icp.md` |
 | Apollo API key | `.env`. The free plan works for enrichment. |
 | How to build territories | The skill asks you: by state, or around marquee accounts you name (by CRM account ID or coordinates) with a radius |
@@ -20,7 +26,7 @@ for data problems.
 **What you get back**
 - **A book for each rep:** the fits in their territory, each with the
   sentence from the company's website that the grade rests on.
-- **Balanced territories:** each rep gets about the same number of fits.
+- **Balanced territories:** books are evened out where the map allows.
   Books that can't be balanced, and fits no territory covers, are called
   out.
 - **An interactive planner:** a sales leader drags the radius, turns marquee
@@ -73,13 +79,15 @@ never supplies a fact, picks a marquee account, or edits the ICP.
 
 ## Install and run
 
-You need Python 3 (standard library only) and Claude Code.
+You need Claude Code, Python 3 (standard library only) and `curl`, which
+comes with macOS and most Linux systems. Node is optional; it runs the check
+that the planner matches the Python plan.
 
 1. Copy `icp-territory/` into your project's `.claude/skills/`.
 2. Put your account list at `data/crm_export.csv`. This repo includes an
    example list.
-3. Add `APOLLO_API_KEY=...` to `.env`, and write your ICP in
-   `references/icp.md`.
+3. Copy `.env.example` to `.env` and add your Apollo key. Write your ICP in
+   `icp-territory/references/icp.md`.
 4. In Claude Code, ask: "Which of my CRM accounts are real fits? Build
    territories for my reps." The skill asks how to build territories before
    it builds them.
@@ -87,8 +95,7 @@ You need Python 3 (standard library only) and Claude Code.
 The repo ships `data/` with only the example inputs, so a new run starts
 clean. The example run's finished outputs are in `example/`. The skill
 checks what is already done first, so it never reruns finished, validated
-work. `setup/` only rebuilds the example data, and it needs
-`curl`.
+work. `setup/` only rebuilds the example data.
 
 ## Example run
 
@@ -105,6 +112,9 @@ radius.
 | Enterprise handoff / Needs Review | 7 / 42 |
 | Data-hygiene audit | 164 issues on 105 accounts, each with a proposed fix |
 | Validation (30 hand labels, 90% bar) | 77%, then 87% after an evidence fix. 26 of 27 on readable sites. |
+
+The final run did not clear the 90% bar, so these territories are a draft
+for a sales leader to review, not books to hand to reps as is.
 
 Michiana can't reach the equal share with its current marquee account, so
 the plan says so and lists the options. In the planner, turn Michiana off,
