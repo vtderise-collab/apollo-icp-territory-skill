@@ -114,7 +114,8 @@ or widen its stretch radius, and watch the books move.
 
 - **Why a skill:** grading is a judgment, so it needs a model. Everything
   else is deterministic, so it lives in scripts. The policy is a file the
-  business owns. A direct Apollo MCP call returns data, not a decision.
+  business owns. The skill calls Apollo's API from a script, not through
+  MCP. Apollo data alone gives size and a tag, not a fit decision.
 - **Model input and output:** one record per account goes in. One JSON line
   comes out, with a fixed grade and a quote. Anything malformed or unquoted
   becomes Needs Review.

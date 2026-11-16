@@ -16,6 +16,68 @@ the enterprise team and flagged **42** accounts for review. Validation scored
 - One-page summary: [ONE-PAGER.md](../ONE-PAGER.md)
 - Territory planner (live): https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 
+## The problem
+
+Rackwell (a made-up company that sells and services commercial gym
+equipment in Illinois, Wisconsin and Indiana) has 136 prospect accounts in
+its CRM, and nobody knows which ones run a gym floor that buys treadmills and
+racks. The industry tag puts gyms, yoga studios, boxing clubs and massage
+spas in the same bucket, so reps call accounts that will never buy and
+territories get drawn around the wrong accounts.
+
+**What it saves**
+- **Time.** I hand-labeled 30 accounts in 25 minutes, about 50 seconds each.
+  The skill graded all 96 readable accounts unattended, in one session,
+  with a checkable quote on every grade.
+  At 50 seconds each, a CRM with 50,000 unqualified accounts (an example
+  size, not a real company) is about 700 hours of one person's work.
+- **Rep focus.** 70 of the 136 accounts are confirmed not worth a call, and
+  only 24 are real fits. Reps stop working the other half.
+- **Better territory decisions.** The plan evens out the books between
+  reps. It found 6 real fits outside every territory, pulled one into the
+  shortest book, and flagged the rest as a coverage gap. It also moved 7
+  chains to the enterprise team. A carve based on the industry tag would
+  have missed all of it.
+
+## Why this problem
+
+I have solved this for real in my current role. Sales leadership wanted to
+rebalance territories and build new ones around marquee accounts. We had no
+reliable way to grade accounts against our ideal customer profile, and no way
+to turn grades into territories. I started from a CRM export and a written set
+of fit rules. Claude built the scorer, and I tested and iterated on it. Sales
+leadership validated the grades. Then I mapped the results to geographic
+territories. The output was a book of business for each rep, showing which
+accounts to work first.
+
+For this exercise I rebuilt it around Apollo, because that is where it gets
+stronger:
+- **Apollo supplies what the CRM lacks.** Company size and headquarters
+  decide whether an account belongs to a regional rep or to the enterprise
+  team. The CRM alone cannot answer that.
+- **It maps to the brief.** It is idea #4 (data hygiene and enrichment): it
+  audits the records, fills firmographics from Apollo and flags conflicts.
+  It also covers the first half of idea #1: a plain-English ICP turned into
+  a prioritized list. The ranked contacts in idea #1 are not built. Apollo's
+  free plan blocks people search, so that is a next step.
+- **It shows how to use Apollo data with care.** Trust it where it matches.
+  Flag it where it conflicts, as with the 9 name mismatches and the
+  headquarters-versus-site locations. Never let it overrule what the
+  company's own website says.
+- **It is the kind of tool this team builds:** account planning and territory
+  design for a revenue team, on Apollo data.
+
+## Who uses it and what they get
+
+- **Sales leader:** the interactive planner. Drag the radius, turn marquee
+  accounts on or off, reassign accounts by hand, and watch the books
+  rebalance live. Their choices feed back into the official plan.
+- **Rep:** their book. That is a list of fits in their territory, with the
+  sentence each grade rests on.
+- **Enterprise team:** a handoff list of chain and large-company fits.
+- **RevOps:** the data-hygiene audit, with a proposed fix for every record
+  problem, and a Needs Review queue with a reason on every account.
+
 ## What the skill does
 
 ```
@@ -44,20 +106,8 @@ never invents a fact or changes the policy.
 
 ## Install and run
 
-Needs Python 3 (standard library only) and Claude Code.
-
-1. Copy the `icp-territory` folder into your project's `.claude/skills/`.
-2. Put your CRM export at `data/crm_export.csv` in the project folder. This
-   repo includes a stand-in list built from OpenStreetMap.
-3. Enrichment needs your own Apollo API key. Put `APOLLO_API_KEY=...` in a
-   `.env` file in the project folder. A free plan works: company enrichment
-   is allowed, company and people search are not.
-4. In Claude Code, from the project folder, ask: "Grade my accounts against
-   the ICP and build territories." The skill checks what is already done,
-   runs the remaining steps, stops to show you the validation result, and
-   asks how to build territories before it builds them.
-
-To run the scripts by hand, from the project folder:
+Setup and the normal way to run it are in the [README](../README.md). To run
+the scripts by hand, from the project folder:
 
 ```
 python3 .claude/skills/icp-territory/scripts/enrich_accounts.py
@@ -70,16 +120,9 @@ python3 .claude/skills/icp-territory/scripts/territory_map.py
 python3 .claude/skills/icp-territory/scripts/hygiene_report.py
 ```
 
-The skill writes your territory answers (method, marquee accounts, radius,
-balancing) to `icp-territory/config.json`, which also holds the region and
-segment thresholds. The policy is `icp-territory/references/icp.md`.
-
-The `setup/` folder only rebuilds the demo data and is not part of the skill.
-`setup/seed_crm_from_osm.py` needs `curl` on your path.
-`data/crm_export.csv` is committed, so you do not need to run it.
-
-Apollo's data (`data/accounts.csv`, `data/evidence.jsonl`) is not in this
-repo. Run enrichment with your own key to create it.
+The example CRM list is a stand-in built from OpenStreetMap. `setup/`
+rebuilds it and needs `curl`; you do not need to run it. Apollo's data is
+not in this repo. Run enrichment with your own key to create it.
 
 ## Results
 
@@ -201,100 +244,6 @@ committed in `example/`: `territory_plan.csv`, `territory_summary.csv`,
 `graded.csv` and `territory_map.html`. The repo ships `data/` with only the
 inputs, so every new run starts clean.
 
-## The problem
-
-Rackwell (a made-up company that sells and services commercial gym
-equipment in Illinois, Wisconsin and Indiana) has 136 prospect accounts in
-its CRM, and nobody knows which ones run a gym floor that buys treadmills and
-racks. The industry tag puts gyms, yoga studios, boxing clubs and massage
-spas in the same bucket, so reps call accounts that will never buy and
-territories get drawn around the wrong accounts.
-
-**What it saves**
-- **Time.** I hand-labeled 30 accounts in 25 minutes, about 50 seconds each.
-  The skill graded 96 accounts within one 15-minute session that also ran
-  validation and built the territories. That is at least five times faster
-  per account. It runs unattended, with a checkable quote on every grade.
-  At 50 seconds each, a CRM with 50,000 unqualified accounts (an example
-  size, not a real company) is about 700 hours of one person's work.
-- **Rep focus.** 70 of the 136 accounts are confirmed not worth a call, and
-  only 24 are real fits. Reps stop working the other half.
-- **Better territory decisions.** The plan evens out the books between
-  reps. It found 6 real fits outside every territory, pulled one into the
-  shortest book, and flagged the rest as a coverage gap. It also moved 7
-  chains to the enterprise team. A carve based on the industry tag would
-  have missed all of it.
-
-## Why this problem
-
-I have solved this for real in my current role. Sales leadership wanted to
-rebalance territories and build new ones around marquee accounts. We had no
-reliable way to grade accounts against our ideal customer profile, and no way
-to turn grades into territories. I started from a CRM export and a written set
-of fit rules. Claude built the scorer, and I tested and iterated on it. Sales
-leadership validated the grades. Then I mapped the results to geographic
-territories. The output was a book of business for each rep, showing which
-accounts to work first.
-
-For this exercise I rebuilt it around Apollo, because that is where it gets
-stronger:
-- **Apollo supplies what the CRM lacks.** Company size and headquarters
-  decide whether an account belongs to a regional rep or to the enterprise
-  team. The CRM alone cannot answer that.
-- **It maps to the brief.** It is idea #4 (data hygiene and enrichment): it
-  audits the records, fills firmographics from Apollo and flags conflicts.
-  It also covers the first half of idea #1: a plain-English ICP turned into
-  a prioritized list. The ranked contacts in idea #1 are not built. Apollo's
-  free plan blocks people search, so that is a next step.
-- **It shows how to use Apollo data with care.** Trust it where it matches.
-  Flag it where it conflicts, as with the 9 name mismatches and the
-  headquarters-versus-site locations. Never let it overrule what the
-  company's own website says.
-- **It is the kind of tool this team builds:** account planning and territory
-  design for a revenue team, on Apollo data.
-
-## Who uses it and what they get
-
-- **Sales leader:** the map and the territory summary, to approve the plan
-  and see coverage gaps.
-- **Rep:** their book. That is a list of fits in their territory, with the
-  sentence each grade rests on.
-- **RevOps:** the data-hygiene findings. These are Apollo name mismatches,
-  headquarters versus site location, and unreadable sites.
-- **Next step, not built:** write the grade, evidence, segment and territory
-  back to the CRM account.
-
-## Rollout and success plan
-
-In my current role this went to the whole mid-market team at once, because
-leadership was testing how territories built around marquee accounts
-performed. For Rackwell I would roll it out in three steps.
-
-1. **Pilot with a comparison.** Half the mid-market reps work from the
-   skill's books for one quarter. The other half keep their current lists.
-   A whole-team launch cannot show whether the skill made the difference. A
-   split can.
-2. **Keep managers in the loop.** The sales leader signs off on the
-   territory plan before anyone's book changes. Managers still approve
-   account ownership changes and holdover requests, where a rep asks to keep
-   an account from an old territory. Only the policy owner changes the ICP,
-   and only after the fixture passes again.
-3. **Label the CRM, then expand.** Write the grade, segment and territory
-   onto each CRM account, so every report can split by fit and by territory.
-   Then roll out to the full team.
-
-What I would track. These are targets, not results, since a prototype has
-none. Baselines come from the first month.
-- **Fit conversion:** the opportunity and close rate of Fit accounts,
-  compared with the rest of the book. The target is that Fits clearly
-  outperform.
-- **Territory performance:** pipeline and close rate per territory, to see
-  which carves work and where coverage is thin.
-- **Marquee pull-through:** referrals and new opportunities near each
-  marquee anchor account.
-- **Guardrail:** a monthly sample of live grades stays at or above the 90%
-  bar.
-
 ## Why a skill, not a script or an MCP call
 
 - **The core step is a judgment.** Reading a website and deciding whether
@@ -304,7 +253,8 @@ none. Baselines come from the first month.
 - **The policy is a file the business owns.** `icp.md` is plain English that
   a sales leader can read and change. The model applies it and the skill
   forbids it from editing it.
-- **A direct Apollo MCP call returns data, not a decision.** It has no
+- **Apollo is called by API from a script, not through MCP.** A direct
+  Apollo MCP call would return data, not a decision. It has no
   policy, no evidence trail and no validation. On the free plan, Apollo's
   search is blocked anyway. Only enrichment works.
 - **A plain script would hard-code the prompt** and hide the judgment step.
@@ -322,13 +272,11 @@ Deliberately left out of v1:
 - Applying hygiene fixes. The skill only proposes them.
 - Writing results back to the CRM.
 
-Comparing radii is no longer left out: the planner's radius slider does it
-live.
-
 ## Assumptions
 
-- The CRM export is the starting point. Apollo enriches it; it does not
-  source accounts.
+- The business keeps its prospects in its CRM (Salesforce, for example).
+  For this proof of concept the skill reads a CSV export of that CRM.
+  Apollo enriches the accounts; it does not source them.
 - The CRM location is the real site. Apollo's location is headquarters, so
   it is never used for territories.
 - Chains buy equipment centrally (head office or an approved-vendor list).
@@ -348,9 +296,8 @@ live.
 
 ## Where AI helped and where I overrode it
 
-I ran a second Claude session as a reviewer of the first, and a third to
-grade blind. Several catches below came out of that review. I decided what
-to act on.
+I ran the grading in a separate Claude session that never saw my hand
+labels. I decided what to act on below.
 
 AI wrote the code, drafted the ICP for my approval and graded all 96
 readable accounts. Its exact quotes caught 3 errors in my own hand labels.
@@ -420,6 +367,9 @@ territories for my reps."
     few true matches.
   - Use an offline geocoder for addresses.
 - **Scale and workflow:**
+  - Connect to Salesforce directly through its CLI or an MCP server, so one
+    skill run pulls the accounts, grades them and builds territories, with
+    no manual export.
   - Batch and parallelize the scrape.
   - Write grades back to the CRM only after a manager approves the
     territory plan.
@@ -431,9 +381,40 @@ territories for my reps."
     audit trail.
   - Approval should happen in the planner rather than by passing a CSV.
 
+## Rollout and success plan
+
+In my current role this went to the whole mid-market team at once, because
+leadership was testing how territories built around marquee accounts
+performed. For Rackwell I would roll it out in three steps.
+
+1. **Pilot with a comparison.** Half the mid-market reps work from the
+   skill's books for one quarter. The other half keep their current lists.
+   A whole-team launch cannot show whether the skill made the difference. A
+   split can.
+2. **Keep managers in the loop.** The sales leader signs off on the
+   territory plan before anyone's book changes. Managers still approve
+   account ownership changes and holdover requests, where a rep asks to keep
+   an account from an old territory. Only the policy owner changes the ICP,
+   and only after the fixture passes again.
+3. **Label the CRM, then expand.** Write the grade, segment and territory
+   onto each CRM account, so every report can split by fit and by territory.
+   Then roll out to the full team.
+
+What I would track. These are targets, not results, since a prototype has
+none. Baselines come from the first month.
+- **Fit conversion:** the opportunity and close rate of Fit accounts,
+  compared with the rest of the book. The target is that Fits clearly
+  outperform.
+- **Territory performance:** pipeline and close rate per territory, to see
+  which carves work and where coverage is thin.
+- **Marquee pull-through:** referrals and new opportunities near each
+  marquee anchor account.
+- **Guardrail:** a monthly sample of live grades stays at or above the 90%
+  bar.
+
 ## What was pre-existing
 
-> The approach comes from an ICP classifier and territory assigner I designed and ran in my current role. Nothing from that build is in this repo. I rewrote it from scratch for this exercise on public data: a different company, a different ICP, Apollo as the account source, and a skill in place of a standalone script.
+> The approach comes from an ICP classifier and territory assigner I designed and ran in my current role. Nothing from that build is in this repo. I rewrote it from scratch for this exercise on public data: a different company, a different ICP, Apollo enrichment, and a skill in place of a standalone script.
 
 Everything here was written new for this exercise with Claude Code.
 

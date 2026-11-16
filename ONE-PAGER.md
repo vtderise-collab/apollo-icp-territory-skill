@@ -1,9 +1,13 @@
 # ICP territory skill
 
 **A Claude Code skill that turns an unqualified CRM account list into
-balanced rep territories.** It grades every account against a plain-English
-ICP using the company's own website, enriches it with Apollo, and assigns
-the real fits to reps. Every grade comes with its evidence.
+balanced rep territories a sales leader can edit.** It grades every account
+against a plain-English ICP using the company's own website, enriches it
+with Apollo, and builds territories from the real fits. Books are balanced
+so each rep gets about the same number of fits, and a live planner lets a
+sales leader change territories and reassign accounts. Every grade comes
+with its evidence.
+
 Live planner: https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 
 ## What it does for a GTM team
@@ -16,86 +20,62 @@ Live planner: https://vtderise-collab.github.io/apollo-icp-territory-skill/examp
 - **RevOps:** a hygiene audit with a proposed fix for every record problem,
   and a Needs Review queue with a reason on every account.
 
-## The problem: what it saves and unlocks
+## Why I built it
+
+I solved this in my current role. Leadership wanted territories rebuilt
+around marquee accounts, with no way to grade accounts against our ICP or
+map them. Here I rebuilt it from scratch on Apollo: your brief's data-hygiene
+idea plus the "ICP to a prioritized list" half of account planning.
+
+## Why it matters: what it saves and unlocks
 
 - **Time.** Grading by hand takes about 50 seconds an account. At 50,000
-  accounts (an example size), that's 700 hours. The skill runs unattended,
-  at least five times faster, with a checkable quote on every grade.
+  accounts (an example size), that's 700 hours. The skill runs unattended.
 - **Rep focus.** In the example, 70 of 136 accounts were confirmed not
   worth a call.
-- **Fairer territories.** Carves are built on evidence, not an industry tag,
-  and books are balanced. It flags fits no territory covers, and books that
-  can't be balanced.
+- **Fairer territories.** Built on evidence, not an industry tag, and
+  balanced. Fits no territory covers are flagged.
 
 ## How it works: architecture and data flow
 
-```
- CRM export (CSV) ──► 1 Enrich ◄── Apollo API (size, HQ, industry tag)
-                      2 Evidence ◄── company websites (read directly)
-                      3 Grade      Claude + references/icp.md, quote verified by code
-                      4 Validate   hand labels, fixed pass bar
-                      5 Set up     asks the user: by state, or around marquee accounts
-                      6 Territories CRM locations only, balanced, manager overrides kept
-                      7 Hygiene    record problems, each with a proposed fix
-                         ▼
-     rep books · planner · Enterprise list · Needs Review · hygiene audit (CSV, HTML)
-```
+| Step | What happens | Done by |
+|---|---|---|
+| 1. Enrich | Size, HQ and industry tag for each account | Script + Apollo API |
+| 2. Evidence | Reads each company's own website | Script |
+| 3. Grade | Fit, Needs Review or Unlikely against `icp.md`, with an exact quote | Claude. Code verifies the quote. |
+| 4. Validate | Scores the grades against 30 hand labels and a fixed pass bar | Script |
+| 5. Set up | Asks: by state, or around marquee accounts and a radius | The user decides |
+| 6. Territories | Assigns fits by CRM location, balances books, keeps manager overrides | Script |
+| 7. Hygiene | Lists every record problem with a proposed fix | Script |
 
-**Systems touched:** Apollo's live API, company websites, the CRM export,
-and CSV and HTML outputs. Claude Code runs the skill.
+**Systems touched:** a CRM export (CSV) in; Apollo's live API; company
+websites; rep books, the planner and audit lists (CSV and HTML) out.
 
-## Design decisions
+**Example run:** 136 accounts for Rackwell, a made-up gym equipment seller.
+24 Fit, 70 Unlikely, 42 Needs Review. 87% against hand labels (26 of 27 on
+readable sites).
 
-- **Why a skill, not a script or an MCP call:** the grade is a judgment, so
-  it needs a model. Everything else is deterministic, so it lives in
-  scripts. The policy is one sentence the business owns: "A Fit runs a
-  member-facing floor of cardio or strength machines." An Apollo MCP call
-  returns data, not a decision.
-- **Data shaped for the model:** one record per account goes in (name, tag,
-  website text). One JSON line comes out, with a fixed grade and an exact
-  quote. Code checks the quote. Anything malformed becomes Needs Review.
-- **Left out:** ranked contacts (Apollo's free plan blocks people search),
-  applying fixes, and CRM write-back.
+## Discussion questions, in short
 
-## Assumptions
+Full answers in the
+[write-up](https://github.com/vtderise-collab/apollo-icp-territory-skill/blob/main/docs/WRITEUP.md).
 
-- The CRM location is the real site. Apollo returns headquarters.
-- Chains buy centrally, so they go to enterprise.
-- The company's website is the most current truth.
-- Every fit counts the same in balancing.
-
-## Proof: example run
-
-Rackwell (made up) sells gym equipment in Illinois, Wisconsin and Indiana.
-- **Fits:** 24 found. 12 placed in three balanced books (6, 4, 2), with one
-  flagged as unable to balance. 7 went to enterprise, and 42 to review.
-- **Hygiene:** 164 problems on 105 of 136 accounts, each with a fix.
-- **Validation:** 87% against a 90% bar. On readable sites, 26 of 27.
-
-## Why I built it
-
-I solved this in my current role: leadership wanted territories rebuilt
-around marquee accounts, with no way to grade or map accounts. Here I rebuilt
-it from scratch on Apollo. No code or data from the original build is in
-this repo.
-
-## Trust, rollout, production
-
-- **Where I overrode the AI:**
-  - Required CRM locations over Apollo headquarters.
-  - Kept Needs Review for "could not see" only.
-  - Added a guard against wrong Apollo matches.
-  - Moved grading to a blind session.
-  - Made territory setup a question, not an assumption.
-- **Rollout:**
-  - Pilot with half the mid-market reps, using the other half as the
-    comparison.
-  - Managers approve the plan and any overrides.
-  - Target: Fit conversion above the rest of the book.
-- **Before reps depend on it:**
-  - A larger validation set.
-  - A headless browser for JavaScript sites.
-  - Image evidence.
-  - One shared rules engine behind the planner.
-  - A scoped key.
-  - CRM write-back after approval.
+- **[Assumptions](https://github.com/vtderise-collab/apollo-icp-territory-skill/blob/main/docs/WRITEUP.md#assumptions):**
+  prospects live in the CRM (read here as a CSV export), the CRM location
+  is the real site (Apollo returns headquarters), chains buy centrally, and
+  the website is the most current truth.
+- **[Design](https://github.com/vtderise-collab/apollo-icp-territory-skill/blob/main/docs/WRITEUP.md#why-a-skill-not-a-script-or-an-mcp-call):**
+  a skill because the grade is a judgment and everything else is a script.
+  Apollo is called by API from a script; Apollo data alone gives size and a
+  tag, not a fit decision. Left out: ranked contacts and CRM write-back.
+- **[Where I overrode AI](https://github.com/vtderise-collab/apollo-icp-territory-skill/blob/main/docs/WRITEUP.md#where-ai-helped-and-where-i-overrode-it):**
+  it used Apollo's HQ location, trusted wrong-company matches, and built
+  territories one fixed way. I required CRM locations, added a name check,
+  and made the skill ask. Grading ran in a blind session.
+- **[Production](https://github.com/vtderise-collab/apollo-icp-territory-skill/blob/main/docs/WRITEUP.md#what-i-would-harden-for-production):**
+  a direct Salesforce connection (CLI or MCP) in place of the CSV export, a
+  larger validation set, a headless browser, a scoped key, CRM write-back
+  after manager approval.
+- **[Rollout](https://github.com/vtderise-collab/apollo-icp-territory-skill/blob/main/docs/WRITEUP.md#rollout-and-success-plan):**
+  pilot with half the mid-market reps, managers approve changes, track Fit
+  conversion and referrals near marquee accounts.
