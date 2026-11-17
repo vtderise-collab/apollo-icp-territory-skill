@@ -6,6 +6,8 @@ company's own website as evidence. It enriches each account with Apollo,
 builds balanced rep territories from the real fits, and audits your records
 for data problems.
 
+**Demo video (Loom):** https://www.loom.com/share/1a4319de51ca473ebc393f5a135c41b5
+
 **Try the territory planner:** https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 
 **No Apollo key? Start here.** The finished example run is in
