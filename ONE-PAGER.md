@@ -7,6 +7,7 @@ with Apollo, and builds territories from the real fits. Books are evened out
 where the map allows, and a live planner lets a sales leader change
 territories and reassign accounts. Every grade comes with its evidence.
 
+Demo video: https://www.loom.com/share/1a4319de51ca473ebc393f5a135c41b5  
 Live planner: https://vtderise-collab.github.io/apollo-icp-territory-skill/example/territory_map.html
 
 ## What it does for a GTM team
